@@ -4,13 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="theme-color" content="#111c34" />
-<title>Crossy Words 2.1 — Voxel Grammar Crossings</title>
+<title>Crossy Words 2.3 — Worlds & Hoppers</title>
 <style>
 :root{--bg:#0d1528;--panel:#16223c;--panel2:#1c2b47;--border:#344661;--white:#f5f8ff;--muted:#adbfdb;--lime:#b9fa79;--yellow:#ffd76d;--pink:#ff91b6;--aqua:#7de8e3;--danger:#ff6881;--focus:#d2f5ff}
 *{box-sizing:border-box}body{margin:0;color:var(--white);background:radial-gradient(circle at 70% -10%,#2e345b 0,#151e37 42%,#0b1426 80%);font-family:'Trebuchet MS',system-ui,sans-serif;min-height:100vh}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:2px}header{max-width:1490px;margin:auto;padding:20px 25px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:12px}.brandmark{width:45px;height:45px;display:grid;place-items:center;background:linear-gradient(140deg,#fdcf65,#ff8ca0);border:3px solid #fff4d1;border-radius:14px;transform:rotate(-6deg);font-family:'Trebuchet MS';font-size:27px;color:#27314b;box-shadow:0 5px 0 #ba5369}.brandname{font-family:'Trebuchet MS';font-size:26px;font-weight:800;line-height:1}.subhead{font-size:12px;color:var(--muted);font-weight:800;letter-spacing:.11em;text-transform:uppercase}.headerbuttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.coins{background:#29344b;border:1px solid #5d5263;border-radius:14px;padding:8px 14px;color:#ffe28c;font-weight:900;display:flex;align-items:center;gap:7px}.coinicon{background:#f5c558;color:#67450a;border:2px solid #fff0ab;border-radius:50%;width:22px;height:22px;text-align:center;line-height:18px;font-size:13px}.btn{padding:10px 16px;border-radius:12px;border:1px solid #4c607e;background:#2a3a59;color:#f5f7ff;font-weight:900;transition:transform .12s,background .12s}.btn:hover{transform:translateY(-2px);background:#384c6e}.btn.primary{background:#bdfc7f;border-color:#e0ffb3;color:#182b30;box-shadow:0 4px 0 #5a995d}.btn.primary:hover{background:#d0ffa0}.btn.rose{background:#fe91b0;border-color:#ffc0d2;color:#35233c;box-shadow:0 4px 0 #ad5473}.btn.small{font-size:13px;padding:8px 11px}.btn.flat{background:#1a2944;border:1px solid #344661}.app{max-width:1490px;margin:auto;padding:0 25px 45px}.hero{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:8px 0 17px}.hero h1{font-family:'Trebuchet MS';font-size:clamp(33px,4.4vw,54px);line-height:1.07;margin:0;letter-spacing:-1.5px}.hero h1 span{color:#f7d86e}.hero p{margin:6px 0 0;color:#b7c9e7;font-size:14px;max-width:700px}.pill{display:inline-block;padding:7px 11px;background:#283751;border:1px solid #425776;color:#cfdbf6;border-radius:100px;font-size:12px;font-weight:900;white-space:nowrap}.grid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:18px;align-items:start}.gamepanel,.card{background:linear-gradient(160deg,#1b2a45,#14203a);border:1px solid #354967;box-shadow:0 11px 30px #0004;border-radius:21px;overflow:hidden}.statusbar{padding:14px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:#1d2c49}.status-left,.status-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.counter{font-weight:900;font-size:14px;color:#f1f6ff}.counter b{font-family:'Trebuchet MS';font-size:19px;color:#fff}.counter .gold{color:#ffdf83}.line{width:1px;height:26px;background:#4a5e7d}.timer{width:125px;height:10px;background:#324462;border-radius:99px;overflow:hidden;border:1px solid #586d86}.timer div{height:100%;width:100%;background:linear-gradient(90deg,#ffd86f,#bdfc7f);transition:width .1s linear}.timer.low div{background:#ff7b93}.prompt{padding:17px 22px 16px;min-height:116px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(110deg,#223753,#1b2a47);border-top:1px solid #405470;border-bottom:2px solid #3d536b}.prompttop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}.prompttag{font-size:12px;letter-spacing:.1em;font-weight:900;text-transform:uppercase;color:#80e6d8}.leveltag{color:#ddc5f5;font-size:12px;font-weight:900}.question{font-family:'Trebuchet MS';font-size:clamp(22px,2.5vw,30px);line-height:1.3;font-weight:700;min-height:36px}.promptnote{font-size:12px;color:#a6bcd7;margin-top:4px}.boardwrap{position:relative;background:#1b3050;overflow:hidden}.boardwrap canvas{display:block;width:100%;aspect-ratio:960/540;touch-action:none}.board-overlay{position:absolute;inset:0;background:linear-gradient(130deg,#10203bda,#122946e8);display:flex;align-items:center;justify-content:center;padding:20px;z-index:4}.board-overlay.hidden{display:none}.startbox{background:#172742eb;border:1px solid #7993a7;border-radius:22px;text-align:center;padding:25px 27px;max-width:515px;box-shadow:0 12px 44px #0007}.starticon{font-size:50px;line-height:1.2}.startbox h2{font-family:'Trebuchet MS';font-size:38px;line-height:1;margin:6px 0 7px}.startbox p{color:#d3dff4;font-size:14px;margin:5px 0 18px}.settingrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.fieldlabel{display:block;font-size:11px;letter-spacing:.1em;font-weight:900;text-transform:uppercase;text-align:left;color:#a8bfdc;margin-bottom:5px}select{width:100%;padding:11px;color:#fff;background:#263c5d;border:1px solid #6180a3;border-radius:11px;font-weight:900}.menunote{font-size:11px;color:#b8c9e0;margin-top:10px}.end-title{color:#ffe58f}.summaryscore{font-family:'Trebuchet MS';font-size:45px;color:#bdfc7f;margin:8px 0;line-height:1}.answerbox{background:#2b3756;border:1px solid #577194;border-radius:12px;padding:10px;font-size:13px;margin:12px 0;color:#e2efff}.answerbox strong{color:#bdfc7f}.choicebar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:10px;background:#14223c}.choicebtn{min-width:0;min-height:57px;border:2px solid #4c6386;border-radius:10px;background:#263b58;color:#ecf7ff;font-weight:900;overflow-wrap:anywhere;line-height:1.2;padding:7px}.choicebtn.chosen{background:#3d5b5c;border-color:#ffeb9b;box-shadow:inset 0 0 0 1px #ffe8a1}.choicebtn span{display:block;color:#a9bedc;font-size:10px;margin-bottom:3px}.controlrow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:12px 16px;background:#111c33}.controlrow .hint{font-size:12px;color:#abc0de;font-weight:800}.keys{display:flex;gap:8px;align-items:center}.key{min-width:62px;height:46px;border-radius:12px;border:2px solid #536987;border-bottom:5px solid #425571;background:#324766;color:#fff;font-size:19px;font-weight:900;box-shadow:0 2px 7px #0005}.key:active{transform:translateY(3px);border-bottom-width:2px}.key.forward{background:#c6f78f;border-color:#e5ffba;border-bottom-color:#76a45c;color:#1c4030;min-width:88px}.sidebar{display:flex;flex-direction:column;gap:15px}.card{padding:17px}.card h3{font:800 19px 'Trebuchet MS';margin:0 0 7px}.tiny{color:#b0c2df;font-size:12px;line-height:1.5}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0}.stat{background:#233653;border:1px solid #395477;border-radius:13px;padding:11px}.stat strong{font:800 27px 'Trebuchet MS';line-height:1;color:#f9d982;display:block}.stat span{color:#b4c6e0;font-size:11px;font-weight:900}.spritecard{display:flex;align-items:center;gap:12px;background:#273b59;border-radius:14px;padding:10px;margin:11px 0}.spritecard canvas{width:72px;height:72px;flex-shrink:0;background:#374b6e;border-radius:12px}.spritecard b{font-size:15px}.spritecard p{font-size:11px;color:#b8cee9;margin:3px 0}.progressbar{height:10px;background:#2c4566;overflow:hidden;border-radius:99px;margin:9px 0}.progressbar>div{background:linear-gradient(90deg,#7ae2d7,#bafb84);height:100%;width:1%;border-radius:99px}.tip{padding:10px 12px;background:#29354e;border-left:3px solid #ffdc8a;border-radius:9px;margin:9px 0;font-size:12px;color:#cbd9ec}.minilist{padding-left:17px;color:#b8cbe5;font-size:13px;line-height:1.75;margin:6px 0}.footer{text-align:center;color:#7792b5;font-size:11px;padding:4px 0 24px}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,40px);opacity:0;pointer-events:none;border:1px solid #78d2ca;padding:12px 20px;color:#fff;background:#223e53;box-shadow:0 12px 24px #0008;z-index:20;border-radius:13px;font-weight:900;transition:opacity .25s,transform .25s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#060e1bdc;z-index:12;align-items:center;justify-content:center;padding:22px}.modal.open{display:flex}.modalbox{background:linear-gradient(145deg,#233551,#17233b);border:2px solid #617b9e;border-radius:24px;box-shadow:0 30px 90px #000b;width:min(800px,100%);max-height:92vh;overflow-y:auto;padding:24px}.modalhead{display:flex;justify-content:space-between;align-items:start;gap:15px}.modalhead h2{font:800 33px 'Trebuchet MS';margin:0}.modalhead p{margin:2px 0 10px;color:#b9cbe5;font-size:13px}.closer{background:#354a67;color:#fff;border:1px solid #607a9b;border-radius:11px;padding:7px 12px;font-size:20px;line-height:1}.shoprow{display:grid;grid-template-columns:minmax(185px,1fr) minmax(0,1.1fr);gap:25px;align-items:center}.machine{height:310px;max-width:280px;margin:0 auto;position:relative;display:flex;align-items:center;flex-direction:column;justify-content:end;padding-bottom:17px}.machine-top{height:170px;width:210px;background:radial-gradient(circle at 35% 35%,#a9edff77,#5185c566 50%,#294c8b99 80%);border:8px solid #8dd3ee;border-bottom:6px solid #355786;border-radius:110px 110px 24px 24px;position:absolute;top:10px;overflow:hidden;box-shadow:inset 0 11px 12px #fff5,0 11px 0 #182c50}.ballcluster{position:absolute;inset:0}.smallball{position:absolute;width:52px;height:52px;border-radius:50%;border:3px solid #fff8;box-shadow:inset 0 -8px 0 #0003,0 4px 4px #0004}.machine-body{height:159px;width:237px;border:7px solid #ffc8ab;border-bottom:11px solid #b85875;border-radius:27px;background:linear-gradient(#fa91a9,#df6f91);position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 9px 0 #a44564}.machine-window{height:59px;width:91px;background:#273653;border:5px solid #a8436c;border-radius:13px;display:grid;place-items:center;font-size:25px;box-shadow:inset 0 6px 8px #0009}.machine-knob{width:46px;height:46px;position:absolute;right:19px;top:47px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#ffedbe,#e7a856);border:6px solid #89496b;box-shadow:0 3px 0 #653450}.machine-foot{position:absolute;bottom:2px;width:267px;height:23px;background:#b95879;border:5px solid #ffc3a9;border-radius:13px;z-index:3}.machine.shaking{animation:shake .13s linear infinite}.capsule{position:absolute;top:55px;left:50%;transform:translateX(-50%) scale(.5);opacity:0;width:100px;height:100px;background:linear-gradient(#ff77a8 0 48%,#fff 48% 53%,#ffdc79 53%);border:6px solid #fff2c1;border-radius:50%;box-shadow:inset 0 5px 0 #fff5,0 10px 18px #0005;z-index:5}.capsule.animate{animation:capDrop 1.18s cubic-bezier(.23,.64,.22,1) forwards}.shopdetails h3{font:800 25px 'Trebuchet MS';margin:0 0 7px}.shopdetails p{font-size:14px;color:#c2d4eb;line-height:1.5}.shopprice{display:inline-block;border-radius:12px;padding:10px 15px;color:#ffe58e;background:#303c57;font-weight:900;margin:8px 0 12px}.reveal{min-height:94px;border:1px dashed #768cae;border-radius:13px;padding:10px;display:flex;align-items:center;gap:12px;background:#283a57;margin:13px 0}.reveal canvas{width:75px;height:75px}.reveal strong{font-size:19px}.rarity{font-size:12px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}.rarity.common{color:#cbd6ed}.rarity.rare{color:#75e1fe}.rarity.epic{color:#dba3ff}.rarity.legendary{color:#ffe08e}.collectiongrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:15px 0}.creaturetile{background:#293c58;border:1px solid #4b6687;color:#f3f7ff;border-radius:12px;display:flex;align-items:center;flex-direction:column;gap:4px;padding:8px 4px;font-size:11px;font-weight:900;min-width:0}.creaturetile canvas{width:100%;max-width:86px;aspect-ratio:1}.creaturetile span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}.creaturetile.locked{opacity:.4;filter:grayscale(1)}.creaturetile.equipped{border-color:#c4ff89;box-shadow:inset 0 0 0 2px #c4ff8955}.pagecontrols{display:flex;align-items:center;justify-content:space-between;gap:10px}.filterrow{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.legenddot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}.badgerow{display:flex;gap:9px;flex-wrap:wrap;margin:13px 0}.notice{padding:10px;border-radius:11px;border:1px solid #536e89;background:#263750;font-size:12px;color:#b8cde6;margin-top:8px}@keyframes shake{0%{transform:translateX(2px) rotate(1deg)}50%{transform:translateX(-3px) rotate(-1deg)}100%{transform:translateX(2px) rotate(1deg)}}@keyframes capDrop{0%{top:70px;opacity:0;transform:translateX(-50%) scale(.5) rotate(-40deg)}30%{opacity:1}60%{top:220px;transform:translateX(-50%) scale(1.05) rotate(45deg)}77%{top:176px}100%{top:222px;opacity:1;transform:translateX(-50%) scale(1.2) rotate(-10deg)}}@media(max-width:1080px){.grid{grid-template-columns:minmax(0,1fr)}.sidebar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:700px){.choicebar{display:grid}header{padding:13px 14px;align-items:flex-start}.brandname{font-size:19px}.brandmark{width:37px;height:37px;font-size:21px}.headerbuttons{justify-content:flex-end}.headerbuttons .btn{padding:7px 9px;font-size:12px}.coins{padding:6px 9px;font-size:12px}.app{padding:0 10px 20px}.hero{margin:3px 3px 11px;align-items:start}.hero h1{font-size:34px}.hero p{font-size:12px}.hero .pill{display:none}.statusbar{padding:10px;gap:7px}.status-left,.status-right{gap:7px}.counter{font-size:11px}.counter b{font-size:15px}.line{height:20px}.timer{width:85px}.prompt{padding:12px;min-height:115px}.question{font-size:21px}.gamepanel{border-radius:15px}.controlrow{padding:10px;justify-content:center}.controlrow .hint{width:100%;text-align:center}.key{min-width:74px;height:51px}.key.forward{min-width:102px}.sidebar{grid-template-columns:1fr}.card{padding:14px}.modal{padding:8px}.modalbox{padding:15px;border-radius:17px}.shoprow{grid-template-columns:1fr;gap:5px}.machine{transform:scale(.78);height:265px;margin:-20px auto -18px}.collectiongrid{grid-template-columns:repeat(4,minmax(0,1fr))}.startbox{padding:16px;max-width:98%}.startbox h2{font-size:29px}.startbox p{margin-bottom:10px}.settingrow{gap:6px;margin:9px 0}select{padding:8px}.btn.primary{font-size:14px}.board-overlay{padding:8px}}@media(max-width:410px){.brandname{font-size:17px}.headerbuttons{gap:5px}.hero h1{font-size:30px}.controlrow .hint{font-size:11px}.key{min-width:61px}.key.forward{min-width:85px}.starticon{font-size:30px}.startbox{padding:12px}.startbox h2{font-size:25px}.startbox p{font-size:12px}.startbox .menunote{font-size:10px}}
 .resultsbox{width:min(100%,490px);max-height:98%;overflow:auto;padding:13px 18px 16px}.result-head{display:flex;align-items:center;justify-content:center;gap:13px}.result-head .starticon{font-size:30px}.resultsbox h2{font-size:27px;margin:0}.resultsbox p{margin:3px 0 6px}.crash-snapshot{display:block;width:100%;height:auto;aspect-ratio:960/380;object-fit:contain;object-position:center;border:3px solid #94a6c5;border-radius:11px;background:#21334d;margin:7px 0}.results-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.results-stats>div{background:#253c59;border:1px solid #526f94;border-radius:9px;padding:7px 4px}.results-stats strong{display:block;font-size:23px;color:#c9ff92}.results-stats span{display:block;color:#bfcee4;font-size:9px;font-weight:900}.result-score{font-size:12px;font-weight:900;color:#ffdf88;margin:6px 0 9px}.new-record{color:#243c24;background:#c7ff85;border-radius:9px;font-weight:1000;padding:5px 8px;margin-top:6px}.new-record[hidden]{display:none}.resultsbox .answerbox{margin:5px 0;font-size:11px;padding:6px}.resultsbox .btn{padding:8px 11px;font-size:12px}@media(max-width:600px){.board-overlay{padding:7px}.resultsbox{padding:8px 10px;max-width:95%}.resultsbox h2{font-size:21px}.crash-snapshot{height:auto;margin:5px 0}.board-overlay#endOverlay{position:fixed;inset:0;z-index:40;overflow-y:auto;align-items:center;background:#071429ed;padding:12px}.resultsbox{max-height:min(92dvh,700px);overflow-y:auto;width:min(100%,460px)}.results-stats strong{font-size:17px}.results-stats span{font-size:8px}.result-head .starticon{font-size:21px}}
 
 .landingreadout{background:#1c2d4b;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:9px 12px;border-top:1px solid #385076;color:#e7f8ff;font-weight:900;font-size:13px;min-height:40px}.landingreadout strong{letter-spacing:.02em}.landingdot{background:#74ffdd;border:2px solid #f8ffff99;border-radius:50%;width:13px;height:13px;box-shadow:0 0 13px #74ffdd66}.landinglegend{color:#adc5e4;font-size:10px;font-weight:800;letter-spacing:.04em}@media(max-width:650px){.landingreadout{gap:6px;padding:8px 6px}.landingreadout strong{font-size:12px}.landinglegend{width:100%;text-align:center;font-size:9px}}
+.hopper-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.hopper-actions .btn{flex:1;min-width:100px}.badgerow{align-items:center;flex-wrap:wrap}.world-info{margin-top:5px}
 </style>
 </head>
 <body>
@@ -19,43 +20,43 @@
   <div class="headerbuttons"><div class="coins" title="Your earned coins"><span class="coinicon">★</span><span id="coinTop">150</span></div><button class="btn small" id="shopOpen">◉ Capsule Shop</button><button class="btn small flat" id="collectionOpen">▦ Collection</button><button class="btn small flat" id="muteButton" aria-pressed="false" aria-label="Toggle sound">♪ Sound On</button></div>
 </header>
 <main class="app">
-<div class="hero"><div><h1>Hop smart. <span>Go far.</span></h1><p>Explore 12 worlds with day and night scenes, follow the landing ring, dodge traffic, and hatch collectible creatures.</p></div><span class="pill">Grades 5–8 · 360 characters</span></div>
+<div class="hero"><div><h1>Hop smart. <span>Go far.</span></h1><p>Explore 16 worlds with day and night scenes, follow the landing ring, dodge traffic, and hatch collectible creatures.</p></div><span class="pill">Grades 3–12 · 576 characters</span></div>
 <div class="grid">
   <section class="gamepanel" aria-label="Crossy Words game">
     <div class="statusbar"><div class="status-left"><span class="counter">STEPS <b id="stepsUI">0</b></span><span class="line"></span><span class="counter">SCORE <b id="scoreUI">0</b></span><span class="line"></span><span class="counter">COMBO <b class="gold" id="comboUI">×0</b></span></div><div class="status-right"><span class="counter" id="worldLabel">☀️ Sunny Meadow</span><span class="line"></span><div id="timerbar" class="timer" aria-label="Time remaining"><div id="timerfill"></div></div><span id="timeUI" class="counter">—</span></div></div>
     <div class="prompt"><div class="prompttop"><span id="topicUI" class="prompttag">WELCOME, WORD HOPPER</span><span id="levelUI" class="leveltag">GRADE 5–6 · ARCADE</span></div><div class="question" id="questionUI" aria-live="polite">Ready to cross the grammar universe?</div><div class="promptnote" id="promptNote">Move sideways through five columns. Follow the landing ring and time each moving word crossing to complete the sentence.</div></div>
     <div class="boardwrap" id="boardwrap"><canvas id="gameCanvas" width="960" height="540" aria-label="Perspective-scrolling grammar crossings with five hopping columns. Move using the arrows or buttons." role="img"></canvas>
-      <div class="board-overlay" id="startOverlay"><div class="startbox"><div class="starticon" aria-hidden="true">🐸 ✨ 📚</div><h2>Choose your adventure!</h2><p>Explore 12 changing voxel worlds in daytime or glowing night. Follow the landing ring, time word tiles, avoid traffic, and unlock characters!</p><div class="settingrow"><label><span class="fieldlabel">Your grade level</span><select id="gradeSelect"><option value="56">Grades 5–6</option><option value="78">Grades 7–8</option></select></label><label><span class="fieldlabel">Game mode</span><select id="modeSelect"><option value="arcade">Arcade · timed</option><option value="practice">Practice · no timer</option></select></label></div><button id="startButton" class="btn primary" style="width:100%;padding:13px">▶ Start Hopping!</button><div class="menunote">Arrow keys / WASD / on-screen controls. No account or internet required.</div></div></div>
+      <div class="board-overlay" id="startOverlay"><div class="startbox"><div class="starticon" aria-hidden="true">🐸 ✨ 📚</div><h2>Choose your adventure!</h2><p>Explore 16 longer voxel worlds with glowing night variants. Hop through grammar challenges, dodge traffic, and collect new characters!</p><div class="settingrow"><label><span class="fieldlabel">Your grade level</span><select id="gradeSelect"><option value="34">Grades 3–4</option><option value="56">Grades 5–6</option><option value="78">Grades 7–8</option><option value="910">Grades 9–10</option><option value="1112">Grades 11–12</option></select></label><label><span class="fieldlabel">Game mode</span><select id="modeSelect"><option value="arcade">Arcade · timed</option><option value="practice">Practice · no timer</option></select></label></div><button id="startButton" class="btn primary" style="width:100%;padding:13px">▶ Start Hopping!</button><div class="menunote">Arrow keys / WASD / on-screen controls. Five grade bands (3–12). No account or internet required.</div></div></div>
       <div class="board-overlay hidden" id="endOverlay"><div class="startbox resultsbox"><div class="result-head"><div class="starticon" id="endIcon">💫</div><div><h2 class="end-title" id="endTitle">Run Over!</h2><p id="endMessage">Nice try!</p></div></div><img id="crashSnapshot" class="crash-snapshot" alt="Picture of the game world at the moment your character was hit or fell"/><div class="results-stats"><div><strong id="endDistance">0</strong><span>ROWS TRAVELED</span></div><div><strong id="endBest">0</strong><span>YOUR BEST</span></div><div><strong id="endCharacterBest">0</strong><span>THIS CHARACTER</span></div></div><div id="endNewBest" class="new-record" hidden>★ NEW DISTANCE RECORD!</div><div id="endScore" class="result-score">0 points</div><div id="endAnswer" class="answerbox" style="display:none"></div><div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap"><button class="btn primary" id="retryButton">↻ Hop Again</button><button class="btn" id="menuButton">Change Mode</button></div></div></div>
     </div>
     <div class="choicebar" id="choicebar" aria-label="Words to watch for on moving platforms"><button class="choicebtn" data-lane="0"><span>OPTION 1</span><b id="choice0">—</b></button><button class="choicebtn chosen" data-lane="1"><span>OPTION 2</span><b id="choice1">—</b></button><button class="choicebtn" data-lane="2"><span>OPTION 3</span><b id="choice2">—</b></button></div>
     <div class="landingreadout" id="landingReadout" role="status" aria-live="off"><span class="landingdot" id="landingDot"></span><strong id="landingStatus">NEXT HOP: SAFE TERRAIN</strong><span class="landinglegend">CYAN PLATFORM · RED GAP · GOLD TIMING · GREEN GROUND</span></div><div class="controlrow"><span class="hint" id="controlHint">← → move across five columns · ↑ / W / Space hop forward · Watch the moving tiles!</span><div class="keys"><button class="key" id="leftButton" aria-label="Move left">←</button><button class="key forward" id="forwardButton" aria-label="Hop forward">↑ HOP</button><button class="key" id="rightButton" aria-label="Move right">→</button></div><button class="btn small flat" id="pauseButton">Ⅱ Pause</button></div>
   </section>
   <aside class="sidebar">
-    <section class="card"><h3>🏆 Your Adventure</h3><div class="statgrid"><div class="stat"><strong id="highScoreUI">0</strong><span>BEST SCORE</span></div><div class="stat"><strong id="bestStepsUI">0</strong><span>BEST ROW</span></div><div class="stat"><strong id="totalCorrectUI">0</strong><span>CORRECT HOPS</span></div><div class="stat"><strong id="collectionCountUI">3/360</strong><span>CHARACTERS</span></div></div><div class="tiny">Grammar crossings earn coins. Safe rows and traffic make every run feel like a real arcade crossing.</div><button class="btn rose" id="shopSidebar" style="width:100%;margin-top:12px">◉ Visit the Capsule Shop</button></section>
-    <section class="card"><h3>🦊 Your Hopper</h3><div class="spritecard"><canvas width="100" height="100" id="equippedCanvas"></canvas><div><b id="equippedName">Ember Frog</b><p id="equippedRarity">Common · ready to hop</p><button class="btn small flat" id="chooseCharacter">Change Character</button></div></div><div class="tiny">Next environment starts at row <b id="nextWorldUI">10</b>.</div><div class="progressbar"><div id="worldProgress"></div></div></section>
-    <section class="card"><h3>🎓 Word Coach</h3><div class="tiny" id="coachText">Look for the correct word on the circulating tiles, then hop when it is under your landing marker.</div><div class="tip" id="topicTip">Focus on the sentence's meaning and grammar clues before hopping.</div><div class="tiny">★ +12 coins per correct grammar answer (streak bonuses)<br>★ 80 coins per capsule · all 360 are earnable</div><button class="btn small flat" id="howButton" style="margin-top:10px">How to Play</button></section>
+    <section class="card"><h3>🏆 Your Adventure</h3><div class="statgrid"><div class="stat"><strong id="highScoreUI">0</strong><span>BEST SCORE</span></div><div class="stat"><strong id="bestStepsUI">0</strong><span>BEST ROW</span></div><div class="stat"><strong id="totalCorrectUI">0</strong><span>CORRECT HOPS</span></div><div class="stat"><strong id="collectionCountUI">3/576</strong><span>CHARACTERS</span></div></div><div class="tiny">Grammar crossings earn coins. Safe rows and traffic make every run feel like a real arcade crossing.</div><button class="btn rose" id="shopSidebar" style="width:100%;margin-top:12px">◉ Visit the Capsule Shop</button></section>
+    <section class="card"><h3>🦊 Your Hopper</h3><div class="spritecard"><canvas width="100" height="100" id="equippedCanvas"></canvas><div><b id="equippedName">Ember Frog</b><p id="equippedRarity">Common · ready to hop</p><div class="hopper-actions"><button class="btn small flat" id="chooseCharacter">Collection</button><button class="btn small primary" id="randomHopper">🎲 Random</button></div></div></div><div class="tiny">Next environment begins at row <b id="nextWorldUI">48</b>.</div><div class="progressbar"><div id="worldProgress"></div></div><div class="tiny world-info" id="worldProgressText">0 of 48 rows in this world</div></section>
+    <section class="card"><h3>🎓 Word Coach</h3><div class="tiny" id="coachText">Look for the correct word on the circulating tiles, then hop when it is under your landing marker.</div><div class="tip" id="topicTip">Focus on the sentence's meaning and grammar clues before hopping.</div><div class="tiny">★ +12 coins per correct grammar answer (streak bonuses)<br>★ 80 coins per capsule · all 576 are earnable</div><button class="btn small flat" id="howButton" style="margin-top:10px">How to Play</button></section>
   </aside>
 </div>
 <div class="footer">Crossy Words · Original classroom grammar game · Progress saved on this device only · No logins, trackers, or AI services</div>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div class="modal" id="shopModal" role="dialog" aria-modal="true" aria-labelledby="shopTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="shopTitle">The Capsule Arcade</h2><p>Spend coins. Hatch a random new companion. Collect every color and creature!</p></div><button class="closer" data-close="shopModal" aria-label="Close shop">×</button></div><div class="shoprow"><div class="machine" id="machine"><div class="machine-top"><div class="ballcluster" id="ballcluster"></div></div><div class="machine-body"><div class="machine-window">★</div><div class="machine-knob"></div></div><div class="machine-foot"></div><div class="capsule" id="capsule"></div></div><div class="shopdetails"><h3>One mystery capsule</h3><p>Each capsule awards a <b>new</b> character you don't own yet. Rarity changes how often characters appear, not how well they play.</p><div class="shopprice">★ 80 COINS · Balance: <span id="shopCoins">150</span></div><br><button class="btn rose" id="pullButton" style="width:100%;padding:13px">◉ Hatch a Character!</button><div id="reveal" class="reveal"><span style="font-size:35px">🎁</span><div><strong>Mystery awaits!</strong><div class="tiny">Your first capsule is almost ready.</div></div></div><div class="tiny">No real-money purchases. No duplicates. All coins are earned in-game.</div></div></div></div></div>
-<div class="modal" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="collectionTitle">Hopper Collection</h2><p>360 original character combinations, each with a unique sound signature.</p></div><button class="closer" data-close="collectionModal" aria-label="Close collection">×</button></div><div class="badgerow"><span class="pill" id="collectionStatus">3 / 360 unlocked</span><span class="pill">Tap an unlocked character to equip and hear its sound</span></div><div class="filterrow"><label class="tiny" for="collectionFilter">Show:</label><select id="collectionFilter" style="max-width:190px"><option value="all">All characters</option><option value="owned">Unlocked only</option><option value="locked">Locked only</option></select><label class="tiny" for="speciesFilter">Creature:</label><select id="speciesFilter" style="max-width:190px"><option value="all">All creatures</option></select></div><div id="collectionGrid" class="collectiongrid"></div><div class="pagecontrols"><button class="btn small flat" id="pagePrev">← Previous</button><span id="pageInfo" class="tiny">Page 1</span><button class="btn small flat" id="pageNext">Next →</button></div></div></div>
-<div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="modalbox" style="max-width:560px"><div class="modalhead"><div><h2 id="helpTitle">How to Play</h2><p>Learn first. Hop second. Collect everything.</p></div><button class="closer" data-close="helpModal" aria-label="Close instructions">×</button></div><ol class="minilist" style="font-size:15px"><li><b>Read</b> the upcoming incomplete sentence at the top.</li><li><b>Move left and right</b> across five columns, then <b>hop forward</b> one row at a time.</li><li><b>Safe rows</b> give you room to travel and prepare.</li><li><b>Grammar crossings</b> have moving word tiles and gaps. Time your hop to land on the correct word. The ground ring and Next Hop readout show exactly where you will land. Cyan marks a word platform, red an empty gap, gold a timing hazard, and green safe ground.</li><li><b>Roads and rivers</b> have moving vehicles and logs. Hop across safely.</li><li><b>Punctuation crossings</b> sometimes use floating word logs.</li><li><b>Earn coins</b> for correct hops and combo streaks.</li><li><b>Visit the Capsule Shop</b> to unlock random characters.</li></ol><div class="notice"><b>Arcade:</b> Incorrect answers, obstacles, or running out of time end the run.<br><b>Practice:</b> No timer; grammar mistakes give coaching and let you try again. Practice mode disables fatal traffic hazards.</div><button data-close="helpModal" class="btn primary" style="width:100%;margin-top:15px">Got It</button></div></div>
+<div class="modal" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="collectionTitle">Hopper Collection</h2><p>576 original character variations, including creatures and people, each with a unique sound signature.</p></div><button class="closer" data-close="collectionModal" aria-label="Close collection">×</button></div><div class="badgerow"><span class="pill" id="collectionStatus">3 / 576 unlocked</span><span class="pill">Tap an unlocked character to equip and hear its sound</span><button class="btn small" id="randomCollection" type="button">🎲 Equip Random Unlocked</button></div><div class="filterrow"><label class="tiny" for="collectionFilter">Show:</label><select id="collectionFilter" style="max-width:190px"><option value="all">All characters</option><option value="owned">Unlocked only</option><option value="locked">Locked only</option></select><label class="tiny" for="speciesFilter">Character:</label><select id="speciesFilter" style="max-width:190px"><option value="all">All character types</option></select></div><div id="collectionGrid" class="collectiongrid"></div><div class="pagecontrols"><button class="btn small flat" id="pagePrev">← Previous</button><span id="pageInfo" class="tiny">Page 1</span><button class="btn small flat" id="pageNext">Next →</button></div></div></div>
+<div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="modalbox" style="max-width:560px"><div class="modalhead"><div><h2 id="helpTitle">How to Play</h2><p>Learn first. Hop second. Collect everything.</p></div><button class="closer" data-close="helpModal" aria-label="Close instructions">×</button></div><ol class="minilist" style="font-size:15px"><li><b>Read</b> the upcoming incomplete sentence at the top.</li><li><b>Move left and right</b> across five columns, then <b>hop forward</b> one row at a time.</li><li><b>Safe rows</b> give you room to travel and prepare.</li><li><b>Grammar crossings</b> have moving word tiles and gaps. Time your hop to land on the correct word. The ground ring and Next Hop readout help you judge where you will land. Cyan marks a word platform, red an empty gap, gold a timing hazard, and green safe ground.</li><li><b>Roads and rivers</b> have moving vehicles and logs. Hop across safely.</li><li><b>Punctuation crossings</b> sometimes use floating word logs.</li><li><b>Earn coins</b> for correct hops and combo streaks.</li><li><b>Visit the Capsule Shop</b> to unlock random characters.</li></ol><div class="notice"><b>Arcade:</b> Incorrect answers, obstacles, or running out of time end the run.<br><b>Practice:</b> No timer; grammar mistakes give coaching and let you try again. Practice mode disables fatal traffic hazards.</div><button data-close="helpModal" class="btn primary" style="width:100%;margin-top:15px">Got It</button></div></div>
 <script>
 'use strict';
 (()=>{
 const $=(id)=>document.getElementById(id);
 const W=960,H=540,canvas=$('gameCanvas'),ctx=canvas.getContext('2d');
-const names=['Fox','Cat','Frog','Bunny','Owl','Robot','Duck','Bear','Penguin','Turtle','Dragon','Ghost','Raccoon','Axolotl','Bee','Crab','Koala','Mushroom','Deer','Panda','Slime','Bat','Cactus','Tiger','Octopus','Unicorn','Firefly','Astronaut','Hedgehog','Jellyfish'];
+const names=['Fox','Cat','Frog','Bunny','Owl','Robot','Duck','Bear','Penguin','Turtle','Dragon','Ghost','Raccoon','Axolotl','Bee','Crab','Koala','Mushroom','Deer','Panda','Slime','Bat','Cactus','Tiger','Octopus','Unicorn','Firefly','Astronaut','Hedgehog','Jellyfish','Mini Giraffe','Lumberjack','Griffin','Wizard','Pirate','Knight','Butterfly','Chef','Explorer','Phoenix','Robot DJ','Fairy','Snow Yeti','Firefighter','Pilot','Forest Sprite','Space Ranger','Peacock'];
 const palettes=[['Ember','#ff995a','#ffe9ad','#d55f54'],['Mint','#65ddab','#d4fff0','#38a4a2'],['Sky','#83b8fa','#e7eeff','#5476cb'],['Berry','#e494dd','#ffdcf7','#ac67b2'],['Honey','#ffd26c','#fff7cd','#d18c4d'],['Coral','#ff9d99','#ffe5d0','#e8778a'],['Lilac','#af97f5','#efdeff','#7963c4'],['Moss','#95bf77','#f0ffd5','#648859'],['Frost','#a6e8e9','#f4feff','#69a8bf'],['Peach','#ffb99b','#fff0d8','#df8586'],['Midnight','#7a8bbf','#dae3fa','#49568a'],['Nova','#e9adff','#ffe69e','#aa59dd']];
 const rarityList=['common','common','common','common','common','common','rare','rare','epic','rare','epic','legendary'];
 const TOTAL=names.length*palettes.length,store='crossy_words_hopper_save_v1';
 function creature(id){const species=Math.floor(id/12),shade=id%12;return {id,species,shade,name:`${palettes[shade][0]} ${names[species]}`,rarity:rarityList[shade],colors:palettes[shade]};}
 const defaultSave={coins:150,unlocked:[0,12,24],equipped:24,highScore:0,bestSteps:0,totalCorrect:0,characterBests:{},sound:true,grade:'56',mode:'arcade'};
 let save;
-try{const old=JSON.parse(localStorage.getItem(store)||'null')||{};save={...defaultSave,...old};save.unlocked=[...new Set((Array.isArray(save.unlocked)?save.unlocked:defaultSave.unlocked).filter(n=>Number.isInteger(n)&&n>=0&&n<TOTAL).concat(defaultSave.unlocked))];if(!save.unlocked.includes(save.equipped))save.equipped=24;save.coins=Math.max(0,Number(save.coins)||0);if(!save.characterBests || typeof save.characterBests!=='object' || Array.isArray(save.characterBests))save.characterBests={};}catch(e){save={...defaultSave};}
+try{const old=JSON.parse(localStorage.getItem(store)||'null')||{};save={...defaultSave,...old};save.unlocked=[...new Set((Array.isArray(save.unlocked)?save.unlocked:defaultSave.unlocked).filter(n=>Number.isInteger(n)&&n>=0&&n<TOTAL).concat(defaultSave.unlocked))];if(!save.unlocked.includes(save.equipped))save.equipped=24;if(!['34','56','78','910','1112'].includes(save.grade))save.grade='56';save.coins=Math.max(0,Number(save.coins)||0);if(!save.characterBests || typeof save.characterBests!=='object' || Array.isArray(save.characterBests))save.characterBests={};}catch(e){save={...defaultSave};}
 function persist(){try{localStorage.setItem(store,JSON.stringify(save));}catch(e){}}
 function rand(n){return Math.floor(Math.random()*n);}const pick=a=>a[rand(a.length)];const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const ALLQ=[];const add=(type,grade,prompt,correct,wrong1,wrong2,why)=>ALLQ.push({type,grade,prompt,correct,options:[correct,wrong1,wrong2],why});
@@ -160,6 +161,115 @@ add('Agreement','56','The pair of gloves ___ in the closet.','is','are','be','Th
 add('Parts of Speech','56','Choose the PRONOUN: ___ found the missing key.','She','Quickly','Bright','"She" replaces a person\'s name, so it is a pronoun.');
 add('Homophones','56','The wind ___ the leaves across the street.','blew','blue','blow','"Blew" is the past tense of "blow."');
 add('Homophones','56','The sky turned a deep shade of ___.','blue','blew','blow','"Blue" is a color.');
+
+// Age-banded, hand-written questions; no generative API required.
+add("Verb Tenses","34","Yesterday, I ___ my room.","cleaned","clean","cleaning","Yesterday tells us the action happened in the past.");
+add("Verb Tenses","34","Every day, Ben ___ his dog.","feeds","feed","feeding","Ben is one person, so we use feeds.");
+add("Verb Tenses","34","Right now, we are ___ outside.","playing","played","play","Are is followed by an -ing action happening now.");
+add("Verb Tenses","34","Tomorrow, I will ___ my friend.","visit","visits","visited","After will, use the basic verb: visit.");
+add("Verb Tenses","34","The kitten ___ under the bed last night.","slept","sleep","sleeps","Last night means the action is in the past.");
+add("Verb Tenses","34","The birds ___ every morning.","sing","sings","singing","Birds is plural, so use sing.");
+add("Verb Tenses","34","Yesterday, we ___ a snowman.","built","build","building","Built is the past tense of build.");
+add("Verb Tenses","34","The baby is ___ quietly.","sleeping","slept","sleeps","Is plus -ing describes an action in progress.");
+add("Homophones","34","Please come over ___.","here","hear","hair","Here points to a place.");
+add("Homophones","34","I can ___ the thunder.","hear","here","hair","Hear means to notice a sound.");
+add("Homophones","34","The puppy wagged ___ tail.","its","it's","its'","Its shows the tail belongs to the puppy.");
+add("Homophones","34","We need ___ apples.","two","too","to","Two means the number 2.");
+add("Homophones","34","This bag is ___ heavy.","too","two","to","Too can mean more than we want.");
+add("Homophones","34","They went ___ the park.","to","two","too","To shows a direction.");
+add("Homophones","34","That is ___ backpack.","my","me","mine","My goes before a noun to show ownership.");
+add("Agreement","34","My sister ___ a bike.","has","have","having","Sister is one person, so use has.");
+add("Agreement","34","The dogs ___ loudly.","bark","barks","barking","Dogs is plural, so bark is the matching verb.");
+add("Agreement","34","The flower ___ in the sun.","grows","grow","growing","A single flower grows.");
+add("Agreement","34","We ___ ready to go.","are","is","am","We goes with are.");
+add("Agreement","34","The children ___ in line.","stand","stands","standing","Children is plural, so use stand.");
+add("Punctuation","34","Which mark ends a question: Where is my hat___","?",".",",","A question ends with a question mark.");
+add("Punctuation","34","Which mark ends a statement: The sun is shining___",".","?",",","A statement usually ends with a period.");
+add("Punctuation","34","Help___ I dropped the cake!","!",".",",","An exclamation mark shows strong feeling.");
+add("Punctuation","34","Please bring pencils___ erasers, and paper.",",",".","?","Commas separate items in a list.");
+add("Punctuation","34","Choose the correct opening: ___ went to the store.","I","i","me","The word I is always capitalized.");
+add("Parts of Speech","34","Choose the naming word: The ___ ran fast.","dog","quickly","happy","Dog is a noun; it names an animal.");
+add("Parts of Speech","34","Choose the action word: The frog can ___.","jump","green","pond","Jump is a verb; it is an action.");
+add("Parts of Speech","34","Choose a describing word: The ___ balloon floated.","red","run","quickly","Red is an adjective; it describes a balloon.");
+add("Parts of Speech","34","Choose the pronoun: ___ is my friend.","She","Blue","Running","She stands in place of a name.");
+add("Parts of Speech","34","Choose an adverb: The turtle walked ___.","slowly","green","shell","Slowly describes how it walked.");
+add("Word Choice","34","The tall tree has many ___.","leaves","leafs","leaf","The plural of leaf is leaves.");
+add("Word Choice","34","One mouse, two ___.","mice","mouses","mouse","The plural of mouse is mice.");
+add("Word Choice","34","The ___ ran around the yard.","puppies","puppys","puppy","Change y to ies in the plural puppies.");
+add("Word Choice","34","The opposite of tiny is ___.","huge","little","small","Huge means very big, the opposite of tiny.");
+add("Word Choice","34","The ___ was very bright today.","sun","son","soon","Sun is the star that lights Earth.");
+add("Parallel Structure","910","The team valued courage, honesty, and ___.","perseverance","persevering","to persevere","A series of nouns should keep the same grammatical form.");
+add("Parallel Structure","910","She enjoys designing, sketching, and ___.","painting","to paint","paint","Use matching -ing forms in a coordinated list.");
+add("Sentence Structure","910","Choose the best revision: Although the storm was severe.","Although the storm was severe, the team continued.","Although the storm was severe.","The storm although severe.","A dependent clause needs an independent clause to complete the thought.");
+add("Sentence Structure","910","Choose the correctly punctuated compound sentence.","We packed early, but the bus arrived late.","We packed early but, the bus arrived late.","We packed early, but, the bus arrived late.","Put a comma before a coordinating conjunction that joins independent clauses.");
+add("Sentence Structure","910","The results were surprising; ___, they were reliable.","nevertheless","therefore","for example","Nevertheless signals a contrast between surprise and reliability.");
+add("Sentence Structure","910","The library extended its hours; ___, more students could study.","as a result","however","instead","As a result introduces a consequence.");
+add("Sentence Structure","910","Choose the sentence with no comma splice.","The rain stopped; the field remained wet.","The rain stopped, the field remained wet.","The rain stopped the field, remained wet.","A semicolon can connect closely related independent clauses.");
+add("Sentence Structure","910","Choose the sentence with a clear modifier.","Walking to school, Lena noticed the sign.","Walking to school, the sign caught Lena’s eye.","The sign walking to school caught Lena’s eye.","The introductory phrase should describe the person walking.");
+add("Punctuation","910","The club had one goal___ win the regional tournament.",":",";",",","A colon can introduce an explanation after a complete clause.");
+add("Punctuation","910","The route was closed___ however, we found a detour.",";",",","—","A semicolon can precede a conjunctive adverb connecting independent clauses.");
+add("Punctuation","910","Choose the correct restrictive clause.","The students who practiced improved.","The students, who practiced, improved.","The students who, practiced improved.","A necessary clause identifying which students is not set off with commas.");
+add("Punctuation","910","Choose the correctly punctuated introductory phrase.","After the meeting, we organized the notes.","After the meeting we, organized the notes.","After, the meeting we organized the notes.","An introductory phrase is typically followed by a comma.");
+add("Punctuation","910","Choose the correctly written possessive.","The teachers’ lounge was renovated.","The teachers lounge was renovated.","The teacher’s lounge were renovated.","A plural possessive ending in s takes an apostrophe after s.");
+add("Agreement","910","Neither the coaches nor the captain ___ satisfied.","was","were","are","With neither/nor, the verb agrees with the nearer subject, captain.");
+add("Agreement","910","Each of the experiments ___ a different result.","produced","produce","producing","Each is singular and pairs with a singular past-tense verb form.");
+add("Agreement","910","The list of supplies ___ on the desk.","is","are","being","The subject is the singular noun list.");
+add("Agreement","910","The data from the survey ___ several concerns.","revealed","reveals","revealing","The past-tense action revealed fits the completed survey in this context.");
+add("Pronouns","910","Every student must submit ___ own work.","their","them","they","Singular they is an accepted gender-neutral possessive in modern usage.");
+add("Pronouns","910","Maya told Elena that ___ essay was ready. Which rewrite removes confusion?","Maya told Elena, “My essay is ready.”","Maya told Elena her essay was ready.","Maya said her essay to Elena ready.","The quotation identifies whose essay is ready.");
+add("Pronouns","910","Choose the sentence with correct pronoun case.","The coach spoke to Liam and me.","The coach spoke to Liam and I.","The coach spoke to he and I.","The object of the preposition to requires me.");
+add("Word Choice","910","The evidence ___ the researcher’s hypothesis.","supports","effects","implies of","Supports is a clear verb expressing what the evidence does.");
+add("Word Choice","910","The committee reached a ___ after lengthy discussion.","consensus","consequence","consistant","Consensus means general agreement.");
+add("Word Choice","910","Choose the most concise version: Due to the fact that the road was icy, school closed.","Because the road was icy, school closed.","Owing to the fact that ice was on the road, school closed.","School closed as a result of the fact the road was icy.","Because removes unnecessary words without changing the meaning.");
+add("Word Choice","910","Choose the clearest active-voice revision.","The scientist recorded the results.","The results were recorded by the scientist.","The results had been being recorded.","Active voice names the actor directly.");
+add("Verb Tenses","910","By the time the bell rang, the students ___ their work.","had finished","have finished","finish","Past perfect shows an action completed before another past event.");
+add("Verb Tenses","910","If she ___ earlier, she would have caught the bus.","had left","left","leaves","A past unreal condition takes had plus a past participle.");
+add("Verb Tenses","910","The novel ___ by the time the review was published.","had been released","has release","will releasing","Past perfect passive shows an earlier completed event.");
+add("Transitions","910","The first solution costs less; ___, it is less durable.","however","therefore","additionally","However contrasts lower cost with lower durability.");
+add("Transitions","910","The habitat was restored; ___, wildlife returned.","consequently","nevertheless","meanwhile","Consequently expresses a result.");
+add("Transitions","910","___ the argument is plausible, the evidence remains limited.","Although","Therefore","For example","Although introduces a concession.");
+add("Transitions","910","Several sources agree; ___, the conclusion deserves further study.","nevertheless","similarly","specifically","Nevertheless makes a cautious contrast.");
+add("Literary Analysis","910","A detail that hints at a later event is an example of ___.","foreshadowing","onomatopoeia","hyperbole","Foreshadowing gives clues about what may happen later.");
+add("Literary Analysis","910","A recurring object that represents an idea is a ___.","symbol","setting","plot hole","A symbol represents something beyond its literal form.");
+add("Literary Analysis","910","A narrator who knows every character’s thoughts is ___.","third-person omniscient","first-person limited","second-person","Omniscient narration has access to multiple characters’ inner lives.");
+add("Literary Analysis","910","A character struggling against unfair rules faces ___ conflict.","character versus society","character versus nature","character versus self only","Conflict with laws or norms is character versus society.");
+add("Syntax","1112","Choose the correct inversion: Rarely ___ such a thorough analysis.","have we seen","we have seen","we seeing","Negative adverbs at the front can trigger subject–auxiliary inversion.");
+add("Syntax","1112","Not only ___ the problem, but she also proposed a solution.","did she identify","she identified","has she identifying","Not only at the beginning calls for auxiliary inversion.");
+add("Syntax","1112","Choose the clearest nonessential clause punctuation.","The proposal, which arrived Monday, changed our plans.","The proposal which arrived Monday changed our plans.","The proposal, which arrived Monday changed our plans.","A nonessential relative clause is enclosed by two commas.");
+add("Syntax","1112","Select the sentence with an effective absolute phrase.","Her notes complete, Amira submitted the report.","Her notes complete and Amira submitted the report.","The notes completed Amira submitted.","The absolute phrase gives a circumstance without forming a second finite clause.");
+add("Punctuation","1112","Choose the correct use of a semicolon.","The evidence is limited; therefore, the claim is tentative.","The evidence is limited, therefore, the claim is tentative.","The evidence is limited; because the claim is tentative.","A semicolon connects two independent clauses, with a conjunctive adverb after it.");
+add("Punctuation","1112","Choose the correctly punctuated appositive.","The lead engineer, Dr. Santos, approved the design.","The lead engineer Dr. Santos, approved the design.","The lead engineer, Dr. Santos approved the design.","A nonessential appositive takes commas on both sides.");
+add("Punctuation","1112","A single principle guided the team___ verify every measurement.",":","; ",",","A colon introduces an explanation after an independent clause.");
+add("Punctuation","1112","Choose the sentence with correct parallel punctuation.","The study tested three variables: temperature, pressure, and humidity.","The study tested: three variables temperature, pressure, and humidity.","The study tested three variables; temperature, pressure, and humidity.","A colon follows a complete clause and introduces its list.");
+add("Concision","1112","Choose the most precise revision: The results were of a nature that was inconclusive.","The results were inconclusive.","The results were of an inconclusive nature.","The findings had a nature of being inconclusive.","Direct adjectives eliminate unnecessary nominalizations.");
+add("Concision","1112","Choose the clearest revision: There are several factors that influence the outcome.","Several factors influence the outcome.","There are factors that are influential to the outcome.","Influencing the outcome are factors that exist.","A concrete subject and active verb make the sentence more direct.");
+add("Concision","1112","Choose the least redundant phrase.","past experience","past history of experiences","experience from the past history","Past experience is a conventional concise expression.");
+add("Concision","1112","Choose the strongest analytical claim.","The repeated imagery reinforces the narrator’s isolation.","The author uses a lot of words and images.","The passage is really very interesting.","Specific analytical claims identify both technique and meaning.");
+add("Agreement","1112","Neither the principal nor the teachers ___ available.","were","was","is","With neither/nor, the verb agrees with the closer plural subject teachers.");
+add("Agreement","1112","The number of applicants ___ increased.","has","have","are","The number is a singular subject that takes has.");
+add("Agreement","1112","A number of applicants ___ already accepted.","have","has","is","A number of plus a plural noun generally takes a plural verb.");
+add("Agreement","1112","Neither the findings nor the conclusion ___ definitive.","is","are","be","Conclusion is singular and closer to the verb.");
+add("Mood","1112","If I ___ the editor, I would revise the opening.","were","was","am","Formal counterfactual statements traditionally use were.");
+add("Mood","1112","It is essential that each student ___ the instructions.","read","reads","reading","The mandative subjunctive uses the base verb read.");
+add("Mood","1112","The advisor recommended that she ___ the source.","verify","verifies","verified","In this construction, the subjunctive uses verify, not verifies.");
+add("Mood","1112","I wish the outcome ___ different.","were","was","is","Formal hypothetical wishes use the subjunctive were.");
+add("Reasoning","1112","Which transition most clearly signals a concession?","Admittedly,","Consequently,","Specifically,","Admittedly acknowledges a competing point.");
+add("Reasoning","1112","Which transition most clearly signals an inference?","Therefore,","Meanwhile,","For instance,","Therefore draws a conclusion from prior evidence.");
+add("Reasoning","1112","Which statement avoids overgeneralization?","In this sample, most respondents preferred option A.","Everyone always prefers option A.","No one could prefer option B.","Limit the claim to the observed sample instead of applying it universally.");
+add("Reasoning","1112","Which statement best acknowledges a limitation?","The small sample limits how widely the findings can be applied.","The study proves the rule in every situation.","The results must be perfect because they are measurable.","A limitation explains a meaningful boundary on interpreting the evidence.");
+add("Literary Analysis","1112","When the audience knows what a character does not, that is ___.","dramatic irony","verbal irony","metonymy","Dramatic irony depends on an information gap between audience and character.");
+add("Literary Analysis","1112","When a narrator’s account cannot be fully trusted, the narrator is ___.","unreliable","omniscient","objective by definition","An unreliable narrator gives readers reason to question their account.");
+add("Literary Analysis","1112","A metaphor repeated and developed across a passage is ___.","an extended metaphor","a simple allusion","a euphemism","Extended metaphors develop one comparison through several details.");
+add("Literary Analysis","1112","A contrast between two closely placed images is ___.","juxtaposition","alliteration","apostrophe","Juxtaposition emphasizes differences or connections through proximity.");
+add("Rhetoric","1112","An appeal based on the speaker’s credibility is ___.","ethos","logos","pathos","Ethos appeals to an audience’s trust in the speaker.");
+add("Rhetoric","1112","An appeal using evidence and logical reasoning is ___.","logos","pathos","ethos","Logos appeals to reasoning, evidence, and consistency.");
+add("Rhetoric","1112","An appeal designed to move an audience emotionally is ___.","pathos","logos","ethos","Pathos appeals to feelings and emotions.");
+add("Rhetoric","1112","Repeating an opening phrase across successive clauses is ___.","anaphora","chiasmus","asyndeton","Anaphora repeats words at the beginnings of nearby clauses.");
+add("Rhetoric","1112","A reversal of grammatical structure in parallel phrases is ___.","chiasmus","anaphora","hyperbole","Chiasmus reverses the pattern of corresponding elements.");
+add("Rhetoric","1112","Deliberately omitting conjunctions from a series is ___.","asyndeton","polysyndeton","synecdoche","Asyndeton omits conjunctions for effect.");
+add("Rhetoric","1112","Deliberately repeating conjunctions in a series is ___.","polysyndeton","asyndeton","ellipsis","Polysyndeton uses multiple conjunctions for emphasis.");
+add("Rhetoric","1112","Replacing a whole with a related part, such as “all hands,” is ___.","synecdoche","simile","onomatopoeia","Synecdoche uses a part to represent a whole or the reverse.");
+
 // Configuration, saved stats and scene state.
 // Twelve original map types; every map can also appear in a glowing night variant.
 const worlds=[
@@ -174,10 +284,15 @@ const worlds=[
 {name:'Tropical Coast',icon:'🌴',style:'tropical',sky:'#9cdaff',ground:'#c5dfa0',dark:'#5ca996',road:'#5183a0',pad:'#ffe5bd',edge:'#bda172',flora:'#ffc58f'},
 {name:'Candy Valley',icon:'🍬',style:'candy',sky:'#e2cbf7',ground:'#e9b6d4',dark:'#a880c7',road:'#9c8fbc',pad:'#fff0cb',edge:'#d287ba',flora:'#fff0a8'},
 {name:'Bamboo Forest',icon:'🎋',style:'bamboo',sky:'#bce9bb',ground:'#88ca90',dark:'#428e77',road:'#658c7a',pad:'#d6e5aa',edge:'#758b5c',flora:'#c9fcca'},
-{name:'Volcanic Ridge',icon:'🌋',style:'volcano',sky:'#e9a684',ground:'#8a7775',dark:'#514a59',road:'#555266',pad:'#d7a28a',edge:'#975a55',flora:'#ffb66c'}
+{name:'Volcanic Ridge',icon:'🌋',style:'volcano',sky:'#e9a684',ground:'#8a7775',dark:'#514a59',road:'#555266',pad:'#d7a28a',edge:'#975a55',flora:'#ffb66c'},
+{name:'Cloud Kingdom',icon:'☁️',style:'cloud',sky:'#b9dcff',ground:'#d2deef',dark:'#8fb6d9',road:'#7996b5',pad:'#fff7d9',edge:'#b6c9ee',flora:'#fffec1'},
+{name:'Coral Reef',icon:'🐠',style:'coral',sky:'#72c7df',ground:'#77b8aa',dark:'#378f9e',road:'#478da2',pad:'#ffe0ad',edge:'#ba857a',flora:'#ffa2d0'},
+{name:'Moon Base',icon:'🚀',style:'moon',sky:'#7183b8',ground:'#9da8b5',dark:'#717d94',road:'#515d72',pad:'#e7ecfd',edge:'#808ba7',flora:'#b6e8ff'},
+{name:'Clockwork Yard',icon:'⚙️',style:'clockwork',sky:'#a0c9cf',ground:'#b1a582',dark:'#887b69',road:'#595763',pad:'#e6ca84',edge:'#7d6557',flora:'#ffe08b'}
 ];
-const WORLD_LENGTH=16;
-const NIGHT_SKY={meadow:'#182f54',city:'#151b36',marsh:'#152b43',snow:'#21365c',galaxy:'#120d37',desert:'#202a57',autumn:'#342b46',crystal:'#171d47',tropical:'#112d48',candy:'#312452',bamboo:'#132e36',volcano:'#241b36'};
+const WORLD_LENGTH=48; // Three times longer than v2.2: each world spans 48 traversed rows.
+function gradeTime(g,correct=0){const base={'34':40,'56':34,'78':29,'910':36,'1112':39}[g]||34;return Math.max(g==='34'?25:20,base-Math.floor(correct/6)*1.2);}
+const NIGHT_SKY={meadow:'#182f54',city:'#151b36',marsh:'#152b43',snow:'#21365c',galaxy:'#120d37',desert:'#202a57',autumn:'#342b46',crystal:'#171d47',tropical:'#112d48',candy:'#312452',bamboo:'#132e36',volcano:'#241b36',cloud:'#192b53',coral:'#113748',moon:'#111e3f',clockwork:'#302538'};
 let state={status:'menu',row:0,col:2,lane:1,stage:0,score:0,combo:0,answered:0,question:null,time:27,limit:27,mode:save.mode,grade:save.grade,transition:0,badFlash:0,paused:false,particles:[],t:0,shake:0,questionHistory:[],crash:null,floatX:null,trainWarnAt:-1},raf=0,lastFrame=0,toastTimeout,shopBusy=false,page=0;
 function refresh(){
  $('coinTop').textContent=Math.floor(save.coins);$('shopCoins').textContent=Math.floor(save.coins);
@@ -187,8 +302,9 @@ function refresh(){
  $('equippedName').textContent=creature(save.equipped).name;$('equippedRarity').textContent=creature(save.equipped).rarity+' · equipped';
  $('nextWorldUI').textContent=(Math.floor(state.row/WORLD_LENGTH)+1)*WORLD_LENGTH;
  $('worldProgress').style.width=`${Math.floor(state.row%WORLD_LENGTH/WORLD_LENGTH*100)}%`;
+ $('worldProgressText').textContent=`${state.row%WORLD_LENGTH} of ${WORLD_LENGTH} rows in this world`;
  $('worldLabel').textContent=`${world().icon} ${world().name}`;
- $('levelUI').textContent=`GRADES ${state.grade==='56'?'5–6':'7–8'} · ${state.mode.toUpperCase()}`;
+ $('levelUI').textContent=`GRADES ${({'34':'3–4','56':'5–6','78':'7–8','910':'9–10','1112':'11–12'}[state.grade]||'5–6')} · ${state.mode.toUpperCase()}`;
  $('timerbar').style.opacity=state.mode==='practice'?'0.35':'1';$('timeUI').textContent=state.mode==='practice'?'∞':Math.ceil(state.time)+'s';
  $('timerfill').style.width=(state.mode==='practice'?100:clamp(state.time/state.limit*100,0,100))+'%';$('timerbar').classList.toggle('low',state.time<6);
  $('muteButton').textContent=save.sound?'♪ Sound On':'♪ Sound Off';$('muteButton').setAttribute('aria-pressed',String(!save.sound));
@@ -213,7 +329,11 @@ function worldAt(step){
 }
 function world(){return worldAt(state.row || 0)}
 function makeQuestion(){
- const opts=ALLQ.filter(q=>state.grade==='78'||q.grade==='56');
+ // Focus mostly on the selected band, with occasional review from the band just below it.
+ const prev={'34':null,'56':'34','78':'56','910':'78','1112':'910'}[state.grade];
+ const band=(prev && Math.random()<.22)?prev:state.grade;
+ let opts=ALLQ.filter(q=>q.grade===band);
+ if(!opts.length)opts=ALLQ.filter(q=>q.grade===state.grade);
  let pool=opts.filter(q=>!state.questionHistory.includes(ALLQ.indexOf(q)));
  if(!pool.length){state.questionHistory=state.questionHistory.slice(-9);pool=opts.filter(q=>!state.questionHistory.includes(ALLQ.indexOf(q)));}
  const q=pick(pool);const options=[...q.options];for(let i=options.length-1;i>0;i--){const j=rand(i+1);[options[i],options[j]]=[options[j],options[i]];}
@@ -303,7 +423,7 @@ function collision(row,x,t){
 function logPositions(row,t){return [0,1,2,3,4].map(i=>{const x=((row.dir*(t*.49)+row.offset+i*2.6+66)%13)-6.5;return x}).filter(x=>Math.abs(x)<4.3)}
 function beginRun(){
  unlockAudio();closeModals();rows.clear();generatedUpTo=-1;lastTrainRow=-30;
- state={...state,status:'playing',worldOrder:worldOrder(),worldSeed:Math.random()*50000,worldCache:new Map(),row:0,col:2,lane:1,stage:0,score:0,combo:0,answered:0,time:27,limit:27,mode:$('modeSelect').value,grade:$('gradeSelect').value,transition:0,badFlash:0,paused:false,particles:[],t:0,shake:0,questionHistory:[],question:null,crash:null,floatX:null,trainWarnAt:-1};
+ state={...state,status:'playing',worldOrder:worldOrder(),worldSeed:Math.random()*50000,worldCache:new Map(),row:0,col:2,lane:1,stage:0,score:0,combo:0,answered:0,time:gradeTime($('gradeSelect').value),limit:gradeTime($('gradeSelect').value),mode:$('modeSelect').value,grade:$('gradeSelect').value,transition:0,badFlash:0,paused:false,particles:[],t:0,shake:0,questionHistory:[],question:null,crash:null,floatX:null,trainWarnAt:-1};
  save.mode=state.mode;save.grade=state.grade;persist();
  $('startOverlay').classList.add('hidden');$('endOverlay').classList.add('hidden');$('pauseButton').textContent='Ⅱ Pause';
  ensureRows(13);putPrompt();refresh();updateLandingReadout();toast('Cross safe rows, time your word tiles, and avoid traffic!');
@@ -351,7 +471,7 @@ function completeHop(){
  const hit=collision(row,state.floatX??XC[state.col],state.t);
  if(hit){endGame(hit,null,state.row);return;}
  const prev=worldAt(Math.max(0,state.row-1));ensureRows(state.row+12);
- state.limit=Math.max(15,27-Math.floor(state.answered/6)*1.2);state.time=state.limit;
+ state.limit=gradeTime(state.grade,state.answered);state.time=state.limit;
  save.bestSteps=Math.max(save.bestSteps,state.row);persist();
  putPrompt();updateChoiceBar();refresh();
  if(world()!==prev){toast(`${world().icon} New world: ${world().name}!`);playSfx('world');spawnParticles(480,260,'#ffe6b0',30);}
@@ -479,6 +599,32 @@ function voxelProp(x,z,w,n){
   block3(x-.38,x+.37,z-.25,z+.24,.40,'#3a3945','#665a60');
   block3(x-.28,x+.25,z-.21,z+.20,.17,'#54363c',seed>.6?'#ed7453':'#a19b9b',.38);
   if(seed>.6){const p=proj(x,z,.59);glowAt(p[0],p[1],30*p[2],19*p[2],'#ff663c',w.night?.95:.45);}
+ }
+ else if(style==='cloud'){
+  block3(x-.42,x+.42,z-.29,z+.28,.20,'#8ca9d0','#f8faff');
+  block3(x-.30,x+.30,z-.24,z+.24,.42,'#bbd3ee','#fff9ed',.25);
+  for(const d of [-1,1]){const p=proj(x+d*.18,z,.98);ellipse(ctx,p[0],p[1],12*p[2],7*p[2],'#ffffff');}
+  if(w.night)glowWorld(x,z,w,n,.78);
+ }
+ else if(style==='coral'){
+  block3(x-.30,x+.30,z-.21,z+.20,.25,'#477b95','#9bdcd1');
+  for(const d of [-1,0,1]){
+    const h=.50+hash(n+d*3)*.43;
+    block3(x+d*.18-.07,x+d*.18+.07,z-.10,z+.10,h,'#d36683',d===0?'#f49ca3':'#f1a676',.20);
+  }
+  if(w.night)glowWorld(x,z,w,n,.91);
+ }
+ else if(style==='moon'){
+  if(seed>.42){block3(x-.34,x+.34,z-.30,z+.30,.72,'#52667c','#cbd6e4');
+   const p=proj(x,z,.73);glowAt(p[0],p[1],22*p[2],15*p[2],w.night?'#8de9ff':'#e2f4ff',.62);
+  }else{block3(x-.40,x+.4,z-.28,z+.28,.24,'#6f7c93','#c6d3e2');}
+ }
+ else if(style==='clockwork'){
+  block3(x-.23,x+.23,z-.23,z+.23,.63,'#534c5b','#d0a86b');
+  const p=proj(x,z,.78);ctx.save();ctx.translate(p[0],p[1]);ctx.rotate(state.t*.12+seed*6);
+  ctx.strokeStyle='#e5c77f';ctx.lineWidth=6*p[2];ctx.beginPath();ctx.arc(0,0,18*p[2],0,Math.PI*2);ctx.stroke();
+  for(let k=0;k<8;k++){ctx.rotate(Math.PI/4);ctx.fillStyle='#fff0aa';ctx.fillRect(-3*p[2],-23*p[2],6*p[2],9*p[2]);}ctx.restore();
+  if(w.night)glowWorld(x,z,w,n,.65);
  }
  else voxelTree(x,z,w,n);
 }
@@ -714,11 +860,178 @@ function tone(freq,when,duration,type='sine',volume=.07,slide=0){if(!save.sound|
 function playSfx(type){unlockAudio();if(!audio)return;const n=audio.currentTime;
  if(type==='correct'){tone(550,n,.12,'sine',.07,170);tone(750,n+.13,.16,'triangle',.08,200);}else if(type==='slide'){tone(250,n,.065,'sine',.025,70);}else if(type==='wrong'||type==='lose'){tone(320,n,.14,'sawtooth',.05,-160);tone(170,n+.12,.25,'triangle',.06,-90);}else if(type==='pull'){[390,490,625,780].forEach((f,i)=>tone(f,n+i*.13,.16,'triangle',.06,130));}else if(type==='train'){tone(180,n,.25,'sawtooth',.05,40);tone(210,n+.34,.32,'sawtooth',.05,30);}else if(type==='world'){[420,530,620,840].forEach((f,i)=>tone(f,n+i*.11,.25,'sine',.045,90));}}
 function playCreature(id,delay=0){unlockAudio();if(!audio)return;const n=audio.currentTime+delay,sp=Math.floor(id/12),pa=id%12,base=180+sp*17+pa*21,types=['sine','triangle','square','sawtooth'];const seq=[0,3,7,12,5];const length=2+(id%4);for(let i=0;i<length;i++){const f=base*Math.pow(2,seq[(i+sp)%seq.length]/12);tone(f,n+i*.087,.085+pa*.002,types[(sp+pa)%types.length],.019+((sp+pa)%3)*.007,((pa%2)?45:-25));}}
-// Procedural character rendering — 30 species, 12 palettes, unique accessory and face details per ID.
+// Procedural character rendering — 48 character types (animals, fantasy and human), 12 palettes.
 function roundRect(c,x,y,w,h,r,fill,stroke){if(w<=0||h<=0)return;c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=2;c.stroke();}}
 function ellipse(c,x,y,rx,ry,fill){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);c.fillStyle=fill;c.fill();}
 function poly(c,points,fill){c.beginPath();c.moveTo(...points[0]);for(let i=1;i<points.length;i++)c.lineTo(...points[i]);c.closePath();c.fillStyle=fill;c.fill();}
+// Additional distinct hopper designs: people, birds, magical creatures, and winged friends.
+// All artwork is rendered in canvas so there are no image downloads or missing assets.
+function drawSpecialHopper(c,sp,pa,main,light,dark){
+ const rr=(x,y,w,h,r,f,st)=>roundRect(c,x,y,w,h,r,f,st);
+ const e=(x,y,rx,ry,f)=>ellipse(c,x,y,rx,ry,f);
+ const pp=(p,f)=>poly(c,p,f);
+ const blue='#9bdff2',cream='#fff2d7',ink='#253755';
+ const flap=Math.sin((state.t||0)*9+sp)*4;
+ function eye(x,y,large=false){e(x,y,large?5:3.8,large?6:4.6,ink);e(x-1.2,y-1.8,large?1.7:1.2,large?2:1.7,'#fff');}
+ function wing(x,dir,y=-12){pp([[x,y-18],[x+dir*(28+flap),y-31],[x+dir*(38+flap),y+7],[x+dir*15,y+22]],dark);pp([[x+dir*2,y-10],[x+dir*(24+flap),y-24],[x+dir*(27+flap),y+5],[x+dir*10,y+12]],light);}
+ function boots(){for(const d of [-1,1]){rr(d*14-9,26,18,18,5,dark);rr(d*14-11,37,23,8,3,ink);}}
+ function arms(){for(const d of [-1,1]){rr(d*28-9,-3,17,31,8,main,dark);e(d*31,29,8,9,cream);}}
+ function person(){
+   // Clear person silhouette instead of reusing animal circle bodies.
+   boots();arms();rr(-23,-18,46,53,12,main,dark);
+   rr(-18,-8,36,32,6,light);e(0,-34,22,23,cream);
+   eye(-8,-35);eye(8,-35);e(0,-26,4,2,'#c97c81');
+ }
+ if(sp===30){ // Mini giraffe: long neck, tiny horns and spotted coat.
+  pp([[25,12],[47,7],[50,2],[50,12],[30,24]],dark);
+  e(0,18,30,26,main);rr(-10,-58,20,70,10,main,dark);
+  e(0,-52,23,19,main);for(const d of [-1,1]){rr(d*12-4,-83,8,21,4,dark);e(d*12,-82,7,6,light);e(d*20,-50,8,10,light);}
+  for(const [x,y] of [[-19,11],[13,8],[-7,29],[3,-16],[0,-40]])e(x,y,6,8,dark);
+  for(const d of [-1,1]){rr(d*18-7,27,14,16,5,main);rr(d*18-8,39,16,6,3,dark);}
+  eye(-8,-55,true);eye(8,-55,true);e(0,-44,8,5,light);
+  return;
+ }
+ if(sp===32){ // Griffin: wide wings, pointed ears, beak and tufted tail.
+  pp([[26,15],[51,12],[48,-3],[59,-7],[57,25]],dark);
+  wing(-20,-1,-12);wing(20,1,-12);
+  e(0,11,34,31,main);e(0,-26,29,27,light);
+  for(const d of [-1,1])pp([[d*14,-44],[d*24,-64],[d*28,-31]],dark);
+  pp([[-9,-16],[0,-5],[12,-17],[0,-24]],'#ffcc6a');
+  boots();eye(-10,-30,true);eye(10,-30,true);return;
+ }
+ if(sp===36){ // Butterfly with double-layered stained-glass wings.
+  for(const d of [-1,1]){
+   e(d*33,-22,25+flap/2,34,dark);e(d*34,15,23+flap/2,23,dark);
+   e(d*31,-23,18,27,light);e(d*32,15,16,16,main);
+   e(d*39,-33,7,10,cream);e(d*39,11,6,7,cream);
+  }
+  rr(-13,-26,26,64,13,main,dark);e(0,-35,19,18,light);
+  for(const d of [-1,1]){c.strokeStyle=dark;c.lineWidth=3;c.beginPath();c.moveTo(d*6,-49);c.quadraticCurveTo(d*19,-74,d*27,-64);c.stroke();e(d*27,-64,5,5,main);}
+  eye(-7,-36);eye(7,-36);e(0,-26,4,2,ink);return;
+ }
+ if(sp===39){ // Phoenix with animated feather wings and long fiery tail.
+  for(const d of [-1,1]){
+   pp([[d*12,3],[d*30,18],[d*47,43],[d*33,18]],'#e77e48');
+   pp([[d*20,-31],[d*(44+flap),-51],[d*(56+flap),-14],[d*30,9]],dark);
+   pp([[d*24,-27],[d*(37+flap),-43],[d*(45+flap),-11],[d*25,4]],'#ffc46b');
+  }
+  e(0,8,29,34,main);e(0,-28,29,25,light);
+  for(let k=0;k<3;k++)pp([[k*7-10,-44],[k*6-18,-70],[k*8-4,-52]],'#ffd777');
+  pp([[-4,-17],[13,-11],[-4,-4]],'#f9b65a');
+  boots();eye(-9,-30,true);eye(9,-30,true);return;
+ }
+ if(sp===42){ // Snow yeti: shaggy rounded creature.
+  for(const d of [-1,1]){
+   for(let i=0;i<4;i++)e(d*27,-30+i*18,14,14,light);
+   e(d*23,36,17,12,dark);
+  }
+  e(0,7,38,39,light);e(0,-28,36,33,light);
+  for(let i=-2;i<=2;i++)pp([[i*11-5,-42],[i*11,-62],[i*11+9,-42]],main);
+  e(0,-15,25,20,main);eye(-11,-28,true);eye(11,-28,true);e(0,-11,9,6,dark);
+  return;
+ }
+ if(sp===45){ // Forest sprite has leaf-shaped wings and a leaf crown.
+  for(const d of [-1,1]){
+   pp([[d*7,-19],[d*(41+flap),-54],[d*36,-3],[d*10,14]],dark);
+   pp([[d*9,-18],[d*(35+flap),-44],[d*30,-4]],'#bff29c');
+  }
+  e(0,9,27,32,main);e(0,-29,27,26,light);
+  for(let i=-2;i<=2;i++)pp([[i*10-7,-46],[i*9,-72+Math.abs(i)*7],[i*10+8,-45]],dark);
+  for(const d of [-1,1])e(d*15,37,12,9,dark);
+  eye(-9,-32,true);eye(9,-32,true);e(0,-18,5,3,'#e88f7f');return;
+ }
+ if(sp===47){ // Peacock: large tail fan with eye spots.
+  for(let k=-4;k<=4;k++){
+   const a=-Math.PI/2+k*.25,x=Math.cos(a)*49,y=Math.sin(a)*39-3;
+   c.strokeStyle=dark;c.lineWidth=7;c.beginPath();c.moveTo(0,16);c.lineTo(x,y);c.stroke();
+   e(x,y,11,15,k%2?light:main);e(x,y,6,9,'#87e1c1');e(x,y,3,5,dark);
+  }
+  e(0,9,25,33,main);e(0,-27,25,26,light);
+  for(let d=-1;d<=1;d++){c.strokeStyle=dark;c.lineWidth=3;c.beginPath();c.moveTo(d*4,-48);c.lineTo(d*8,-65);c.stroke();e(d*8,-65,4,6,main);}
+  pp([[-3,-13],[11,-9],[-3,-6]],'#ffd26e');boots();eye(-7,-32);eye(8,-32);return;
+ }
+ // Human and humanoid characters, each with recognizable gear and shapes.
+ if(sp===35){ // Knight shield behind hand.
+  pp([[32,-4],[52,1],[48,30],[35,41],[22,30],[19,1]],dark);
+  pp([[35,1],[45,6],[43,27],[35,34],[27,27],[26,6]],light);
+ }
+ if(sp===41){wing(-18,-1,-13);wing(18,1,-13);} // Fairy
+ if(sp===46){ // Space ranger booster packs.
+  rr(-37,-14,15,47,6,dark);rr(21,-14,15,47,6,dark);
+  for(const d of [-1,1])pp([[d*28,26],[d*30,52],[d*38,28]],'#ffcd7c');
+ }
+ if(sp===38){rr(-31,-15,17,52,8,dark);} // Explorer's pack
+ person();
+ if(sp===31){ // Lumberjack plaid flannel, beard, axe.
+  for(let y=-8;y<28;y+=10)rr(-20,y,40,3,1,dark);
+  for(let x=-13;x<20;x+=13)rr(x,-8,3,35,1,'#fff2d0');
+  e(0,-20,16,13,dark);e(0,-19,10,6,cream);
+  rr(-25,-60,50,10,4,dark);rr(-16,-70,32,15,5,main);
+  rr(31,-10,4,49,1,'#9a6b4f');pp([[29,-18],[47,-26],[46,-5],[31,-2]],'#bac9da');
+ }
+ if(sp===33){ // Wizard robe, tall bent hat, glowing wand.
+  pp([[-27,32],[27,32],[38,47],[-38,47]],main);
+  for(let k=-1;k<=1;k++)e(k*13,-1,3,4,'#ffebaa');
+  pp([[-30,-52],[-2,-91],[21,-61],[17,-52]],dark);rr(-31,-57,62,11,4,main);
+  c.strokeStyle='#e9c48d';c.lineWidth=4;c.beginPath();c.moveTo(33,26);c.lineTo(45,-42);c.stroke();
+  e(45,-42,8,8,'#e7ffff');e(45,-42,4,4,main);
+ }
+ if(sp===34){ // Pirate: bicorne hat, eye patch and gold hook.
+  pp([[-32,-51],[-17,-68],[20,-69],[33,-51]],ink);rr(-36,-56,72,12,5,ink);
+  c.strokeStyle=dark;c.lineWidth=3;c.beginPath();c.moveTo(-19,-35);c.lineTo(9,-37);c.stroke();e(-8,-35,8,8,dark);
+  rr(-17,-6,34,24,5,main);rr(20,23,12,5,3,'#ffd989');e(32,28,6,9,'#ffd989');
+ }
+ if(sp===35){ // Steel helmet and visor.
+  rr(-25,-58,50,27,11,'#c1d3e0',dark);rr(-26,-36,52,11,4,dark);
+  rr(-20,-36,40,7,2,ink);for(let k=-1;k<=1;k++)rr(k*11-2,-36,5,8,1,'#d7e5ee');
+  pp([[-7,-57],[0,-72],[7,-57]],main);
+ }
+ if(sp===37){ // Chef apron, chef's hat, spatula.
+  rr(-18,-9,36,39,5,cream);rr(-13,3,26,16,4,light);
+  rr(-22,-56,44,16,6,'#fafafa');for(let d=-1;d<=1;d++)e(d*14,-61,12,13,'#fafafa');
+  rr(32,-28,4,57,2,'#d4dfe8');rr(24,-34,19,9,3,'#b1c4d1');
+ }
+ if(sp===38){ // Explorer tan hat and binoculars.
+  rr(-32,-54,64,9,4,dark);rr(-23,-68,46,20,8,main);
+  rr(-17,-5,34,38,5,'#c1b38a');rr(-18,-11,36,6,2,dark);
+  for(const d of [-1,1]){e(d*31,4,8,10,ink);e(d*31,3,4,5,blue);}
+ }
+ if(sp===40){ // Robot DJ: visor, equalizer, glowing headphones.
+  rr(-23,-55,46,42,10,'#c0d4ed',dark);rr(-20,-42,40,20,5,'#183049');
+  for(let i=0;i<5;i++)rr(-15+i*7,-33-(i%3)*3,5,7+(i%3)*3,1,'#7ef5e8');
+  for(const d of [-1,1])rr(d*27-7,-45,13,25,5,dark,light);
+  rr(-16,0,32,18,4,ink);for(let i=-1;i<=1;i++)rr(i*8-3,7,5,9,2,'#ffd778');
+ }
+ if(sp===41){ // Fairy dress, crown and star wand.
+  pp([[-20,4],[20,4],[33,43],[-33,43]],main);
+  pp([[-12,-54],[0,-70],[12,-54]],'#fff6c1');
+  c.strokeStyle=cream;c.lineWidth=4;c.beginPath();c.moveTo(33,25);c.lineTo(43,-32);c.stroke();
+  for(let i=0;i<5;i++){let a=i*Math.PI*2/5;let x=43+Math.sin(a)*12,y=-38+Math.cos(a)*12;e(x,y,3.5,3.5,'#fff69a');}
+ }
+ if(sp===43){ // Firefighter helmet with reflective turnout stripes.
+  rr(-25,-58,50,20,10,'#f2cc58',dark);rr(-31,-43,62,10,3,'#d7a335');
+  rr(-23,1,46,8,2,'#fff8ba');rr(-23,18,46,6,2,'#fff8ba');
+  rr(3,-61,14,10,3,'#fff8c6');
+ }
+ if(sp===44){ // Pilot with aviator goggles and fluttering scarf.
+  rr(-24,-57,48,19,9,dark);rr(-29,-38,58,9,3,'#f3d2a1');
+  for(const d of [-1,1]){rr(d*10-10,-44,19,11,5,ink);rr(d*10-8,-42,15,7,4,blue);}
+  pp([[20,-17],[42,-15],[57,-23],[40,-5]],'#ffe2a3');rr(-20,-4,40,8,3,cream);
+ }
+ if(sp===46){ // Space Ranger: full helmet, visor, wrist display.
+  e(0,-34,28,30,'#d4e4f2');e(0,-31,22,20,'#7ecbea');
+  rr(-22,-13,44,43,9,'#e8f2ff',dark);rr(-19,3,38,7,2,main);rr(23,14,11,11,3,'#8cf1cc');
+  rr(-13,-38,27,6,3,'#dbffff');
+ }
+ // Friendly faces remain visible on every human character.
+ if(sp!==40&&sp!==35&&sp!==46){eye(-8,-34);if(sp!==34)eye(8,-34);}
+ if(sp===31||sp===34)e(0,-17,4,2,ink);
+ // Accent belt or insignia for costumes that have no specific overlay.
+ if([31,34,35,37,38,43,44].includes(sp))rr(-20,14,40,5,2,dark);
+}
+
 function drawCreature(c,x,y,size,id,hop=0,shadow=true){const ch=creature(id),sp=ch.species,pa=ch.shade,[prefix,main,light,dark]=ch.colors;const sc=size/100;c.save();c.translate(x,y-hop);c.scale(sc,sc);if(shadow){c.save();c.globalAlpha=.23;ellipse(c,0,43+hop/sc*.3,31,8,'#09182a');c.restore();}
+ if(sp>=30){c.translate(0,7);c.scale(.82,.82);drawSpecialHopper(c,sp,pa,main,light,dark);c.restore();return;}
  // Species silhouettes: tails, wings, horns and ears, each with a characteristic profile.
  if([0,3,6,9,10,12,13].includes(sp)){ellipse(c,26,19,17,11,dark);if(sp===0)poly(c,[[23,6],[49,-5],[45,29]],main);if(sp===9)ellipse(c,0,15,40,32,dark);}
  if(sp===14){ellipse(c,-30,2,16,25,'#effff4');ellipse(c,30,2,16,25,'#effff4');}
@@ -806,6 +1119,13 @@ function pull(){if(shopBusy||save.coins<80||save.unlocked.length>=TOTAL){toast(s
  shopBusy=true;persist();refresh();renderShop();$('pullButton').textContent='Hatching...';$('pullButton').disabled=true;const machine=$('machine'),cap=$('capsule');machine.classList.add('shaking');cap.classList.remove('animate');void cap.offsetWidth;cap.classList.add('animate');playSfx('pull');
  setTimeout(()=>{machine.classList.remove('shaking');cap.classList.remove('animate');save.unlocked.push(result);save.unlocked.sort((a,b)=>a-b);persist();shopBusy=false;playCreature(result);const ch=creature(result),el=$('reveal');el.replaceChildren();const cv=document.createElement('canvas');cv.width=100;cv.height=100;drawCreature(cv.getContext('2d'),50,54,83,result,0,false);const d=document.createElement('div');d.innerHTML=`<strong>${escapeHTML(ch.name)}</strong><br><span class="rarity ${ch.rarity}">${ch.rarity} · NEW!</span><br><span class="tiny">Visit Collection to equip your new friend.</span>`;el.append(cv,d);refresh();renderShop();toast(`New character: ${ch.name}!`);spawnParticles(480,260,'#ffe0ad',30);},1320);
 }
+function equipRandom(){
+ const options=save.unlocked.filter(id=>id!==save.equipped);
+ if(!options.length){toast('Unlock another hopper to shuffle your character!');return;}
+ const next=pick(options);save.equipped=next;persist();playCreature(next);refresh();
+ if($('collectionModal').classList.contains('open'))renderCollection();
+ toast(`Random hopper: ${creature(next).name}!`);
+}
 function renderCollection(){const owned=new Set(save.unlocked),filter=$('collectionFilter').value,species=$('speciesFilter').value;let ids=Array.from({length:TOTAL},(_,i)=>i).filter(id=>(filter==='all'||(filter==='owned'?owned.has(id):!owned.has(id)))&&(species==='all'||Math.floor(id/12)===Number(species)));const pages=Math.max(1,Math.ceil(ids.length/24));page=clamp(page,0,pages-1);const wrap=$('collectionGrid');wrap.replaceChildren();for(const id of ids.slice(page*24,(page+1)*24)){const ch=creature(id),unlocked=owned.has(id),btn=document.createElement('button');btn.className='creaturetile'+(unlocked?'':' locked')+(id===save.equipped?' equipped':'');btn.title=unlocked?`Equip ${ch.name}`:`Locked ${ch.name}`;const cv=document.createElement('canvas');cv.width=100;cv.height=100;const c=cv.getContext('2d');if(unlocked){drawCreature(c,50,53,78,id,0,false);}else{drawCreature(c,50,53,78,id,0,false);c.fillStyle='#15223dcc';c.fillRect(0,0,100,100);c.fillStyle='#f1f6ff';c.font='900 31px "Trebuchet MS"';c.textAlign='center';c.fillText('?',50,65);}const sp=document.createElement('span');sp.textContent=unlocked?ch.name:'??? '+names[ch.species];btn.append(cv,sp);if(id===save.equipped){const eq=document.createElement('span');eq.textContent='✓ Equipped';eq.style.color='#c6ff8e';btn.append(eq);}if(unlocked)btn.addEventListener('click',()=>{save.equipped=id;persist();playCreature(id);refresh();renderCollection();toast(`${ch.name} equipped!`);});wrap.appendChild(btn);}
  $('pageInfo').textContent=`Page ${page+1} of ${pages} · ${ids.length} shown`;$('pagePrev').disabled=page===0;$('pageNext').disabled=page===pages-1;$('collectionStatus').textContent=`${save.unlocked.length} / ${TOTAL} unlocked`;
 }
@@ -814,7 +1134,7 @@ function init(){const dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=W*
  $('startButton').addEventListener('click',beginRun);$('retryButton').addEventListener('click',beginRun);$('menuButton').addEventListener('click',()=>{state.status='menu';$('endOverlay').classList.add('hidden');$('startOverlay').classList.remove('hidden');state.question=null;state.row=0;state.stage=0;state.score=0;state.combo=0;state.col=2;state.crash=null;state.floatX=null;state.worldCache=new Map();rows.clear();generatedUpTo=-1;lastTrainRow=-30;ensureRows(12);putPrompt();refresh();});
  document.querySelectorAll('.choicebtn').forEach(b=>b.addEventListener('click',()=>{if(state.status!=='playing'||state.paused||state.transition>0)return;const r=rows.get(state.row+1);if(!r?.q)return;const possible=XC.map((x,i)=>({i,tile:nearestWord(r,x,state.t+.42)})).filter(v=>v.tile?.opt===Number(b.dataset.lane));if(!possible.length){toast('That word is moving. Wait for a clear tile, then tap again.');return;}possible.sort((a,b)=>Math.abs(a.i-state.col)-Math.abs(b.i-state.col));state.col=possible[0].i;state.lane=state.col;updateChoiceBar();playSfx('slide');}));$('leftButton').addEventListener('click',()=>onMove(-1));$('rightButton').addEventListener('click',()=>onMove(1));$('forwardButton').addEventListener('click',onHop);$('pauseButton').addEventListener('click',pause);
  document.addEventListener('keydown',e=>{if(document.querySelector('.modal.open')||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();if(['arrowleft','arrowright','arrowup',' ','a','d','w'].includes(k)){e.preventDefault();if(k==='arrowleft'||k==='a')onMove(-1);if(k==='arrowright'||k==='d')onMove(1);if(k==='arrowup'||k==='w'||k===' ')onHop();}if(k==='p'||k==='escape')pause();});
- $('shopOpen').onclick=()=>modalOpen('shopModal');$('shopSidebar').onclick=()=>modalOpen('shopModal');$('collectionOpen').onclick=()=>modalOpen('collectionModal');$('chooseCharacter').onclick=()=>modalOpen('collectionModal');$('howButton').onclick=()=>modalOpen('helpModal');$('pullButton').onclick=pull;
+ $('shopOpen').onclick=()=>modalOpen('shopModal');$('shopSidebar').onclick=()=>modalOpen('shopModal');$('collectionOpen').onclick=()=>modalOpen('collectionModal');$('chooseCharacter').onclick=()=>modalOpen('collectionModal');$('randomHopper').onclick=equipRandom;$('randomCollection').onclick=equipRandom;$('howButton').onclick=()=>modalOpen('helpModal');$('pullButton').onclick=pull;
  document.querySelectorAll('[data-close]').forEach(el=>el.onclick=()=>closeModals());document.querySelectorAll('.modal').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeModals();}));
  $('muteButton').onclick=()=>{save.sound=!save.sound;persist();refresh();if(save.sound){unlockAudio();playCreature(save.equipped);}else toast('Sounds muted');};
  for(const [i,n] of names.entries()){const op=document.createElement('option');op.value=i;op.textContent=n;$('speciesFilter').append(op);}[$('collectionFilter'),$('speciesFilter')].forEach(el=>el.addEventListener('change',()=>{page=0;renderCollection();}));$('pagePrev').onclick=()=>{page--;renderCollection();};$('pageNext').onclick=()=>{page++;renderCollection();};
@@ -822,7 +1142,12 @@ function init(){const dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=W*
 }
 init();
 // Expose a small read-only test interface for classroom deployment checks.
-window.CrossyWordsDiagnostics={getStatus:()=>({status:state.status,crash:state.crash,characterBest:save.characterBests[save.equipped]||0,stage:state.stage,score:state.score,question:state.question&&{correct:state.question.correct,options:[...state.question.options],type:state.question.type},row:state.row,col:state.col,upcoming:rows.get(state.row+1)?.kind,landing:(rows.get(state.row+1)?.q ? nearestWord(rows.get(state.row+1),XC[state.col],state.t+.42)?.word || null : null),lane:state.lane,coins:save.coins,unlocked:save.unlocked.length,grade:state.grade,mode:state.mode}),getQuestionCount:()=>ALLQ.length,getWorld:()=>({name:world().name,style:world().style,night:world().night,worlds:worlds.length,characterCount:TOTAL}),getLanding:()=>landingPreview(rows.get(state.row+1),XC[state.col],state.t),inspectRow:(n)=>{const r=rows.get(n);return r?{id:r.id,kind:r.kind,carCount:r.carCount,train:r.kind==='train'?trainInfo(r,state.t):null}:null},setForTest:(row,col)=>{state.row=row;state.stage=row;state.col=col??2;state.floatX=null;state.transition=0;ensureRows(row+12);putPrompt();refresh();}};
+window.CrossyWordsDiagnostics={
+ getStatus:()=>({status:state.status,stage:state.stage,score:state.score,row:state.row,col:state.col,grade:state.grade,mode:state.mode}),
+ getQuestionCountsByGrade:()=>Object.fromEntries(['34','56','78','910','1112'].map(g=>[g,ALLQ.filter(q=>q.grade===g).length])),
+ getWorld:()=>({name:world().name,style:world().style,night:world().night,worlds:worlds.length,rowsPerWorld:WORLD_LENGTH,characterCount:TOTAL}),
+ getOwnedCount:()=>save.unlocked.length
+};
 })();
 </script>
 </body>

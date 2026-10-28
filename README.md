@@ -1,41 +1,41 @@
-# Crossy Words — New Worlds & Clearer Landings (v2.2)
+# Crossy Words — v2.3: Longer Worlds & New Hoppers
 
-A free, single-file classroom grammar arcade game for grades 5–8, based on a student idea. Run through a scrolling pseudo-3D voxel world, select correct moving word platforms, dodge cars and occasional trains, cross rivers on logs, and use earned coins to unlock collectible characters.
+A no-login, browser-based grammar arcade game for **grades 3–12**. It combines five-column hopping, moving word platforms, traffic, log crossings, occasional trains, a coin economy, and capsule unlocks.
 
-## What changed in v2.2
+## Install on GitHub Pages
 
-- **Fixed overlapping sprites:** Characters are rendered once, with their feet and shadow aligned. The old doubled character artwork could make faces and limbs appear distorted.
-- **Clearer hop destination:** A crosshair/ring sits on the *next row at the exact selected column*. A faint path connects the character to the intended landing spot. The marker predicts where a moving tile will be **when the hop finishes**. On small screens, a readable **Next Hop** status appears beneath the game board.
-- **Landing guide colors:** Cyan = a word platform; red = missing platform/open water; green = safe ground/log; gold = a moving hazard that requires timing. **Cyan does not mean the grammar answer is correct.** Students must still read the question carefully. Traffic can change after landing, so students must keep moving.
-- **12 map themes:** Sunny Meadow, City Streets, Punctuation Marsh, Snowy Summit, Neon Galaxy, Desert Dunes, Autumn Grove, Crystal Caves, Tropical Coast, Candy Valley, Bamboo Forest, and Volcanic Ridge. Each has distinct voxel scenery, such as city buildings, conifers, cacti, palm trees, glowing crystals, or bamboo. Worlds rotate after every 16 rows in a shuffled sequence.
-- **Day/night scenes:** Each map can appear in daytime or a nighttime variation. At night, the sky darkens, stars and glowing environmental accents appear, and a soft glow surrounds the player's character. All scenes are rendered with built-in Canvas graphics—no images are downloaded.
-- **360 collectible characters:** 12 new creature species—Deer, Panda, Slime, Bat, Cactus, Tiger, Octopus, Unicorn, Firefly, Astronaut, Hedgehog, and Jellyfish—have joined the existing 18 species. All 30 species have 12 palette variants and their own deterministic synthesized sounds.
+1. Create or open your existing `crossy-words` GitHub repository.
+2. Put `index.html` in the **repository root** (replace the old `index.html`).
+3. Optionally upload this `README.md`.
+4. In **Settings → Pages**, deploy from `main` and `/ (root)`.
+5. The site URL remains `https://jkramer-cloud.github.io/crossy-words/` if using that account and repository name. No Learning Hub URL change is needed.
 
-## Existing features retained
+## What's new in v2.3
 
-- **Two modes:** Timed Arcade with fatal hazards; untimed Practice with coaching and nonfatal hazard rows.
-- 98 curated grammar questions covering homophones, punctuation, verb tenses, agreement, parts of speech, and more, with different grade options.
-- Moving word tiles with gaps, roads with 8 vehicle classes, occasional warning-signaled trains, and logs on rivers.
-- Game-over snapshot, distance record, and personal best per equipped character.
-- Gacha-style capsule machine using **earned in-game coins only** (80 coins each), no duplicates, no purchases or ads.
-- Browser-local coins, unlocked characters, selected character, and scores. **Existing v1–v2.1 saves remain compatible on the same browser and origin.**
+- **48 rows per environment**, three times v2.2's 16 rows. A progress meter shows how far you have explored before the theme changes.
+- **16 map environments** (up from 12): four new themes are Cloud Kingdom, Coral Reef, Moon Base, and Clockwork Yard. Each environment can appear in daytime or with night effects and glowing props.
+- **576 character variations** across 48 types and 12 color styles. Newly added 18 character types include Mini Giraffe, Lumberjack, Griffin, Wizard, Pirate, Knight, Butterfly, Chef, Explorer, Phoenix, Robot DJ, Fairy, Snow Yeti, Firefighter, Pilot, Forest Sprite, Space Ranger, and Peacock. Wing and tail shapes are drawn into the procedural artwork.
+- **Random equip** selects a different *already unlocked* character without a coin cost. It works from the sidebar and the collection menu; it never grants a locked one.
+- **Five grade bands:** 3–4, 5–6, 7–8, 9–10, 11–12. The game includes 204 carefully written grammar questions and brief explanations. Questions are drawn mainly from the selected grade band, with occasional review of the immediately lower band.
+- **Grade-adjusted arcade timers:** the youngest students have more reading time, and older high-school levels allow time for more sophisticated questions. Practice mode remains untimed.
 
-## Controls
+## Core controls
 
-- **Left/Right arrows** or **A/D** move sideways among five columns.
-- **Up arrow**, **W**, **Space**, or the **HOP** button moves forward one row.
-- Tap an answer in the strip below the board to aim at an available matching tile, then press HOP when ready. A word button does **not** hop automatically.
-- The marker predicts the *surface* under the target location at touchdown. It does not reveal which word is grammatically correct.
-- Stop on safe rows to observe vehicles and railroad signals; avoid lingering on roads.
+- Left / A: move left
+- Right / D: move right
+- Up / W / Space: hop forward
+- Tap an option to line up with an available moving tile, then time the hop
+- Pause button pauses active gameplay
+- A colored landing ring and Next Hop label help identify the landing surface; they do not reveal the correct answer
 
-## GitHub Pages installation
+## Saved progress
 
-To update an existing `crossy-words` repository, upload this package's **`index.html`** to the repository root, replacing the existing `index.html` file. You can update `README.md` as well. The URL stays the same, so the Learning Hub card does not need an update.
+Progress, coins, character unlocks, equipped character, high scores, and preferences use the browser's local storage key `crossy_words_hopper_save_v1`. The updated game intentionally retains that key so existing local saves can carry over, provided students continue using the same browser and origin. Clearing site data, using another device, or private browsing can lose the save. **No student information is sent to a server.**
 
-For a new repository: create `crossy-words`, upload both files, and enable **Settings → Pages → Deploy from a branch → main → / (root)**.
+## What the physics checks mean
 
-## Technology and privacy
+This is a fast arcade game, not a formal grammar assessment. The built-in questions are authored locally. All roads, moving platforms, logs, and train hazards still use simplified arcade collision and movement rules. The same character collection works across all grade bands; cosmetic rarity doesn't provide an advantage.
 
-The entire app runs in standard HTML, CSS, Canvas 2D, and JavaScript. It uses no AI service, API key, third-party dependency, server, account, or tracking code. Character audio is synthesized in the browser and may be muted. Data is saved only in the local browser using `localStorage`; progress is not synced between devices or incognito sessions.
+## Development/testing
 
-The perspective view is **2.5D** (depth-rendered Canvas), not actual WebGL 3D. The extra animals are procedurally illustrated, not individual downloadable 3D models.
+Verified with Chromium automated checks for five grade choices, character counts and random equip, 48-row map boundaries, gallery rendering, basic gameplay initiation, and phone-width layout without horizontal overflow. Browser audio may require an initial click due to autoplay restrictions.
