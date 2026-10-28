@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#111c34" />
+<title>Crossy Words 2.1 — Voxel Grammar Crossings</title>
+<style>
+:root{--bg:#0d1528;--panel:#16223c;--panel2:#1c2b47;--border:#344661;--white:#f5f8ff;--muted:#adbfdb;--lime:#b9fa79;--yellow:#ffd76d;--pink:#ff91b6;--aqua:#7de8e3;--danger:#ff6881;--focus:#d2f5ff}
+*{box-sizing:border-box}body{margin:0;color:var(--white);background:radial-gradient(circle at 70% -10%,#2e345b 0,#151e37 42%,#0b1426 80%);font-family:'Trebuchet MS',system-ui,sans-serif;min-height:100vh}button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:2px}header{max-width:1490px;margin:auto;padding:20px 25px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:12px}.brandmark{width:45px;height:45px;display:grid;place-items:center;background:linear-gradient(140deg,#fdcf65,#ff8ca0);border:3px solid #fff4d1;border-radius:14px;transform:rotate(-6deg);font-family:'Trebuchet MS';font-size:27px;color:#27314b;box-shadow:0 5px 0 #ba5369}.brandname{font-family:'Trebuchet MS';font-size:26px;font-weight:800;line-height:1}.subhead{font-size:12px;color:var(--muted);font-weight:800;letter-spacing:.11em;text-transform:uppercase}.headerbuttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.coins{background:#29344b;border:1px solid #5d5263;border-radius:14px;padding:8px 14px;color:#ffe28c;font-weight:900;display:flex;align-items:center;gap:7px}.coinicon{background:#f5c558;color:#67450a;border:2px solid #fff0ab;border-radius:50%;width:22px;height:22px;text-align:center;line-height:18px;font-size:13px}.btn{padding:10px 16px;border-radius:12px;border:1px solid #4c607e;background:#2a3a59;color:#f5f7ff;font-weight:900;transition:transform .12s,background .12s}.btn:hover{transform:translateY(-2px);background:#384c6e}.btn.primary{background:#bdfc7f;border-color:#e0ffb3;color:#182b30;box-shadow:0 4px 0 #5a995d}.btn.primary:hover{background:#d0ffa0}.btn.rose{background:#fe91b0;border-color:#ffc0d2;color:#35233c;box-shadow:0 4px 0 #ad5473}.btn.small{font-size:13px;padding:8px 11px}.btn.flat{background:#1a2944;border:1px solid #344661}.app{max-width:1490px;margin:auto;padding:0 25px 45px}.hero{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:8px 0 17px}.hero h1{font-family:'Trebuchet MS';font-size:clamp(33px,4.4vw,54px);line-height:1.07;margin:0;letter-spacing:-1.5px}.hero h1 span{color:#f7d86e}.hero p{margin:6px 0 0;color:#b7c9e7;font-size:14px;max-width:700px}.pill{display:inline-block;padding:7px 11px;background:#283751;border:1px solid #425776;color:#cfdbf6;border-radius:100px;font-size:12px;font-weight:900;white-space:nowrap}.grid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:18px;align-items:start}.gamepanel,.card{background:linear-gradient(160deg,#1b2a45,#14203a);border:1px solid #354967;box-shadow:0 11px 30px #0004;border-radius:21px;overflow:hidden}.statusbar{padding:14px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:#1d2c49}.status-left,.status-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.counter{font-weight:900;font-size:14px;color:#f1f6ff}.counter b{font-family:'Trebuchet MS';font-size:19px;color:#fff}.counter .gold{color:#ffdf83}.line{width:1px;height:26px;background:#4a5e7d}.timer{width:125px;height:10px;background:#324462;border-radius:99px;overflow:hidden;border:1px solid #586d86}.timer div{height:100%;width:100%;background:linear-gradient(90deg,#ffd86f,#bdfc7f);transition:width .1s linear}.timer.low div{background:#ff7b93}.prompt{padding:17px 22px 16px;min-height:116px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(110deg,#223753,#1b2a47);border-top:1px solid #405470;border-bottom:2px solid #3d536b}.prompttop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}.prompttag{font-size:12px;letter-spacing:.1em;font-weight:900;text-transform:uppercase;color:#80e6d8}.leveltag{color:#ddc5f5;font-size:12px;font-weight:900}.question{font-family:'Trebuchet MS';font-size:clamp(22px,2.5vw,30px);line-height:1.3;font-weight:700;min-height:36px}.promptnote{font-size:12px;color:#a6bcd7;margin-top:4px}.boardwrap{position:relative;background:#1b3050;overflow:hidden}.boardwrap canvas{display:block;width:100%;aspect-ratio:960/540;touch-action:none}.board-overlay{position:absolute;inset:0;background:linear-gradient(130deg,#10203bda,#122946e8);display:flex;align-items:center;justify-content:center;padding:20px;z-index:4}.board-overlay.hidden{display:none}.startbox{background:#172742eb;border:1px solid #7993a7;border-radius:22px;text-align:center;padding:25px 27px;max-width:515px;box-shadow:0 12px 44px #0007}.starticon{font-size:50px;line-height:1.2}.startbox h2{font-family:'Trebuchet MS';font-size:38px;line-height:1;margin:6px 0 7px}.startbox p{color:#d3dff4;font-size:14px;margin:5px 0 18px}.settingrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.fieldlabel{display:block;font-size:11px;letter-spacing:.1em;font-weight:900;text-transform:uppercase;text-align:left;color:#a8bfdc;margin-bottom:5px}select{width:100%;padding:11px;color:#fff;background:#263c5d;border:1px solid #6180a3;border-radius:11px;font-weight:900}.menunote{font-size:11px;color:#b8c9e0;margin-top:10px}.end-title{color:#ffe58f}.summaryscore{font-family:'Trebuchet MS';font-size:45px;color:#bdfc7f;margin:8px 0;line-height:1}.answerbox{background:#2b3756;border:1px solid #577194;border-radius:12px;padding:10px;font-size:13px;margin:12px 0;color:#e2efff}.answerbox strong{color:#bdfc7f}.choicebar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:10px;background:#14223c}.choicebtn{min-width:0;min-height:57px;border:2px solid #4c6386;border-radius:10px;background:#263b58;color:#ecf7ff;font-weight:900;overflow-wrap:anywhere;line-height:1.2;padding:7px}.choicebtn.chosen{background:#3d5b5c;border-color:#ffeb9b;box-shadow:inset 0 0 0 1px #ffe8a1}.choicebtn span{display:block;color:#a9bedc;font-size:10px;margin-bottom:3px}.controlrow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:12px 16px;background:#111c33}.controlrow .hint{font-size:12px;color:#abc0de;font-weight:800}.keys{display:flex;gap:8px;align-items:center}.key{min-width:62px;height:46px;border-radius:12px;border:2px solid #536987;border-bottom:5px solid #425571;background:#324766;color:#fff;font-size:19px;font-weight:900;box-shadow:0 2px 7px #0005}.key:active{transform:translateY(3px);border-bottom-width:2px}.key.forward{background:#c6f78f;border-color:#e5ffba;border-bottom-color:#76a45c;color:#1c4030;min-width:88px}.sidebar{display:flex;flex-direction:column;gap:15px}.card{padding:17px}.card h3{font:800 19px 'Trebuchet MS';margin:0 0 7px}.tiny{color:#b0c2df;font-size:12px;line-height:1.5}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0}.stat{background:#233653;border:1px solid #395477;border-radius:13px;padding:11px}.stat strong{font:800 27px 'Trebuchet MS';line-height:1;color:#f9d982;display:block}.stat span{color:#b4c6e0;font-size:11px;font-weight:900}.spritecard{display:flex;align-items:center;gap:12px;background:#273b59;border-radius:14px;padding:10px;margin:11px 0}.spritecard canvas{width:72px;height:72px;flex-shrink:0;background:#374b6e;border-radius:12px}.spritecard b{font-size:15px}.spritecard p{font-size:11px;color:#b8cee9;margin:3px 0}.progressbar{height:10px;background:#2c4566;overflow:hidden;border-radius:99px;margin:9px 0}.progressbar>div{background:linear-gradient(90deg,#7ae2d7,#bafb84);height:100%;width:1%;border-radius:99px}.tip{padding:10px 12px;background:#29354e;border-left:3px solid #ffdc8a;border-radius:9px;margin:9px 0;font-size:12px;color:#cbd9ec}.minilist{padding-left:17px;color:#b8cbe5;font-size:13px;line-height:1.75;margin:6px 0}.footer{text-align:center;color:#7792b5;font-size:11px;padding:4px 0 24px}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,40px);opacity:0;pointer-events:none;border:1px solid #78d2ca;padding:12px 20px;color:#fff;background:#223e53;box-shadow:0 12px 24px #0008;z-index:20;border-radius:13px;font-weight:900;transition:opacity .25s,transform .25s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#060e1bdc;z-index:12;align-items:center;justify-content:center;padding:22px}.modal.open{display:flex}.modalbox{background:linear-gradient(145deg,#233551,#17233b);border:2px solid #617b9e;border-radius:24px;box-shadow:0 30px 90px #000b;width:min(800px,100%);max-height:92vh;overflow-y:auto;padding:24px}.modalhead{display:flex;justify-content:space-between;align-items:start;gap:15px}.modalhead h2{font:800 33px 'Trebuchet MS';margin:0}.modalhead p{margin:2px 0 10px;color:#b9cbe5;font-size:13px}.closer{background:#354a67;color:#fff;border:1px solid #607a9b;border-radius:11px;padding:7px 12px;font-size:20px;line-height:1}.shoprow{display:grid;grid-template-columns:minmax(185px,1fr) minmax(0,1.1fr);gap:25px;align-items:center}.machine{height:310px;max-width:280px;margin:0 auto;position:relative;display:flex;align-items:center;flex-direction:column;justify-content:end;padding-bottom:17px}.machine-top{height:170px;width:210px;background:radial-gradient(circle at 35% 35%,#a9edff77,#5185c566 50%,#294c8b99 80%);border:8px solid #8dd3ee;border-bottom:6px solid #355786;border-radius:110px 110px 24px 24px;position:absolute;top:10px;overflow:hidden;box-shadow:inset 0 11px 12px #fff5,0 11px 0 #182c50}.ballcluster{position:absolute;inset:0}.smallball{position:absolute;width:52px;height:52px;border-radius:50%;border:3px solid #fff8;box-shadow:inset 0 -8px 0 #0003,0 4px 4px #0004}.machine-body{height:159px;width:237px;border:7px solid #ffc8ab;border-bottom:11px solid #b85875;border-radius:27px;background:linear-gradient(#fa91a9,#df6f91);position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 9px 0 #a44564}.machine-window{height:59px;width:91px;background:#273653;border:5px solid #a8436c;border-radius:13px;display:grid;place-items:center;font-size:25px;box-shadow:inset 0 6px 8px #0009}.machine-knob{width:46px;height:46px;position:absolute;right:19px;top:47px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#ffedbe,#e7a856);border:6px solid #89496b;box-shadow:0 3px 0 #653450}.machine-foot{position:absolute;bottom:2px;width:267px;height:23px;background:#b95879;border:5px solid #ffc3a9;border-radius:13px;z-index:3}.machine.shaking{animation:shake .13s linear infinite}.capsule{position:absolute;top:55px;left:50%;transform:translateX(-50%) scale(.5);opacity:0;width:100px;height:100px;background:linear-gradient(#ff77a8 0 48%,#fff 48% 53%,#ffdc79 53%);border:6px solid #fff2c1;border-radius:50%;box-shadow:inset 0 5px 0 #fff5,0 10px 18px #0005;z-index:5}.capsule.animate{animation:capDrop 1.18s cubic-bezier(.23,.64,.22,1) forwards}.shopdetails h3{font:800 25px 'Trebuchet MS';margin:0 0 7px}.shopdetails p{font-size:14px;color:#c2d4eb;line-height:1.5}.shopprice{display:inline-block;border-radius:12px;padding:10px 15px;color:#ffe58e;background:#303c57;font-weight:900;margin:8px 0 12px}.reveal{min-height:94px;border:1px dashed #768cae;border-radius:13px;padding:10px;display:flex;align-items:center;gap:12px;background:#283a57;margin:13px 0}.reveal canvas{width:75px;height:75px}.reveal strong{font-size:19px}.rarity{font-size:12px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}.rarity.common{color:#cbd6ed}.rarity.rare{color:#75e1fe}.rarity.epic{color:#dba3ff}.rarity.legendary{color:#ffe08e}.collectiongrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:15px 0}.creaturetile{background:#293c58;border:1px solid #4b6687;color:#f3f7ff;border-radius:12px;display:flex;align-items:center;flex-direction:column;gap:4px;padding:8px 4px;font-size:11px;font-weight:900;min-width:0}.creaturetile canvas{width:100%;max-width:86px;aspect-ratio:1}.creaturetile span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}.creaturetile.locked{opacity:.4;filter:grayscale(1)}.creaturetile.equipped{border-color:#c4ff89;box-shadow:inset 0 0 0 2px #c4ff8955}.pagecontrols{display:flex;align-items:center;justify-content:space-between;gap:10px}.filterrow{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.legenddot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}.badgerow{display:flex;gap:9px;flex-wrap:wrap;margin:13px 0}.notice{padding:10px;border-radius:11px;border:1px solid #536e89;background:#263750;font-size:12px;color:#b8cde6;margin-top:8px}@keyframes shake{0%{transform:translateX(2px) rotate(1deg)}50%{transform:translateX(-3px) rotate(-1deg)}100%{transform:translateX(2px) rotate(1deg)}}@keyframes capDrop{0%{top:70px;opacity:0;transform:translateX(-50%) scale(.5) rotate(-40deg)}30%{opacity:1}60%{top:220px;transform:translateX(-50%) scale(1.05) rotate(45deg)}77%{top:176px}100%{top:222px;opacity:1;transform:translateX(-50%) scale(1.2) rotate(-10deg)}}@media(max-width:1080px){.grid{grid-template-columns:minmax(0,1fr)}.sidebar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:700px){.choicebar{display:grid}header{padding:13px 14px;align-items:flex-start}.brandname{font-size:19px}.brandmark{width:37px;height:37px;font-size:21px}.headerbuttons{justify-content:flex-end}.headerbuttons .btn{padding:7px 9px;font-size:12px}.coins{padding:6px 9px;font-size:12px}.app{padding:0 10px 20px}.hero{margin:3px 3px 11px;align-items:start}.hero h1{font-size:34px}.hero p{font-size:12px}.hero .pill{display:none}.statusbar{padding:10px;gap:7px}.status-left,.status-right{gap:7px}.counter{font-size:11px}.counter b{font-size:15px}.line{height:20px}.timer{width:85px}.prompt{padding:12px;min-height:115px}.question{font-size:21px}.gamepanel{border-radius:15px}.controlrow{padding:10px;justify-content:center}.controlrow .hint{width:100%;text-align:center}.key{min-width:74px;height:51px}.key.forward{min-width:102px}.sidebar{grid-template-columns:1fr}.card{padding:14px}.modal{padding:8px}.modalbox{padding:15px;border-radius:17px}.shoprow{grid-template-columns:1fr;gap:5px}.machine{transform:scale(.78);height:265px;margin:-20px auto -18px}.collectiongrid{grid-template-columns:repeat(4,minmax(0,1fr))}.startbox{padding:16px;max-width:98%}.startbox h2{font-size:29px}.startbox p{margin-bottom:10px}.settingrow{gap:6px;margin:9px 0}select{padding:8px}.btn.primary{font-size:14px}.board-overlay{padding:8px}}@media(max-width:410px){.brandname{font-size:17px}.headerbuttons{gap:5px}.hero h1{font-size:30px}.controlrow .hint{font-size:11px}.key{min-width:61px}.key.forward{min-width:85px}.starticon{font-size:30px}.startbox{padding:12px}.startbox h2{font-size:25px}.startbox p{font-size:12px}.startbox .menunote{font-size:10px}}
+.resultsbox{width:min(100%,490px);max-height:98%;overflow:auto;padding:13px 18px 16px}.result-head{display:flex;align-items:center;justify-content:center;gap:13px}.result-head .starticon{font-size:30px}.resultsbox h2{font-size:27px;margin:0}.resultsbox p{margin:3px 0 6px}.crash-snapshot{display:block;width:100%;height:auto;aspect-ratio:960/380;object-fit:contain;object-position:center;border:3px solid #94a6c5;border-radius:11px;background:#21334d;margin:7px 0}.results-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.results-stats>div{background:#253c59;border:1px solid #526f94;border-radius:9px;padding:7px 4px}.results-stats strong{display:block;font-size:23px;color:#c9ff92}.results-stats span{display:block;color:#bfcee4;font-size:9px;font-weight:900}.result-score{font-size:12px;font-weight:900;color:#ffdf88;margin:6px 0 9px}.new-record{color:#243c24;background:#c7ff85;border-radius:9px;font-weight:1000;padding:5px 8px;margin-top:6px}.new-record[hidden]{display:none}.resultsbox .answerbox{margin:5px 0;font-size:11px;padding:6px}.resultsbox .btn{padding:8px 11px;font-size:12px}@media(max-width:600px){.board-overlay{padding:7px}.resultsbox{padding:8px 10px;max-width:95%}.resultsbox h2{font-size:21px}.crash-snapshot{height:auto;margin:5px 0}.board-overlay#endOverlay{position:fixed;inset:0;z-index:40;overflow-y:auto;align-items:center;background:#071429ed;padding:12px}.resultsbox{max-height:min(92dvh,700px);overflow-y:auto;width:min(100%,460px)}.results-stats strong{font-size:17px}.results-stats span{font-size:8px}.result-head .starticon{font-size:21px}}
+
+.landingreadout{background:#1c2d4b;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:9px 12px;border-top:1px solid #385076;color:#e7f8ff;font-weight:900;font-size:13px;min-height:40px}.landingreadout strong{letter-spacing:.02em}.landingdot{background:#74ffdd;border:2px solid #f8ffff99;border-radius:50%;width:13px;height:13px;box-shadow:0 0 13px #74ffdd66}.landinglegend{color:#adc5e4;font-size:10px;font-weight:800;letter-spacing:.04em}@media(max-width:650px){.landingreadout{gap:6px;padding:8px 6px}.landingreadout strong{font-size:12px}.landinglegend{width:100%;text-align:center;font-size:9px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="brandmark" aria-hidden="true">W</div><div><div class="brandname">Crossy Words</div><div class="subhead">Grammar Hop Adventure</div></div></div>
+  <div class="headerbuttons"><div class="coins" title="Your earned coins"><span class="coinicon">★</span><span id="coinTop">150</span></div><button class="btn small" id="shopOpen">◉ Capsule Shop</button><button class="btn small flat" id="collectionOpen">▦ Collection</button><button class="btn small flat" id="muteButton" aria-pressed="false" aria-label="Toggle sound">♪ Sound On</button></div>
+</header>
+<main class="app">
+<div class="hero"><div><h1>Hop smart. <span>Go far.</span></h1><p>Explore 12 worlds with day and night scenes, follow the landing ring, dodge traffic, and hatch collectible creatures.</p></div><span class="pill">Grades 5–8 · 360 characters</span></div>
+<div class="grid">
+  <section class="gamepanel" aria-label="Crossy Words game">
+    <div class="statusbar"><div class="status-left"><span class="counter">STEPS <b id="stepsUI">0</b></span><span class="line"></span><span class="counter">SCORE <b id="scoreUI">0</b></span><span class="line"></span><span class="counter">COMBO <b class="gold" id="comboUI">×0</b></span></div><div class="status-right"><span class="counter" id="worldLabel">☀️ Sunny Meadow</span><span class="line"></span><div id="timerbar" class="timer" aria-label="Time remaining"><div id="timerfill"></div></div><span id="timeUI" class="counter">—</span></div></div>
+    <div class="prompt"><div class="prompttop"><span id="topicUI" class="prompttag">WELCOME, WORD HOPPER</span><span id="levelUI" class="leveltag">GRADE 5–6 · ARCADE</span></div><div class="question" id="questionUI" aria-live="polite">Ready to cross the grammar universe?</div><div class="promptnote" id="promptNote">Move sideways through five columns. Follow the landing ring and time each moving word crossing to complete the sentence.</div></div>
+    <div class="boardwrap" id="boardwrap"><canvas id="gameCanvas" width="960" height="540" aria-label="Perspective-scrolling grammar crossings with five hopping columns. Move using the arrows or buttons." role="img"></canvas>
+      <div class="board-overlay" id="startOverlay"><div class="startbox"><div class="starticon" aria-hidden="true">🐸 ✨ 📚</div><h2>Choose your adventure!</h2><p>Explore 12 changing voxel worlds in daytime or glowing night. Follow the landing ring, time word tiles, avoid traffic, and unlock characters!</p><div class="settingrow"><label><span class="fieldlabel">Your grade level</span><select id="gradeSelect"><option value="56">Grades 5–6</option><option value="78">Grades 7–8</option></select></label><label><span class="fieldlabel">Game mode</span><select id="modeSelect"><option value="arcade">Arcade · timed</option><option value="practice">Practice · no timer</option></select></label></div><button id="startButton" class="btn primary" style="width:100%;padding:13px">▶ Start Hopping!</button><div class="menunote">Arrow keys / WASD / on-screen controls. No account or internet required.</div></div></div>
+      <div class="board-overlay hidden" id="endOverlay"><div class="startbox resultsbox"><div class="result-head"><div class="starticon" id="endIcon">💫</div><div><h2 class="end-title" id="endTitle">Run Over!</h2><p id="endMessage">Nice try!</p></div></div><img id="crashSnapshot" class="crash-snapshot" alt="Picture of the game world at the moment your character was hit or fell"/><div class="results-stats"><div><strong id="endDistance">0</strong><span>ROWS TRAVELED</span></div><div><strong id="endBest">0</strong><span>YOUR BEST</span></div><div><strong id="endCharacterBest">0</strong><span>THIS CHARACTER</span></div></div><div id="endNewBest" class="new-record" hidden>★ NEW DISTANCE RECORD!</div><div id="endScore" class="result-score">0 points</div><div id="endAnswer" class="answerbox" style="display:none"></div><div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap"><button class="btn primary" id="retryButton">↻ Hop Again</button><button class="btn" id="menuButton">Change Mode</button></div></div></div>
+    </div>
+    <div class="choicebar" id="choicebar" aria-label="Words to watch for on moving platforms"><button class="choicebtn" data-lane="0"><span>OPTION 1</span><b id="choice0">—</b></button><button class="choicebtn chosen" data-lane="1"><span>OPTION 2</span><b id="choice1">—</b></button><button class="choicebtn" data-lane="2"><span>OPTION 3</span><b id="choice2">—</b></button></div>
+    <div class="landingreadout" id="landingReadout" role="status" aria-live="off"><span class="landingdot" id="landingDot"></span><strong id="landingStatus">NEXT HOP: SAFE TERRAIN</strong><span class="landinglegend">CYAN PLATFORM · RED GAP · GOLD TIMING · GREEN GROUND</span></div><div class="controlrow"><span class="hint" id="controlHint">← → move across five columns · ↑ / W / Space hop forward · Watch the moving tiles!</span><div class="keys"><button class="key" id="leftButton" aria-label="Move left">←</button><button class="key forward" id="forwardButton" aria-label="Hop forward">↑ HOP</button><button class="key" id="rightButton" aria-label="Move right">→</button></div><button class="btn small flat" id="pauseButton">Ⅱ Pause</button></div>
+  </section>
+  <aside class="sidebar">
+    <section class="card"><h3>🏆 Your Adventure</h3><div class="statgrid"><div class="stat"><strong id="highScoreUI">0</strong><span>BEST SCORE</span></div><div class="stat"><strong id="bestStepsUI">0</strong><span>BEST ROW</span></div><div class="stat"><strong id="totalCorrectUI">0</strong><span>CORRECT HOPS</span></div><div class="stat"><strong id="collectionCountUI">3/360</strong><span>CHARACTERS</span></div></div><div class="tiny">Grammar crossings earn coins. Safe rows and traffic make every run feel like a real arcade crossing.</div><button class="btn rose" id="shopSidebar" style="width:100%;margin-top:12px">◉ Visit the Capsule Shop</button></section>
+    <section class="card"><h3>🦊 Your Hopper</h3><div class="spritecard"><canvas width="100" height="100" id="equippedCanvas"></canvas><div><b id="equippedName">Ember Frog</b><p id="equippedRarity">Common · ready to hop</p><button class="btn small flat" id="chooseCharacter">Change Character</button></div></div><div class="tiny">Next environment starts at row <b id="nextWorldUI">10</b>.</div><div class="progressbar"><div id="worldProgress"></div></div></section>
+    <section class="card"><h3>🎓 Word Coach</h3><div class="tiny" id="coachText">Look for the correct word on the circulating tiles, then hop when it is under your landing marker.</div><div class="tip" id="topicTip">Focus on the sentence's meaning and grammar clues before hopping.</div><div class="tiny">★ +12 coins per correct grammar answer (streak bonuses)<br>★ 80 coins per capsule · all 360 are earnable</div><button class="btn small flat" id="howButton" style="margin-top:10px">How to Play</button></section>
+  </aside>
+</div>
+<div class="footer">Crossy Words · Original classroom grammar game · Progress saved on this device only · No logins, trackers, or AI services</div>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="shopModal" role="dialog" aria-modal="true" aria-labelledby="shopTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="shopTitle">The Capsule Arcade</h2><p>Spend coins. Hatch a random new companion. Collect every color and creature!</p></div><button class="closer" data-close="shopModal" aria-label="Close shop">×</button></div><div class="shoprow"><div class="machine" id="machine"><div class="machine-top"><div class="ballcluster" id="ballcluster"></div></div><div class="machine-body"><div class="machine-window">★</div><div class="machine-knob"></div></div><div class="machine-foot"></div><div class="capsule" id="capsule"></div></div><div class="shopdetails"><h3>One mystery capsule</h3><p>Each capsule awards a <b>new</b> character you don't own yet. Rarity changes how often characters appear, not how well they play.</p><div class="shopprice">★ 80 COINS · Balance: <span id="shopCoins">150</span></div><br><button class="btn rose" id="pullButton" style="width:100%;padding:13px">◉ Hatch a Character!</button><div id="reveal" class="reveal"><span style="font-size:35px">🎁</span><div><strong>Mystery awaits!</strong><div class="tiny">Your first capsule is almost ready.</div></div></div><div class="tiny">No real-money purchases. No duplicates. All coins are earned in-game.</div></div></div></div></div>
+<div class="modal" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="collectionTitle">Hopper Collection</h2><p>360 original character combinations, each with a unique sound signature.</p></div><button class="closer" data-close="collectionModal" aria-label="Close collection">×</button></div><div class="badgerow"><span class="pill" id="collectionStatus">3 / 360 unlocked</span><span class="pill">Tap an unlocked character to equip and hear its sound</span></div><div class="filterrow"><label class="tiny" for="collectionFilter">Show:</label><select id="collectionFilter" style="max-width:190px"><option value="all">All characters</option><option value="owned">Unlocked only</option><option value="locked">Locked only</option></select><label class="tiny" for="speciesFilter">Creature:</label><select id="speciesFilter" style="max-width:190px"><option value="all">All creatures</option></select></div><div id="collectionGrid" class="collectiongrid"></div><div class="pagecontrols"><button class="btn small flat" id="pagePrev">← Previous</button><span id="pageInfo" class="tiny">Page 1</span><button class="btn small flat" id="pageNext">Next →</button></div></div></div>
+<div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="modalbox" style="max-width:560px"><div class="modalhead"><div><h2 id="helpTitle">How to Play</h2><p>Learn first. Hop second. Collect everything.</p></div><button class="closer" data-close="helpModal" aria-label="Close instructions">×</button></div><ol class="minilist" style="font-size:15px"><li><b>Read</b> the upcoming incomplete sentence at the top.</li><li><b>Move left and right</b> across five columns, then <b>hop forward</b> one row at a time.</li><li><b>Safe rows</b> give you room to travel and prepare.</li><li><b>Grammar crossings</b> have moving word tiles and gaps. Time your hop to land on the correct word. The ground ring and Next Hop readout show exactly where you will land. Cyan marks a word platform, red an empty gap, gold a timing hazard, and green safe ground.</li><li><b>Roads and rivers</b> have moving vehicles and logs. Hop across safely.</li><li><b>Punctuation crossings</b> sometimes use floating word logs.</li><li><b>Earn coins</b> for correct hops and combo streaks.</li><li><b>Visit the Capsule Shop</b> to unlock random characters.</li></ol><div class="notice"><b>Arcade:</b> Incorrect answers, obstacles, or running out of time end the run.<br><b>Practice:</b> No timer; grammar mistakes give coaching and let you try again. Practice mode disables fatal traffic hazards.</div><button data-close="helpModal" class="btn primary" style="width:100%;margin-top:15px">Got It</button></div></div>
+<script>
+'use strict';
+(()=>{
+const $=(id)=>document.getElementById(id);
+const W=960,H=540,canvas=$('gameCanvas'),ctx=canvas.getContext('2d');
+const names=['Fox','Cat','Frog','Bunny','Owl','Robot','Duck','Bear','Penguin','Turtle','Dragon','Ghost','Raccoon','Axolotl','Bee','Crab','Koala','Mushroom','Deer','Panda','Slime','Bat','Cactus','Tiger','Octopus','Unicorn','Firefly','Astronaut','Hedgehog','Jellyfish'];
+const palettes=[['Ember','#ff995a','#ffe9ad','#d55f54'],['Mint','#65ddab','#d4fff0','#38a4a2'],['Sky','#83b8fa','#e7eeff','#5476cb'],['Berry','#e494dd','#ffdcf7','#ac67b2'],['Honey','#ffd26c','#fff7cd','#d18c4d'],['Coral','#ff9d99','#ffe5d0','#e8778a'],['Lilac','#af97f5','#efdeff','#7963c4'],['Moss','#95bf77','#f0ffd5','#648859'],['Frost','#a6e8e9','#f4feff','#69a8bf'],['Peach','#ffb99b','#fff0d8','#df8586'],['Midnight','#7a8bbf','#dae3fa','#49568a'],['Nova','#e9adff','#ffe69e','#aa59dd']];
+const rarityList=['common','common','common','common','common','common','rare','rare','epic','rare','epic','legendary'];
+const TOTAL=names.length*palettes.length,store='crossy_words_hopper_save_v1';
+function creature(id){const species=Math.floor(id/12),shade=id%12;return {id,species,shade,name:`${palettes[shade][0]} ${names[species]}`,rarity:rarityList[shade],colors:palettes[shade]};}
+const defaultSave={coins:150,unlocked:[0,12,24],equipped:24,highScore:0,bestSteps:0,totalCorrect:0,characterBests:{},sound:true,grade:'56',mode:'arcade'};
+let save;
+try{const old=JSON.parse(localStorage.getItem(store)||'null')||{};save={...defaultSave,...old};save.unlocked=[...new Set((Array.isArray(save.unlocked)?save.unlocked:defaultSave.unlocked).filter(n=>Number.isInteger(n)&&n>=0&&n<TOTAL).concat(defaultSave.unlocked))];if(!save.unlocked.includes(save.equipped))save.equipped=24;save.coins=Math.max(0,Number(save.coins)||0);if(!save.characterBests || typeof save.characterBests!=='object' || Array.isArray(save.characterBests))save.characterBests={};}catch(e){save={...defaultSave};}
+function persist(){try{localStorage.setItem(store,JSON.stringify(save));}catch(e){}}
+function rand(n){return Math.floor(Math.random()*n);}const pick=a=>a[rand(a.length)];const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const ALLQ=[];const add=(type,grade,prompt,correct,wrong1,wrong2,why)=>ALLQ.push({type,grade,prompt,correct,options:[correct,wrong1,wrong2],why});
+// Curated grammar items: every entry has precisely one correct answer in its stated context.
+add('Verb Tenses','56','Yesterday, Maya ___ to the library.','walked','walks','walking','"Yesterday" tells you to use the past tense: walked.');
+add('Verb Tenses','56','Right now, the dog is ___ in the grass.','rolling','rolled','roll','Use the -ing form after "is" to show an action happening right now.');
+add('Verb Tenses','56','Last weekend, we ___ a tree in the yard.','planted','plant','plants','"Last weekend" signals a completed past action.');
+add('Verb Tenses','56','Tomorrow, Sam will ___ a new book.','read','reads','reading','After "will," use the base form of a verb.');
+add('Verb Tenses','56','Every morning, Ava ___ her backpack.','packs','pack','packing','A singular subject needs "packs" in the simple present.');
+add('Verb Tenses','56','Two days ago, the frog ___ into the pond.','jumped','jump','jumping','"Two days ago" indicates the past tense.');
+add('Verb Tenses','56','The students are ___ their notebooks now.','opening','opened','opens','"Are" plus -ing describes an action in progress.');
+add('Verb Tenses','56','Each night, the owl ___ in the old tree.','sleeps','sleep','sleeping','"The owl" is singular, so use "sleeps."');
+add('Verb Tenses','56','Next month, our class will ___ the museum.','visit','visited','visits','After "will," the verb stays in its base form.');
+add('Verb Tenses','56','Last night, the stars ___ brightly.','shone','shines','shining','"Shone" is the past tense of "shine."');
+add('Homophones','56','The twins packed ___ lunches before school.','their','there',"they're",'"Their" shows that the lunches belong to the twins.');
+add('Homophones','56','Put the box over ___ by the window.','there','their',"they're",'"There" refers to a place.');
+add('Homophones','56','___ going to meet us at the park.',"They're",'Their','There','"They\'re" is short for "they are."');
+add('Homophones','56','I have ___ pencils in my desk.','two','too','to','"Two" is the number 2.');
+add('Homophones','56','It is ___ cold to swim today.','too','to','two','"Too" can mean excessively or more than enough.');
+add('Homophones','56','We went ___ the park after lunch.','to','two','too','"To" expresses a direction or destination.');
+add('Homophones','56','Is this ___ notebook?','your',"you're",'yore','"Your" shows ownership.');
+add('Homophones','56',"___ the fastest runner in our group.","You're",'Your','Yore','"You\'re" means "you are."');
+add('Homophones','56','Can you ___ the music from outside?','hear','here','hair','"Hear" means to perceive sound.');
+add('Homophones','56','Please put your shoes right ___.','here','hear','hair','"Here" identifies a location.');
+add('Homophones','56','The puppy wagged ___ tail.','its',"it's",'its\'','"Its" shows possession.');
+add('Homophones','56',"___ raining outside right now.","It's",'Its',"Its'",'"It\'s" means "it is."');
+add('Homophones','56','I would rather draw ___ paint.','than','then','them','Use "than" to compare two choices.');
+add('Homophones','56','Finish your homework, and ___ you can play.','then','than','them','"Then" means afterward or next.');
+add('Agreement','56','My friends ___ ready to play.','are','is','am','The plural subject "friends" takes "are."');
+add('Agreement','56','The bird ___ on the fence each day.','sits','sit','sitting','The singular bird takes "sits" in the present tense.');
+add('Agreement','56','Both soccer teams ___ practicing now.','are','is','was','"Both teams" is plural, so use "are."');
+add('Agreement','56','One of the puppies ___ very sleepy.','is','are','be','"One" is the singular subject, so use "is."');
+add('Agreement','56','The books on the table ___ heavy.','are','is','be','"Books" is plural, even with extra words after it.');
+add('Agreement','56','Each student ___ a pencil today.','has','have','having','"Each student" is singular and takes "has."');
+add('Parts of Speech','56','Choose the ADVERB: The rabbit moved ___.','quickly','quick','quicker','"Quickly" tells how the rabbit moved: it is an adverb.');
+add('Parts of Speech','56','Choose the ADJECTIVE: The ___ puppy barked.','playful','playfully','play','"Playful" describes a noun (puppy).');
+add('Parts of Speech','56','Choose the NOUN: We heard a ___ in the forest.','bird','chirped','softly','"Bird" names a living thing: it is a noun.');
+add('Parts of Speech','56','Choose the VERB: The children ___ across the field.','raced','racingly','raceway','"Raced" expresses an action.');
+add('Parts of Speech','56','Choose the ADJECTIVE: A ___ storm arrived.','powerful','powerfully','power','"Powerful" describes the storm.');
+add('Parts of Speech','56','Choose the ADVERB: The crowd cheered ___.','loudly','loud','loudness','"Loudly" describes how the crowd cheered.');
+add('Parts of Speech','56','Choose the NOUN: I placed the ___ on the shelf.','trophy','carefully','shine','"Trophy" is a thing, making it a noun.');
+add('Parts of Speech','56','Choose the VERB: The kitten ___ under the table.','hid','hiddenness','hidingly','"Hid" describes what the kitten did.');
+add('Punctuation','56','We bought apples___ oranges, and pears. Choose the punctuation.',',',';',':','Use a comma between items in a simple list.');
+add('Punctuation','56','Where is my notebook___ Choose the punctuation.','?','!','.', 'A direct question ends with a question mark.');
+add('Punctuation','56','Watch out___ Choose the punctuation.','!','?',',','An exclamation mark shows strong feeling or urgency.');
+add('Punctuation','56','We finished our work___ Choose the punctuation.','.','?',',','A statement normally ends with a period.');
+add('Punctuation','56','After the rain___ we saw a rainbow.',',',';',':','Place a comma after this introductory phrase.');
+add('Punctuation','56','Yes___ I finished the homework.',',',';',':','Use a comma after the introductory word "Yes."');
+add('Capitalization','56','Choose the correct spelling of this day.','Wednesday','wednesday','WEDnesday','Days of the week begin with capital letters.');
+add('Capitalization','56','Choose the correctly capitalized month.','February','february','FebRUary','Months begin with capital letters.');
+add('Capitalization','56','Choose the correctly capitalized state.','Washington','washington','WasHington','Proper names of states begin with a capital letter.');
+add('Capitalization','56','Choose the correctly capitalized holiday.','Thanksgiving','thanksgiving','ThanksGiving','The name of a holiday begins with a capital letter.');
+// Grades 7–8 pool: advanced skills, plus access to all earlier skills for review.
+add('Homophones','78','Please ___ my apology for being late.','accept','except','expect','"Accept" means to receive or agree to something.');
+add('Homophones','78','All the players ___ Jordan arrived early.','except','accept','expect','"Except" means excluding.');
+add('Homophones','78','The storm may ___ our travel plans.','affect','effect','infect','"Affect" is usually a verb meaning to influence.');
+add('Homophones','78','The new rule had an immediate ___ on attendance.','effect','affect','effort','"Effect" is a noun referring to a result.');
+add('Homophones','78','The school ___ spoke at the assembly.','principal','principle','principel','"Principal" is the head of a school.');
+add('Homophones','78','Honesty is an important ___.','principle','principal','principel','"Principle" means a rule or belief.');
+add('Homophones','78','The parked bus remained ___ for an hour.','stationary','stationery','stationeryy','"Stationary" means not moving.');
+add('Homophones','78','The teacher ordered new writing ___.','stationery','stationary','stationar','"Stationery" refers to writing materials.');
+add('Homophones','78','Do you know ___ jacket this is?','whose',"who's",'whos','"Whose" asks about ownership.');
+add('Homophones','78',"Can you tell me ___ speaking next?","who's",'whose','whos','"Who\'s" means "who is."');
+add('Homophones','78','The artist received a kind ___ on the mural.','compliment','complement','complimant','"Compliment" is an expression of praise.');
+add('Homophones','78','The bright scarf will ___ your jacket.','complement','compliment','complemint','"Complement" means to go well with or complete.');
+add('Verb Tenses','78','By the time the guests arrived, we had ___ dinner.','prepared','prepare','preparing','After "had," the past participle "prepared" forms the past perfect.');
+add('Verb Tenses','78','If she ___ more carefully, she would notice the clue.','looked','looks','looking','This hypothetical conditional uses "looked."');
+add('Verb Tenses','78','By tomorrow, the team will have ___ the model.','finished','finish','finishing','Future perfect uses "will have" + past participle.');
+add('Verb Tenses','78','The evidence has ___ a new question.','raised','raise','raising','Present perfect uses "has" + past participle.');
+add('Agreement','78','Neither of the two solutions ___ correct.','is','are','be','"Neither" is singular in this sentence.');
+add('Agreement','78','The collection of rare books ___ valuable.','is','are','were','The subject is the singular noun "collection."');
+add('Agreement','78','Each of the volunteers ___ a badge.','wears','wear','wearing','"Each" is singular and takes "wears."');
+add('Agreement','78','The players, along with their coach, ___ early.','arrive','arrives','arriving','The subject "players" is plural; the extra phrase does not change it.');
+add('Agreement','78','The list of ingredients ___ on the counter.','is','are','be','The subject "list" is singular.');
+add('Agreement','78','Several of the windows ___ broken.','are','is','be','"Several" is plural in this sentence.');
+add('Punctuation','78','The storm was intense___ however, we continued.',';','.,',',','A semicolon can join closely related clauses before "however."');
+add('Punctuation','78','I brought three tools___ a compass, a ruler, and a map.',':',',',';','A colon introduces the list after a complete clause.');
+add('Punctuation','78','The final decision was clear___ we would leave at dawn.',':',',','?','A colon can introduce an explanation of the first clause.');
+add('Punctuation','78','The performance ended___ the crowd applauded.',';','?',',','A semicolon correctly joins two related independent clauses.');
+add('Punctuation','78','The plan, ___ seemed risky, was approved.','which','who','whom','"Which" introduces extra information about a thing (the plan).');
+add('Punctuation','78','Before the debate began___ the speakers reviewed their notes.',',',';',':','Add a comma after an introductory dependent clause.');
+add('Parts of Speech','78','Choose the CONJUNCTION: I studied ___ I was tired.','although','unlessly','tiredly','"Although" introduces a contrasting dependent clause.');
+add('Parts of Speech','78','Choose the PREPOSITION: The letter was hidden ___ the drawer.','beneath','beneathly','beneathness','"Beneath" shows the relationship between the letter and drawer.');
+add('Parts of Speech','78','Choose the ABSTRACT NOUN: Her ___ inspired the team.','courage','bravely','courageously','"Courage" names an idea or quality.');
+add('Parts of Speech','78','Choose the ADVERB: The committee responded ___.','thoughtfully','thoughtful','thought','"Thoughtfully" modifies the verb "responded."');
+add('Parts of Speech','78','Choose the ADJECTIVE: The author offered a ___ explanation.','convincing','convincingly','convince','"Convincing" describes the noun "explanation."');
+add('Parts of Speech','78','Choose the VERB: The witnesses ___ the event.','described','description','descriptive','"Described" is the action performed by the witnesses.');
+add('Parallel Structure','78','Choose the parallel series: She enjoys hiking, biking, and ___.','swimming','to swim','swam','Keep every item in the series in the same -ing form.');
+add('Parallel Structure','78','He wanted to investigate, to question, and to ___.','discover','discovered','discovering','Match the infinitive pattern: to investigate, to question, to discover.');
+add('Parallel Structure','78','The class planned, drafted, and ___ its essays.','revised','revising','to revise','Keep a consistent past-tense verb series.');
+add('Parallel Structure','78','Our goals are to learn, to practice, and to ___.','improve','improving','improved','Use the same infinitive form for each goal.');
+add('Sentence Structure','78','Choose the word that best joins the contrast: It rained, ___ the game continued.','but','because','so','"But" signals a contrast: the game continued despite the rain.');
+add('Sentence Structure','78','Choose the transition showing cause: The bridge was icy; ___, the road closed.','therefore','however','meanwhile','"Therefore" indicates a result or consequence.');
+add('Sentence Structure','78','Choose the transition showing contrast: The plan sounded simple; ___, it was difficult.','however','therefore','similarly','"However" signals a contrast between expectation and reality.');
+add('Sentence Structure','78','Choose the transition showing sequence: We mixed the ingredients; ___, we baked them.','next','although','instead','"Next" indicates the next action in a sequence.');
+add('Sentence Structure','78','Choose the transition adding information: The plan saves time; ___, it reduces waste.','furthermore','nevertheless','instead','"Furthermore" adds another supporting point.');
+add('Sentence Structure','78','Choose the strongest complete sentence.','The athlete trained every morning.','Because the athlete trained every morning.','Training every morning.','Only the first choice forms a complete independent clause.');
+add('Sentence Structure','78','Choose the complete sentence.','The hikers reached the summit at noon.','While the hikers reached the summit.','After reaching the summit.','A complete sentence includes an independent clause.');
+// A little more variety in the easier pool.
+add('Punctuation','56','Mom asked___ "Are you ready?"',',',';',':','A comma can introduce a short direct quotation after a speech tag.');
+add('Agreement','56','The pair of gloves ___ in the closet.','is','are','be','The singular subject "pair" takes "is."');
+add('Parts of Speech','56','Choose the PRONOUN: ___ found the missing key.','She','Quickly','Bright','"She" replaces a person\'s name, so it is a pronoun.');
+add('Homophones','56','The wind ___ the leaves across the street.','blew','blue','blow','"Blew" is the past tense of "blow."');
+add('Homophones','56','The sky turned a deep shade of ___.','blue','blew','blow','"Blue" is a color.');
+// Configuration, saved stats and scene state.
+// Twelve original map types; every map can also appear in a glowing night variant.
+const worlds=[
+{name:'Sunny Meadow',icon:'☀️',style:'meadow',sky:'#a5d8ff',ground:'#88cd80',dark:'#59a977',road:'#637b8b',pad:'#ffe5a1',edge:'#b7794d',flora:'#fff4b8'},
+{name:'City Streets',icon:'🏙️',style:'city',sky:'#b4d7f9',ground:'#8396b2',dark:'#5c7191',road:'#425775',pad:'#d6c5af',edge:'#667b9e',flora:'#ffdc91'},
+{name:'Punctuation Marsh',icon:'🌿',style:'marsh',sky:'#8bcabf',ground:'#6caa8a',dark:'#3c806d',road:'#4f8897',pad:'#ba986d',edge:'#806242',flora:'#d7ffe3'},
+{name:'Snowy Summit',icon:'❄️',style:'snow',sky:'#b4e3f9',ground:'#d6e5e8',dark:'#a0c9d9',road:'#7892b5',pad:'#efe4d2',edge:'#8eacbf',flora:'#ffffff'},
+{name:'Neon Galaxy',icon:'🌌',style:'galaxy',sky:'#7970b4',ground:'#685f9c',dark:'#3c3972',road:'#4a3e82',pad:'#9a8be1',edge:'#5f5ac0',flora:'#f38dfd'},
+{name:'Desert Dunes',icon:'🌵',style:'desert',sky:'#93d8f4',ground:'#efd18c',dark:'#d8a761',road:'#a58b77',pad:'#e7bd84',edge:'#a16d4c',flora:'#fff2ad'},
+{name:'Autumn Grove',icon:'🍁',style:'autumn',sky:'#c7dffc',ground:'#b8bc6a',dark:'#768e54',road:'#7a7779',pad:'#f6dbac',edge:'#a36f51',flora:'#ffb65b'},
+{name:'Crystal Caves',icon:'💎',style:'crystal',sky:'#9e9de0',ground:'#7b83aa',dark:'#4c538d',road:'#4d5c85',pad:'#dfc7fb',edge:'#7560ae',flora:'#86fcf5'},
+{name:'Tropical Coast',icon:'🌴',style:'tropical',sky:'#9cdaff',ground:'#c5dfa0',dark:'#5ca996',road:'#5183a0',pad:'#ffe5bd',edge:'#bda172',flora:'#ffc58f'},
+{name:'Candy Valley',icon:'🍬',style:'candy',sky:'#e2cbf7',ground:'#e9b6d4',dark:'#a880c7',road:'#9c8fbc',pad:'#fff0cb',edge:'#d287ba',flora:'#fff0a8'},
+{name:'Bamboo Forest',icon:'🎋',style:'bamboo',sky:'#bce9bb',ground:'#88ca90',dark:'#428e77',road:'#658c7a',pad:'#d6e5aa',edge:'#758b5c',flora:'#c9fcca'},
+{name:'Volcanic Ridge',icon:'🌋',style:'volcano',sky:'#e9a684',ground:'#8a7775',dark:'#514a59',road:'#555266',pad:'#d7a28a',edge:'#975a55',flora:'#ffb66c'}
+];
+const WORLD_LENGTH=16;
+const NIGHT_SKY={meadow:'#182f54',city:'#151b36',marsh:'#152b43',snow:'#21365c',galaxy:'#120d37',desert:'#202a57',autumn:'#342b46',crystal:'#171d47',tropical:'#112d48',candy:'#312452',bamboo:'#132e36',volcano:'#241b36'};
+let state={status:'menu',row:0,col:2,lane:1,stage:0,score:0,combo:0,answered:0,question:null,time:27,limit:27,mode:save.mode,grade:save.grade,transition:0,badFlash:0,paused:false,particles:[],t:0,shake:0,questionHistory:[],crash:null,floatX:null,trainWarnAt:-1},raf=0,lastFrame=0,toastTimeout,shopBusy=false,page=0;
+function refresh(){
+ $('coinTop').textContent=Math.floor(save.coins);$('shopCoins').textContent=Math.floor(save.coins);
+ $('stepsUI').textContent=state.stage;$('scoreUI').textContent=state.score;$('comboUI').textContent='×'+state.combo;
+ $('highScoreUI').textContent=save.highScore;$('bestStepsUI').textContent=save.bestSteps;$('totalCorrectUI').textContent=save.totalCorrect;
+ $('collectionCountUI').textContent=`${save.unlocked.length}/${TOTAL}`;$('collectionStatus').textContent=`${save.unlocked.length}/${TOTAL} unlocked`;
+ $('equippedName').textContent=creature(save.equipped).name;$('equippedRarity').textContent=creature(save.equipped).rarity+' · equipped';
+ $('nextWorldUI').textContent=(Math.floor(state.row/WORLD_LENGTH)+1)*WORLD_LENGTH;
+ $('worldProgress').style.width=`${Math.floor(state.row%WORLD_LENGTH/WORLD_LENGTH*100)}%`;
+ $('worldLabel').textContent=`${world().icon} ${world().name}`;
+ $('levelUI').textContent=`GRADES ${state.grade==='56'?'5–6':'7–8'} · ${state.mode.toUpperCase()}`;
+ $('timerbar').style.opacity=state.mode==='practice'?'0.35':'1';$('timeUI').textContent=state.mode==='practice'?'∞':Math.ceil(state.time)+'s';
+ $('timerfill').style.width=(state.mode==='practice'?100:clamp(state.time/state.limit*100,0,100))+'%';$('timerbar').classList.toggle('low',state.time<6);
+ $('muteButton').textContent=save.sound?'♪ Sound On':'♪ Sound Off';$('muteButton').setAttribute('aria-pressed',String(!save.sound));
+ renderEquipped();
+}
+// V2: perspective-scrolling world, continuous forward rows, moving grammar tiles,
+// traffic and natural scenery. Rendered in Canvas 2D with voxel-style depth.
+const XC=[-2,-1,0,1,2];
+let rows=new Map(), generatedUpTo=-1, answerBank=[];
+const sequence=[0,1,null,2,null,0,2,null,1,2,null,1,0,null,2];
+const dist=(a,b)=>Math.abs(a-b);
+function hash(n){const t=Math.sin(n*152.37+78.5)*43758.5453;return t-Math.floor(t);}
+function worldOrder(){const a=worlds.map((_,i)=>i);for(let i=a.length-1;i>0;i--){const j=rand(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+function worldAt(step){
+ const chapter=Math.floor(Math.max(0,step)/WORLD_LENGTH);
+ const cache=state.worldCache || (state.worldCache=new Map());
+ if(cache.has(chapter))return cache.get(chapter);
+ const order=state.worldOrder||worlds.map((_,i)=>i),base=worlds[order[chapter%order.length]];
+ const night=hash((state.worldSeed||345)+chapter*17.3)>.49;
+ const w=night?{...base,night:true,icon:'🌙',name:`${base.name} at Night`,sky:NIGHT_SKY[base.style],ground:shade(base.ground,.35),dark:shade(base.dark,.46),road:shade(base.road,.55),flora:base.flora}:{...base,night:false};
+ cache.set(chapter,w);return w;
+}
+function world(){return worldAt(state.row || 0)}
+function makeQuestion(){
+ const opts=ALLQ.filter(q=>state.grade==='78'||q.grade==='56');
+ let pool=opts.filter(q=>!state.questionHistory.includes(ALLQ.indexOf(q)));
+ if(!pool.length){state.questionHistory=state.questionHistory.slice(-9);pool=opts.filter(q=>!state.questionHistory.includes(ALLQ.indexOf(q)));}
+ const q=pick(pool);const options=[...q.options];for(let i=options.length-1;i>0;i--){const j=rand(i+1);[options[i],options[j]]=[options[j],options[i]];}
+ state.questionHistory.push(ALLQ.indexOf(q));if(state.questionHistory.length>20)state.questionHistory.shift();
+ return {...q,options,correctIndex:options.indexOf(q.correct)};
+}
+let lastTrainRow=-30;
+function createRow(i){
+ const phase=i%9;let kind;
+ if(i===0)kind='safe';
+ else if(phase===3 || phase===7)kind='grammar';
+ else if(phase===2 || phase===6)kind='road';
+ else if(phase===5 && (Math.floor(i/9)%2===1))kind='river';
+ else kind='safe';
+ // Rare train rows replace ordinary traffic rows, with spacing to prevent unfair clusters.
+ if(kind==='road' && i>13 && i-lastTrainRow>=18 && hash(i*139+7)>.86){kind='train';lastTrainRow=i;}
+ const q=kind==='grammar'?makeQuestion():null;
+ if(kind==='grammar'&&q.type==='Punctuation')kind='grammarRiver';
+ return {id:i,kind,q,offset:hash(i+33)*5.7,dir:(hash(i+3)>.5?1:-1),speed:.37+hash(i+76)*.18,carSpeed:.85+Math.min(1.35,i*.012)+hash(i+10)*.36,carCount:2+(hash(i+14)>.45?1:0),trainSpeed:8.7+hash(i+17)*2.2,trainLength:7.2+hash(i+25)*1.3,trainOffset:hash(i*8+5)*9.5,decorSeed:hash(i+345)};
+}
+function ensureRows(through){while(generatedUpTo<through){generatedUpTo++;rows.set(generatedUpTo,createRow(generatedUpTo));}for(const k of rows.keys()){if(k<(state.row||0)-4)rows.delete(k);}}
+function nextQuiz(){for(let i=state.row+1;i<=state.row+10;i++){const r=rows.get(i);if(r?.q)return r;}return null}
+function currentQuestion(){return nextQuiz()?.q || null}
+function putPrompt(){
+ const upcoming=nextQuiz();state.question=upcoming?.q||null;
+ if(!upcoming){$('topicUI').textContent='GRAMMAR HOPPER';$('questionUI').textContent='Cross the next path!';return;}
+ const distance=upcoming.id-state.row;
+ $('topicUI').textContent=state.question.type.toUpperCase()+` · CROSSING IN ${distance} ROW${distance===1?'':'S'}`;
+ $('questionUI').textContent=state.question.prompt;
+ $('promptNote').textContent=distance===1?'Word tiles move along the crossing. Stand under a correct tile and time your hop.':`Keep hopping through the scenery. ${distance} rows until your next word crossing.`;
+ const hints={Homophones:'Use the sentence context: words that sound alike may have different meanings.',Punctuation:'Match the punctuation to how the clauses or ideas connect.',Agreement:'Find the actual subject; singular and plural subjects use different verb forms.','Parts of Speech':'Look for the role a word plays in the sentence.','Verb Tenses':'Look for clues about when the action happened.','Parallel Structure':'Keep a list of actions or ideas in matching grammatical forms.','Sentence Structure':'Read the entire sentence and consider how its ideas connect.'};
+ $('topicTip').textContent=hints[state.question.type]||'Read the question carefully and use context clues.';
+ state.question.options.forEach((v,i)=>{$('choice'+i).textContent=v;});
+ for(const b of document.querySelectorAll('.choicebtn'))b.classList.remove('chosen');
+}
+function nearestWord(row,x,t){
+ const tiles=wordTiles(row,t);let best=null;
+ for(const tile of tiles){const d=dist(tile.x,x);if(d<.61 && (!best || d<best.distance)){best={...tile,distance:d};}}
+ return best;
+}
+function wordTiles(row,t){
+ const tiles=[];const period=sequence.length*1.16, shift=(t*row.speed*row.dir+row.offset)%period;
+ for(let n=-sequence.length*2;n<sequence.length*2;n++){
+  const idx=((n%sequence.length)+sequence.length)%sequence.length;
+  const opt=sequence[idx];if(opt===null)continue;
+  const x=n*1.16 + shift - 2.1;
+  if(x>=-4.15&&x<=4.15)tiles.push({x,opt,word:row.q.options[opt]});
+ }
+ return tiles;
+}
+const VEHICLES=[
+ {type:'compact',half:.42,height:.47}, {type:'sedan',half:.54,height:.52}, {type:'pickup',half:.68,height:.58},
+ {type:'taxi',half:.57,height:.54}, {type:'van',half:.78,height:.75}, {type:'bus',half:1.04,height:.84},
+ {type:'delivery',half:.86,height:.79}, {type:'sport',half:.48,height:.39}
+];
+function carInfo(row,t,i){
+ const type=VEHICLES[(row.id*11+i*7+Math.floor(hash(row.id+i*5)*8))%VEHICLES.length];
+ const speed=row.carSpeed*(.86+hash(row.id*16+i*31)*.29);
+ const stride=5.9;
+ const initial=row.offset*2+i*stride;
+ const pos=((row.dir*t*speed+initial+1600)%19)-9.5;
+ return {...type,x:pos,dir:row.dir,speed,i};
+}
+function obstacleX(row,t,i){return carInfo(row,t,i).x}
+function trainInfo(row,t){
+ const cycle=12.8+hash(row.id*44)*2.2;
+ const phase=(t+row.trainOffset)%cycle;
+ const warn=phase>=.25 && phase<3.2;
+ const progress=Math.max(0,phase-3.2);
+ const nose=-13+progress*row.trainSpeed;
+ const front=row.dir===1?nose:-nose;
+ return {phase,warn,active:phase>=3.2 && phase<3.2+(28+row.trainLength)/row.trainSpeed,nose:front,back:front-row.dir*row.trainLength,dir:row.dir};
+}
+function collision(row,x,t){
+ if(!row||state.mode!=='arcade')return null;
+ if(row.kind==='road'){
+  for(let i=0;i<row.carCount;i++){const v=carInfo(row,t,i);if(Math.abs(v.x-x)<v.half+.31)return 'hazard';}
+ }else if(row.kind==='train'){
+  const tr=trainInfo(row,t);
+  if(tr.active && x>=Math.min(tr.nose,tr.back)-.22 && x<=Math.max(tr.nose,tr.back)+.22)return 'train';
+ }else if(row.kind==='river'){
+  if(!logPositions(row,t).some(p=>Math.abs(p-x)<.73))return 'water';
+ }
+ return null;
+}
+
+function logPositions(row,t){return [0,1,2,3,4].map(i=>{const x=((row.dir*(t*.49)+row.offset+i*2.6+66)%13)-6.5;return x}).filter(x=>Math.abs(x)<4.3)}
+function beginRun(){
+ unlockAudio();closeModals();rows.clear();generatedUpTo=-1;lastTrainRow=-30;
+ state={...state,status:'playing',worldOrder:worldOrder(),worldSeed:Math.random()*50000,worldCache:new Map(),row:0,col:2,lane:1,stage:0,score:0,combo:0,answered:0,time:27,limit:27,mode:$('modeSelect').value,grade:$('gradeSelect').value,transition:0,badFlash:0,paused:false,particles:[],t:0,shake:0,questionHistory:[],question:null,crash:null,floatX:null,trainWarnAt:-1};
+ save.mode=state.mode;save.grade=state.grade;persist();
+ $('startOverlay').classList.add('hidden');$('endOverlay').classList.add('hidden');$('pauseButton').textContent='Ⅱ Pause';
+ ensureRows(13);putPrompt();refresh();updateLandingReadout();toast('Cross safe rows, time your word tiles, and avoid traffic!');
+}
+function updateLandingReadout(){
+ const row=rows.get(state.row+1),landing=landingPreview(row,XC[state.col],state.t);
+ const labels={safe:'SAFE GROUND',tile:'WORD PLATFORM',gap:landing.label==='WATER'?'OPEN WATER':'EMPTY GAP',log:'FLOATING LOG',danger:'MOVING HAZARD',traffic:row?.kind==='train'?'TRAIN TRACKS':'TRAFFIC ROW'};
+ const heading='NEXT HOP: '+(labels[landing.kind]||landing.label);
+ if($('landingStatus').textContent!==heading)$('landingStatus').textContent=heading;
+ const dot=$('landingDot');if(dot.style.backgroundColor!==landing.color)dot.style.background=landing.color;
+}
+function updateChoiceBar(){
+ const row=rows.get(state.row+1),tile=row?.q?nearestWord(row,XC[state.col],state.t+.42):null;
+ document.querySelectorAll('.choicebtn').forEach((b,i)=>{b.classList.toggle('chosen',tile?.opt===i);b.setAttribute('aria-pressed',String(tile?.opt===i));});
+}
+function onMove(dir){
+ if(state.status!=='playing'||state.paused||state.transition>0)return;
+ const next=clamp(state.col+dir,0,4);if(next===state.col)return;
+ state.col=next;state.lane=next;if(rows.get(state.row)?.kind==='river')state.floatX=XC[next];updateChoiceBar();playSfx('slide');
+}
+function onHop(){
+ if(state.status!=='playing'||state.paused||state.transition>0)return;
+ unlockAudio();ensureRows(state.row+11);
+ const r=rows.get(state.row+1),x=XC[state.col];
+ if(!r)return;
+ if(r.q){
+  const tile=nearestWord(r,x,state.t+.42);
+  if(!tile){if(state.mode==='practice'){toast('No word tile there yet. Wait for a platform!');$('coachText').textContent='Wait for a word tile under the ground landing ring.';playSfx('slide');return;}return endGame('gap',null,r.id);}
+  if(tile.word!==r.q.correct){if(state.mode==='practice'){
+   state.badFlash=.6;state.combo=0;playSfx('wrong');$('coachText').textContent='Try again: '+r.q.why;toast('Not quite. '+r.q.why);return;
+  }return endGame('wrong',r.q,r.id);}
+  state.combo++;state.answered++;const earned=12+Math.min(18,Math.floor(state.combo/4)*3);
+  state.score+=10+Math.min(10,state.combo-1);save.coins+=earned;save.totalCorrect++;save.highScore=Math.max(save.highScore,state.score);
+  playSfx('correct');playCreature(save.equipped,.08);spawnParticles(480,349,'#d7ff90',17);
+  $('coachText').textContent=`Correct! ${r.q.why} +${earned} coins.`;
+ }else state.score+=1;
+ // Hazards are checked when the hop actually lands, and every frame while standing on a danger row.
+ state.transition=.42;state.nextRow=r.id;
+ save.highScore=Math.max(save.highScore,state.score);persist();refresh();
+}
+function completeHop(){
+ state.row=state.nextRow;state.stage=state.row;state.transition=0;state.shake=0;
+ const row=rows.get(state.row);
+ if(row?.kind==='river')state.floatX=XC[state.col];else state.floatX=null;
+ const hit=collision(row,state.floatX??XC[state.col],state.t);
+ if(hit){endGame(hit,null,state.row);return;}
+ const prev=worldAt(Math.max(0,state.row-1));ensureRows(state.row+12);
+ state.limit=Math.max(15,27-Math.floor(state.answered/6)*1.2);state.time=state.limit;
+ save.bestSteps=Math.max(save.bestSteps,state.row);persist();
+ putPrompt();updateChoiceBar();refresh();
+ if(world()!==prev){toast(`${world().icon} New world: ${world().name}!`);playSfx('world');spawnParticles(480,260,'#ffe6b0',30);}
+}
+function endGame(reason,question=null,hitRow=state.row){
+ if(state.status==='ended')return;
+ const oldBest=save.bestSteps||0, oldCharBest=Number(save.characterBests?.[save.equipped])||0;
+ state.status='ended';state.paused=false;state.transition=0;state.crash={row:hitRow,x:state.floatX??XC[state.col],reason};state.shake=0;state.badFlash=0;
+ const traveled=Math.max(state.row,hitRow);save.bestSteps=Math.max(save.bestSteps,traveled);save.highScore=Math.max(save.highScore,state.score);
+ save.characterBests[save.equipped]=Math.max(oldCharBest,traveled);persist();refresh();
+ const info={wrong:['Grammar Slip!','That word does not complete the sentence.'],gap:['Missed the Platform!','You hopped into a gap between moving word tiles.'],hazard:['Car Crash!','A vehicle hit your character. Avoid traffic and try again!'],train:['Train Collision!','The crossing signal warned that a fast train was coming.'],water:['Splash!','You missed the floating log.'],timeout:['Time Ran Out!','You ran out of time at the grammar crossing.']};
+ const [title,message]=info[reason]||info.wrong;
+ $('endIcon').textContent=reason==='wrong'?'📖':reason==='timeout'?'⏰':reason==='water'?'💦':'💥';
+ $('endTitle').textContent=title;$('endMessage').textContent=message;
+ $('endDistance').textContent=traveled;$('endBest').textContent=save.bestSteps;
+ $('endCharacterBest').textContent=save.characterBests[save.equipped];
+ $('endNewBest').hidden=!(traveled>oldBest&&traveled>0);
+ $('endScore').textContent=`${state.score} points · ${state.answered} correct grammar answers · ${creature(save.equipped).name}`;
+ if(reason==='wrong'&&question){$('endAnswer').style.display='block';$('endAnswer').innerHTML=`<strong>Correct answer: ${escapeHTML(question.correct)}</strong><br>${escapeHTML(question.why)}`;}else $('endAnswer').style.display='none';
+ // Capture the actual scene at the impact location before the translucent results overlay appears.
+ drawScene();try{const shot=document.createElement('canvas');shot.width=960;shot.height=380;shot.getContext('2d').drawImage(canvas,0,160*(canvas.height/540),canvas.width,380*(canvas.height/540),0,0,960,380);$('crashSnapshot').src=shot.toDataURL('image/png');}catch(e){$('crashSnapshot').removeAttribute('src');}
+ $('endOverlay').classList.remove('hidden');playSfx('lose');
+}
+function scaleZ(z){return 1/(1+Math.max(-.35,z)*.11)}
+function proj(x,z,y=0){const scale=scaleZ(z);return [480+x*113*scale,464-z*65/(1+z*.038)-y*58*scale,scale]}
+function face(c,ps,color){poly(c,ps,color)}
+function shade(hex,f){let s=hex.replace('#','');if(s.length!==6)return hex;let rgb=[0,2,4].map(i=>parseInt(s.slice(i,i+2),16));return '#'+rgb.map(n=>Math.round(clamp(n*f,0,255)).toString(16).padStart(2,'0')).join('')}
+function block3(x1,x2,z1,z2,height,base,top,groundHeight=0){
+ const a=proj(x1,z1,groundHeight),b=proj(x2,z1,groundHeight),c=proj(x2,z2,groundHeight),d=proj(x1,z2,groundHeight),up=height+groundHeight;
+ const A=proj(x1,z1,up),B=proj(x2,z1,up),C=proj(x2,z2,up),D=proj(x1,z2,up);
+ face(ctx,[a,b,B,A],shade(base,.78));face(ctx,[b,c,C,B],shade(base,.65));face(ctx,[d,a,A,D],shade(base,.82));face(ctx,[A,B,C,D],top||base);
+}
+function groundStrip(r,z,w){
+ let base=w.ground;if(r.kind==='safe')base=(r.id%2?w.ground:w.dark);
+ else if(r.kind==='road'||r.kind==='train')base=w.road;
+ else if(r.kind==='river'||r.kind==='grammarRiver')base='#54b7cf';
+ else if(r.kind==='grammar')base=w.road;
+ block3(-4.5,4.5,z-.5,z+.5,.07,shade(base,.68),base);
+ if(r.kind==='road'||r.kind==='grammar'){
+   for(let j=-3;j<4;j++){const a=proj(j*1.4-.22,z+.32,.08),b=proj(j*1.4+.22,z+.32,.08);ctx.strokeStyle='#dceaf2a0';ctx.lineWidth=Math.max(1,3*scaleZ(z));ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();}
+ }
+ if(r.kind==='river'||r.kind==='grammarRiver'){
+  for(let i=0;i<7;i++){
+   const p=proj(-4.25+i*1.3+Math.sin(state.t*1.4+i+r.id)*.09,z+(i%2?-.26:.23),.075);
+   ctx.strokeStyle='#c0ffffaa';ctx.lineWidth=2*scaleZ(z);ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0]+42*scaleZ(z),p[1]+2);ctx.stroke();
+  }
+ }
+}
+function glowAt(x,y,rx,ry,color,alpha=.58){
+ ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);
+ const g=ctx.createRadialGradient(0,0,0,0,0,1);g.addColorStop(0,color);g.addColorStop(.24,color);g.addColorStop(1,'transparent');
+ ctx.globalAlpha=alpha;ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,1,0,Math.PI*2);ctx.fill();ctx.restore();
+}
+function glowWorld(x,z,w,n,light=.74){if(!w.night)return;const p=proj(x,z,.68);glowAt(p[0],p[1],30*p[2],32*p[2],w.flora,light);}
+function voxelTree(x,z,w,n){
+ const sz=.40+hash(n+1)*.28;
+ block3(x-.10,x+.10,z-.13,z+.12,1.04,'#64493c','#83614a');
+ block3(x-sz*.61,x+sz*.61,z-sz*.48,z+sz*.49,.66,shade(w.dark,.75),shade(w.ground,1.07),.62);
+ block3(x-sz*.47,x+sz*.47,z-sz*.38,z+sz*.39,.62,shade(w.dark,.9),shade(w.ground,1.29),1.16);
+ if(w.night){const p=proj(x,z,1.58);glowAt(p[0],p[1],13*p[2],14*p[2],w.flora,.44);}
+}
+function pineTree(x,z,w,n){const snow=w.style==='snow',height=1.35+hash(n)*.53;
+ block3(x-.09,x+.09,z-.11,z+.10,.95,'#604d45','#8c6752');
+ for(let k=0;k<3;k++){const r=.47-k*.09,y=.40+k*.36;
+  block3(x-r,x+r,z-r*.60,z+r*.60,.35,shade(w.dark,.55),snow?'#c1e9ee':'#287765',y);
+  if(snow)block3(x-r*.78,x+r*.78,z-r*.47,z+r*.47,.11,'#c7e0e6','#f9ffff',y+.35);
+ }
+ if(w.night)glowWorld(x,z,w,n,.25);
+}
+function voxelProp(x,z,w,n){
+ const seed=hash(n+19),style=w.style;
+ if(style==='meadow'){voxelTree(x,z,w,n);if(seed>.5){const p=proj(x+.3,z,.1);glowAt(p[0],p[1],6*p[2],6*p[2],w.flora,w.night?.85:.37);}}
+ else if(style==='city'){
+  const h=.65+seed*1.4;
+  block3(x-.38,x+.39,z-.23,z+.24,h,'#293757',w.night?'#425278':'#9aa9c4');
+  for(let y=.38;y<h-.08;y+=.38)for(const dx of [-.21,.08]){
+   const p=proj(x+dx,z-.244,y);ctx.fillStyle=(w.night&&hash(n+y+dx)>.3)?'#fff2a9':'#607996';ctx.fillRect(p[0]-5*p[2],p[1]-5*p[2],10*p[2],10*p[2]);
+   if(w.night&&hash(n+y+dx)>.55)glowAt(p[0],p[1],11*p[2],10*p[2],'#ffe6a0',.50);
+  }
+  if(seed>.75){block3(x+.4,x+.48,z-.1,z+.1,.92,'#3b4a62','#e0d8b2');const p=proj(x+.44,z,.94);if(w.night)glowAt(p[0],p[1],34*p[2],38*p[2],'#ffe5a5',.75);}
+ }
+ else if(style==='marsh'){
+  block3(x-.27,x+.27,z-.25,z+.25,.16,'#2d785c','#5dc9a4');
+  for(let i=-1;i<=1;i++){block3(x+i*.12-.025,x+i*.12+.025,z-.1,z+.06,.55+hash(n+i)*.36,'#3a8c67','#94d99c');}
+  if(seed>.4){block3(x-.09,x+.08,z-.1,z+.13,.42,'#9b7c74','#efe1b9');block3(x-.3,x+.3,z-.2,z+.2,.18,'#a83f75','#fba1d3',.44);glowWorld(x,z,w,n,.55);}
+ }
+ else if(style==='snow')pineTree(x,z,w,n);
+ else if(style==='galaxy'||style==='crystal'){
+  const h=.7+seed*.8,col=style==='galaxy'?'#cc8eff':'#89fff0';
+  block3(x-.29,x+.25,z-.25,z+.27,.35,shade(w.dark,.7),shade(w.ground,1.45));
+  poly(ctx,[proj(x-.30,z,.27),proj(x+.25,z,.27),proj(x+.04,z,h)],col);
+  if(w.night)glowWorld(x,z,w,n,.95);
+ }
+ else if(style==='desert'){
+  if(seed<.34){block3(x-.4,x+.4,z-.24,z+.25,.26,'#a7855b','#e9b77e');}
+  else{block3(x-.14,x+.14,z-.15,z+.15,1.2,'#387e61','#73bb73');for(const d of [-1,1]){block3(x+d*.33-.10,x+d*.33+.1,z-.11,z+.11,.50,'#27664f','#75bf7b',.38);}}
+ }
+ else if(style==='autumn'){
+  block3(x-.09,x+.09,z-.12,z+.12,.97,'#6f4938','#8d603e');
+  const leaf=['#ed9857','#df744b','#f0be63','#ae6947'][Math.floor(seed*4)];
+  block3(x-.44,x+.44,z-.31,z+.32,.60,'#845635',leaf,.76);
+  block3(x-.33,x+.33,z-.24,z+.24,.37,'#90623d',shade(leaf,1.2),1.33);
+  if(w.night)glowWorld(x,z,w,n,.25);
+ }
+ else if(style==='tropical'){
+  block3(x-.08,x+.09,z-.08,z+.08,1.14,'#956b4d','#d3ad75');
+  for(const d of [-1,1]){block3(x-.54,x+.54,z+d*.20-.11,z+d*.20+.11,.13,'#297e71','#69d7a6',1.06);}
+  for(const d of [-1,1]){block3(x+d*.32-.14,x+d*.32+.13,z-.31,z+.31,.11,'#247765','#80dc8f',1.15);}
+  if(seed>.58){const p=proj(x,z,1.24);ellipse(ctx,p[0],p[1],6*p[2],8*p[2],'#f7b65c');}
+ }
+ else if(style==='candy'){
+  const pink=seed>.5?'#ffafd1':'#c4b4ff';
+  block3(x-.12,x+.12,z-.10,z+.10,1.00,'#d4a3c0','#ffedf3');
+  block3(x-.38,x+.38,z-.25,z+.25,.36,'#ad7bb8',pink,.91);
+  const p=proj(x,z,1.28);ellipse(ctx,p[0],p[1],14*p[2],10*p[2],'#fff7e9');
+  if(w.night)glowWorld(x,z,w,n,.65);
+ }
+ else if(style==='bamboo'){
+  for(let k=-1;k<=1;k++){const xx=x+k*.24;block3(xx-.055,xx+.055,z-.09,z+.09,1.25+.24*hash(n+k),'#348668','#8fdf94');
+   for(let y=.40;y<1.2;y+=.34){const a=proj(xx-.06,z-.11,y),b=proj(xx+.06,z-.11,y);ctx.strokeStyle='#295c46';ctx.lineWidth=1.5*a[2];ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();}
+  }
+  if(w.night)glowWorld(x,z,w,n,.28);
+ }
+ else if(style==='volcano'){
+  block3(x-.38,x+.37,z-.25,z+.24,.40,'#3a3945','#665a60');
+  block3(x-.28,x+.25,z-.21,z+.20,.17,'#54363c',seed>.6?'#ed7453':'#a19b9b',.38);
+  if(seed>.6){const p=proj(x,z,.59);glowAt(p[0],p[1],30*p[2],19*p[2],'#ff663c',w.night?.95:.45);}
+ }
+ else voxelTree(x,z,w,n);
+}
+function groundDetail(row,z,w){
+ if(row.kind!=='safe')return;
+ for(let k=0;k<4;k++){
+  const seed=hash(row.id*13+k*113),x=-2.25+k*1.45+(seed-.5)*.55;
+  const p=proj(x,z+.12*(seed-.5),.078),sc=p[2];
+  if(w.style==='snow'){
+   ctx.fillStyle='#ffffffa9';ctx.beginPath();ctx.arc(p[0],p[1],4*sc,0,Math.PI*2);ctx.fill();
+  }else if(w.style==='desert'){
+   ellipse(ctx,p[0],p[1],5*sc,2*sc,'#b28b5b');
+  }else{
+   const fill=w.style==='volcano'?'#f68558':w.flora;
+   ellipse(ctx,p[0],p[1],4*sc,3*sc,fill);
+   if(w.night&&seed>.53)glowAt(p[0],p[1],13*sc,12*sc,fill,.52);
+  }
+ }
+}
+function vehicle(row,v,z,i){
+ const x=v.x, hw=v.half;
+ const colors=['#ff7867','#f6d566','#71e9d6','#b493fb','#76bafc','#ff9f63','#6ed1b6','#e6edf7'];
+ const c=v.type==='taxi'?'#f8cc38':colors[(row.id+i)%colors.length];
+ block3(x-hw,x+hw,z-.30,z+.28,.20,shade(c,.55),c);
+ if(v.type==='bus'||v.type==='delivery'||v.type==='van'){
+   block3(x-hw+.05,x+hw-.06,z-.25,z+.24,v.height,shade(c,.70),shade(c,1.08));
+   const count=v.type==='bus'?5:3;
+   for(let j=0;j<count;j++){
+    const xx=x-hw+.16+(2*hw-.32)*(j+.5)/count;
+    block3(xx-.09,xx+.09,z-.256,z-.18,.27,'#2f5779','#9ed5ec',v.height-.34);
+   }
+ }else if(v.type==='pickup'){
+   block3(x-hw+.04,x+.14,z-.22,z+.20,.47,shade(c,.7),'#dff3fc');
+   block3(x+.17,x+hw-.05,z-.22,z+.20,.12,shade(c,.6),shade(c,.72),.19);
+ }else{
+   const cab=v.type==='sport'?.32:.49;
+   block3(x-hw*.48,x+hw*.48,z-.19,z+.17,cab,shade(c,.77),'#d8f1ff');
+   if(v.type==='taxi')block3(x-.12,x+.12,z-.08,z+.12,.10,'#a86c14','#ffe17a',.48);
+ }
+ for(const dx of [-hw*.64,hw*.64]){const pp=proj(x+dx,z-.29,.07);ellipse(ctx,pp[0],pp[1],7*pp[2],5*pp[2],'#192439');}
+}
+function railDecoration(row,z,t){
+ for(const ry of [-.26,.25]){
+  const a=proj(-4.48,z+ry,.16),b=proj(4.48,z+ry,.16);
+  ctx.strokeStyle='#b9bec8';ctx.lineWidth=5*scaleZ(z);ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+ }
+ for(let k=-4;k<=4;k++){block3(k-.055,k+.055,z-.38,z+.38,.09,'#513b35','#7a5645');}
+ const tr=trainInfo(row,state.t),flashing=tr.warn && Math.floor(t*4)%2===0;
+ for(const side of [-4.15,4.15]){
+  block3(side-.075,side+.075,z-.31,z+.3,1,'#424c62','#e5edf8');
+  const p=proj(side,z,.91),sc=p[2];
+  ellipse(ctx,p[0]-8*sc,p[1]-4*sc,7*sc,7*sc,flashing?'#ff4e68':'#722d43');
+  ellipse(ctx,p[0]+8*sc,p[1]-4*sc,7*sc,7*sc,flashing?'#ff4e68':'#722d43');
+ }
+ if(tr.warn && row.id===state.row+1){
+  const p=proj(0,z,1.15);ctx.textAlign='center';ctx.font=`900 ${Math.round(28*p[2])}px system-ui`;
+  ctx.fillStyle=flashing?'#ff5a63':'#fff7a8';ctx.fillText('⚠ TRAIN!',p[0],p[1]);
+ }
+}
+function drawTrain(row,z){
+ const tr=trainInfo(row,state.t);if(!tr.active)return;
+ const length=row.trainLength,sign=tr.dir;
+ const mid=(tr.nose+tr.back)/2;
+ const cars=4,part=length/cars;
+ for(let k=0;k<cars;k++){
+  const pos=tr.nose-sign*(k+.5)*part;
+  if(Math.abs(pos)>6.3)continue;
+  const half=part*.47;
+  const col=k===0?'#ffd065':k%2===0?'#629ac0':'#c46069';
+  block3(pos-half,pos+half,z-.32,z+.32,.68,shade(col,.65),col);
+  block3(pos-half+.08,pos+half-.08,z-.25,z+.25,.22,shade(col,.78),k===0?'#e9e9cf':'#bad6ea',.67);
+  if(k===0){block3(pos-sign*.25-.18,pos-sign*.25+.18,z-.15,z+.16,.32,'#465b7a','#e9f8fc',.73);}
+  for(let j=0;j<3;j++){
+   const xx=pos-half+.19+(2*half-.38)*(j+.5)/3;
+   block3(xx-.12,xx+.12,z-.325,z-.19,.16,'#224663','#9fdbef',.40);
+  }
+  for(const dx of [-half*.66,half*.66]){const pp=proj(pos+dx,z-.32,.12);ellipse(ctx,pp[0],pp[1],7*pp[2],5*pp[2],'#181f2f');}
+ }
+}
+function log3(x,z){block3(x-.88,x+.88,z-.25,z+.25,.2,'#6a4838','#986c4f');
+ for(const e of [-.6,-.2,.2,.6]){const a=proj(x+e,z-.2,.22),b=proj(x+e,z+.2,.22);ctx.strokeStyle='#754c37';ctx.lineWidth=2*scaleZ(z);ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();}}
+function wordPlatform(row,tile,z){
+ const x=tile.x, river=row.kind==='grammarRiver';
+ block3(x-.58,x+.58,z-.34,z+.34,.21,river?'#614534':'#8a6a45',river?'#b77b50':'#ffe2a1');
+ block3(x-.51,x+.51,z-.28,z+.28,.24,river?'#b1845a':'#e6d2a1',river?'#ffecb7':'#fff7de');
+ const p=proj(x,z,.28),sc=p[2];
+ ctx.save();ctx.translate(p[0],p[1]+3*sc);ctx.scale(sc,sc);ctx.fillStyle='#293c54';ctx.font=`900 ${tile.word.length>15?17:tile.word.length>10?21:tile.word.length>7?26:32}px "Trebuchet MS",system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(tile.word,0,0,112);ctx.restore();
+}
+// Predict the place the player's feet reach when the hop animation finishes.
+function landingPreview(row,x,t){
+ if(!row)return {kind:'safe',color:'#74ffdd',label:'SAFE'};
+ const future=t+.42;
+ if(row.q){const tile=nearestWord(row,x,future);return tile?{kind:'tile',tile,color:'#70e9ff',label:'PLATFORM'}:{kind:'gap',color:'#ff7b83',label:'GAP'};}
+ if(row.kind==='river'){return logPositions(row,future).some(n=>Math.abs(n-x)<.73)?{kind:'log',color:'#74ffdd',label:'LOG'}:{kind:'gap',color:'#ff7b83',label:'WATER'};}
+ if(row.kind==='road'||row.kind==='train'){
+  const hit=collision(row,x,future);
+  return {kind:hit?'danger':'traffic',color:hit?'#ff8c80':'#ffdc86',label:hit?'DANGER':'WATCH'};
+ }
+ return {kind:'safe',color:'#74ffdd',label:'SAFE'};
+}
+function drawGuide(row,z){
+ const x=XC[state.col],preview=landingPreview(row,x,state.t);
+ const p=proj(x,z,.17),sc=p[2],a=proj(state.floatX??XC[state.col],-.02,.08);
+ ctx.save();
+ // Landing crosshair is anchored to the actual ground position, not above the row.
+ ctx.strokeStyle=preview.color;ctx.lineWidth=4*sc;ctx.setLineDash([]);
+ ctx.beginPath();ctx.ellipse(p[0],p[1],33*sc,13*sc,0,0,Math.PI*2);ctx.stroke();
+ ctx.fillStyle=preview.color;ctx.globalAlpha=.24;ctx.beginPath();ctx.ellipse(p[0],p[1],27*sc,10*sc,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+ ctx.beginPath();ctx.moveTo(p[0]-8*sc,p[1]);ctx.lineTo(p[0]+8*sc,p[1]);ctx.moveTo(p[0],p[1]-7*sc);ctx.lineTo(p[0],p[1]+7*sc);ctx.stroke();
+ ctx.globalAlpha=.35;ctx.strokeStyle=preview.color;ctx.setLineDash([10,8]);ctx.lineWidth=2.5;
+ ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(p[0],p[1]);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+ const textY=p[1]-34*sc;const tw=Math.max(56,preview.label.length*9)*sc;
+ roundRect(ctx,p[0]-tw/2,textY-16*sc,tw,22*sc,6*sc,'#13253de8',preview.color);
+ ctx.fillStyle='#f9ffff';ctx.font=`900 ${Math.max(11,14*sc)}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(preview.label,p[0],textY-5*sc);
+ ctx.restore();
+}
+function drawAvatar(){
+ const transit=state.transition>0?1-state.transition/.42:0;
+ const jump=transit?Math.sin(transit*Math.PI)*54:Math.sin(state.t*5)*1.5;
+ const p=proj(state.floatX??XC[state.col],.02,.07),size=94;
+ // Draw only one sprite: the old doubled silhouette created overlapping faces and limbs.
+ ctx.save();ctx.globalAlpha=.38;ellipse(ctx,p[0],p[1]+2,33,11,'#0b1d31');ctx.restore();
+ if(world().night){glowAt(p[0],p[1]-55,117,132,'#b5f4ff',.33);glowAt(p[0],p[1],64,36,'#bfffc1',.38);}
+ ctx.save();ctx.lineWidth=2;ctx.strokeStyle='#f7fbffb0';ctx.setLineDash([5,6]);ctx.beginPath();ctx.ellipse(p[0],p[1]+2,29,10,0,0,Math.PI*2);ctx.stroke();ctx.restore();
+ // Feet are aligned with the landing-shadow center; hop changes height, not foot location.
+ drawCreature(ctx,p[0],p[1]-43,size,save.equipped,jump,false);
+}
+function drawCrashAvatar(z){
+ const cr=state.crash;if(!cr)return;
+ const p=proj(cr.x,z,.05),sc=p[2];
+ ctx.globalAlpha=.30;ellipse(ctx,p[0],p[1]+10*sc,39*sc,14*sc,'#070f1c');ctx.globalAlpha=1;
+ ctx.save();ctx.translate(p[0],p[1]-22*sc);ctx.rotate(cr.reason==='water'?.30:1.0);
+ ctx.scale(sc*.78,sc*.78);drawCreature(ctx,0,-20,105,save.equipped,0,false);ctx.restore();
+ const ring=proj(cr.x,z,.1);ctx.strokeStyle=cr.reason==='water'?'#dcffff':'#ffdf8b';ctx.lineWidth=5*sc;
+ ctx.beginPath();ctx.ellipse(ring[0],ring[1],45*sc,17*sc,0,0,2*Math.PI);ctx.stroke();
+}
+function drawScene(){
+ const c=ctx, w=world();c.clearRect(0,0,W,H);c.save();if(state.shake>0)c.translate((Math.random()-.5)*state.shake,(Math.random()-.5)*state.shake);
+ const sky=c.createLinearGradient(0,0,0,540);sky.addColorStop(0,w.sky);sky.addColorStop(1,shade(w.sky,.73));c.fillStyle=sky;c.fillRect(0,0,W,H);
+ c.fillStyle=shade(w.dark,.8);c.fillRect(0,37,W,503);
+ if(w.night){
+  for(let k=0;k<40;k++){const h=hash(k*34+state.worldSeed),xx=hash(k*11+49)*W,yy=hash(k*18+3)*148;ctx.globalAlpha=.25+.72*hash(k+state.t*.005);
+   ctx.fillStyle=k%4===0?w.flora:'#e9f6ff';ctx.beginPath();ctx.arc(xx,yy,1.1+hash(k*2)*1.6,0,Math.PI*2);ctx.fill();}
+  ctx.globalAlpha=1;
+ }
+
+ const move=state.transition>0?1-state.transition/.42:0;
+ const start=Math.max(0,state.row-2),end=state.row+11;
+ ensureRows(end);
+ for(let idx=end;idx>=start;idx--){
+  const r=rows.get(idx);if(!r)continue;
+  const z=idx-state.row-move;if(z>9.65||z<-.75)continue;
+  const cw=worldAt(idx);
+  groundStrip(r,z,cw);
+  if(r.kind==='safe'){
+    for(const side of [-1,1])for(let k=0;k<2;k++){
+     const pos=side*(2.85+hash(idx*17+side*25+k)*1.24);
+     if(hash(idx*71+side*13+k)>.19)voxelProp(pos,z+((k?1:-1)*.21),cw,idx*11+k*4+side);
+    }
+    groundDetail(r,z,cw);
+    if(idx%5===0){for(let j=-2;j<=2;j++){
+     const p=proj(j,z,.11);c.fillStyle='#ffffff48';c.beginPath();c.arc(p[0],p[1],3*scaleZ(z),0,Math.PI*2);c.fill();
+    }}
+  }
+  if(r.kind==='road'){
+   for(let i=0;i<r.carCount;i++){const v=carInfo(r,state.t,i);if(Math.abs(v.x)<5.7)vehicle(r,v,z,i);}
+  }
+  if(r.kind==='train'){railDecoration(r,z,state.t);drawTrain(r,z);}
+  if(r.kind==='river')for(const x of logPositions(r,state.t))log3(x,z);
+  if(r.q){
+   for(const tile of wordTiles(r,state.t))wordPlatform(r,tile,z);
+   
+  }
+  if(idx===state.row+1 && state.status==='playing')drawGuide(r,z);
+  if(idx===state.row && state.status!=='ended')drawAvatar();
+  if(state.status==='ended'&&state.crash&&idx===state.crash.row)drawCrashAvatar(z);
+ }
+ if(state.badFlash>0){c.fillStyle=`rgba(255,81,112,${Math.min(.38,state.badFlash*.45)})`;c.fillRect(0,0,W,H);}
+ for(const p of state.particles){c.globalAlpha=Math.max(0,p.life/p.max);ellipse(c,p.x,p.y,p.size,p.size,p.color);}c.globalAlpha=1;
+ rr(c,16,13,240,37,10,'#122344dc');c.font='900 15px "Trebuchet MS"';c.textAlign='left';c.textBaseline='middle';c.fillStyle='#fff';c.fillText(`${w.icon} ${w.name}  ·  Row ${state.row+1}`,29,33);
+ rr(c,718,13,224,37,10,'#122344dc');c.fillStyle='#fff';c.textAlign='center';c.font='900 14px "Trebuchet MS"';c.fillText(`WORD CROSSINGS  ${state.answered}`,830,33);
+ if(state.paused&&state.status==='playing'){c.fillStyle='#10213ac4';c.fillRect(0,0,W,H);c.fillStyle='#fff';c.textAlign='center';c.font='900 60px "Trebuchet MS"';c.fillText('PAUSED',480,275);}
+ c.restore();
+}
+function loop(ts){
+ const dt=clamp((ts-lastFrame)/1000||0,.001,.045);lastFrame=ts;
+ if(!state.paused&&state.status==='playing'){
+  state.t+=dt;
+  const r=rows.get(state.row+1);
+  if(r?.q&&state.transition<=0&&state.mode==='arcade'){
+   state.time-=dt;if(state.time<=0){state.time=0;endGame('timeout');}
+  }
+  if(state.transition>0){state.transition-=dt;if(state.transition<=0)completeHop();}
+  if(state.status==='playing'&&state.transition<=0){
+   const current=rows.get(state.row);
+   if(current?.kind==='river'&&state.mode==='arcade'){
+    if(state.floatX===null)state.floatX=XC[state.col];
+    state.floatX+=current.dir*.49*dt;
+    if(state.floatX<-2.55||state.floatX>2.55){endGame('water',null,state.row);}
+    else state.col=clamp(Math.round(state.floatX)+2,0,4);
+   }
+   if(state.status==='playing'){
+    const reason=collision(current,state.floatX??XC[state.col],state.t);
+    if(reason)endGame(reason,null,state.row);
+   }
+   const nr=rows.get(state.row+1);
+   if(nr?.kind==='train'){
+    const tr=trainInfo(nr,state.t);
+    if(tr.warn&&state.trainWarnAt!==nr.id){state.trainWarnAt=nr.id;toast('TRAIN APPROACHING! Watch the crossing lights.');playSfx('train');}
+   }
+  }
+ }
+ if(state.badFlash>0)state.badFlash=Math.max(0,state.badFlash-dt*1.2);
+ if(state.shake>0)state.shake=Math.max(0,state.shake-dt*30);
+ for(const p of state.particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=500*dt;p.life-=dt;}
+ state.particles=state.particles.filter(p=>p.life>0);
+ if(state.status==='playing'){
+  const hasQuestion=!!rows.get(state.row+1)?.q;
+  $('timeUI').textContent=state.mode==='practice'?'∞':!hasQuestion?'—':Math.ceil(state.time)+'s';
+  $('timerfill').style.width=(state.mode==='practice'||!hasQuestion?100:clamp(state.time/state.limit*100,0,100))+'%';
+  $('timerbar').classList.toggle('low',hasQuestion&&state.time<6);
+ }
+ if(state.status==='playing')updateLandingReadout();
+ drawScene();raf=requestAnimationFrame(loop);
+}
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));}
+function toast(s){const el=$('toast');el.textContent=s;el.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('show'),3600);}
+function pause(){if(state.status!=='playing')return;state.paused=!state.paused;$('pauseButton').textContent=state.paused?'▶ Resume':'Ⅱ Pause';$('coachText').textContent=state.paused?'Paused — resume when you are ready.':'Find the correct answer to continue.';toast(state.paused?'Game paused':'Game resumed');}
+// Synthesized sound design: no audio files, and every character gets a deterministic timbre + melody.
+let audio=null;function unlockAudio(){if(!save.sound)return;try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();}catch(e){audio=null;}}
+function tone(freq,when,duration,type='sine',volume=.07,slide=0){if(!save.sound||!audio)return;try{const osc=audio.createOscillator(),gain=audio.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,when);if(slide)osc.frequency.exponentialRampToValueAtTime(Math.max(40,freq+slide),when+duration);gain.gain.setValueAtTime(.001,when);gain.gain.exponentialRampToValueAtTime(Math.max(.001,volume),when+.01);gain.gain.exponentialRampToValueAtTime(.001,when+duration);osc.connect(gain);gain.connect(audio.destination);osc.start(when);osc.stop(when+duration+.02);}catch(e){}}
+function playSfx(type){unlockAudio();if(!audio)return;const n=audio.currentTime;
+ if(type==='correct'){tone(550,n,.12,'sine',.07,170);tone(750,n+.13,.16,'triangle',.08,200);}else if(type==='slide'){tone(250,n,.065,'sine',.025,70);}else if(type==='wrong'||type==='lose'){tone(320,n,.14,'sawtooth',.05,-160);tone(170,n+.12,.25,'triangle',.06,-90);}else if(type==='pull'){[390,490,625,780].forEach((f,i)=>tone(f,n+i*.13,.16,'triangle',.06,130));}else if(type==='train'){tone(180,n,.25,'sawtooth',.05,40);tone(210,n+.34,.32,'sawtooth',.05,30);}else if(type==='world'){[420,530,620,840].forEach((f,i)=>tone(f,n+i*.11,.25,'sine',.045,90));}}
+function playCreature(id,delay=0){unlockAudio();if(!audio)return;const n=audio.currentTime+delay,sp=Math.floor(id/12),pa=id%12,base=180+sp*17+pa*21,types=['sine','triangle','square','sawtooth'];const seq=[0,3,7,12,5];const length=2+(id%4);for(let i=0;i<length;i++){const f=base*Math.pow(2,seq[(i+sp)%seq.length]/12);tone(f,n+i*.087,.085+pa*.002,types[(sp+pa)%types.length],.019+((sp+pa)%3)*.007,((pa%2)?45:-25));}}
+// Procedural character rendering — 30 species, 12 palettes, unique accessory and face details per ID.
+function roundRect(c,x,y,w,h,r,fill,stroke){if(w<=0||h<=0)return;c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=2;c.stroke();}}
+function ellipse(c,x,y,rx,ry,fill){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);c.fillStyle=fill;c.fill();}
+function poly(c,points,fill){c.beginPath();c.moveTo(...points[0]);for(let i=1;i<points.length;i++)c.lineTo(...points[i]);c.closePath();c.fillStyle=fill;c.fill();}
+function drawCreature(c,x,y,size,id,hop=0,shadow=true){const ch=creature(id),sp=ch.species,pa=ch.shade,[prefix,main,light,dark]=ch.colors;const sc=size/100;c.save();c.translate(x,y-hop);c.scale(sc,sc);if(shadow){c.save();c.globalAlpha=.23;ellipse(c,0,43+hop/sc*.3,31,8,'#09182a');c.restore();}
+ // Species silhouettes: tails, wings, horns and ears, each with a characteristic profile.
+ if([0,3,6,9,10,12,13].includes(sp)){ellipse(c,26,19,17,11,dark);if(sp===0)poly(c,[[23,6],[49,-5],[45,29]],main);if(sp===9)ellipse(c,0,15,40,32,dark);}
+ if(sp===14){ellipse(c,-30,2,16,25,'#effff4');ellipse(c,30,2,16,25,'#effff4');}
+ if(sp===15){for(const sign of [-1,1]){poly(c,[[sign*21,12],[sign*45,0],[sign*48,21]],dark);ellipse(c,sign*44,6,8,8,main);}}
+ if(sp===11){for(const sign of [-1,1]){ellipse(c,sign*25,23,12,16,light);}}
+ if(sp===3){for(const sign of [-1,1]){roundRect(c,sign*19-10,-71,20,56,13,main,dark);roundRect(c,sign*19-5,-67,10,35,8,'#ffdae5');}}
+ if([0,1,7,12,16].includes(sp)){for(const sign of [-1,1]){poly(c,[[sign*23,-22],[sign*36,-53],[sign*7,-40]],dark);poly(c,[[sign*22,-26],[sign*29,-44],[sign*13,-34]],main);}}
+ if(sp===10){for(const sign of [-1,1]){poly(c,[[sign*22,-22],[sign*34,-60],[sign*6,-35]],main);}}
+ if(sp===2){for(const sign of [-1,1]){ellipse(c,sign*25,-31,16,16,main);ellipse(c,sign*26,-35,9,9,light);}}
+ if(sp===4){for(const sign of [-1,1]){poly(c,[[sign*14,-31],[sign*34,-57],[sign*32,-17]],main);}}
+ if(sp===8){ellipse(c,0,-5,38,45,dark);}
+ if(sp===13){for(const sign of [-1,1])for(let i=0;i<3;i++)ellipse(c,sign*23+i*sign*4,-22+i*13,8,11,main);}
+ if(sp===16){for(const sign of [-1,1]){ellipse(c,sign*21,-39,14,16,main);ellipse(c,sign*21,-39,9,10,light);}}
+ if(sp===17){ellipse(c,0,-31,40,26,dark);ellipse(c,0,-35,35,21,main);}
+ // New distinct silhouettes: 12 species with horns, masks, wings and other recognizable details.
+ if(sp===18){for(const d of [-1,1]){roundRect(c,d*21-5,-67,9,40,3,dark);for(const k of [-1,1])poly(c,[[d*21,-50],[d*(21+k*15),-64],[d*24,-39]],main);ellipse(c,d*24,-28,14,12,main);}}
+ if(sp===19){for(const d of [-1,1])ellipse(c,d*27,-39,16,16,dark);}
+ if(sp===20){ellipse(c,0,0,38,36,dark);ellipse(c,0,-17,34,39,main);}
+ if(sp===21){for(const d of [-1,1]){poly(c,[[d*20,-11],[d*61,-35],[d*56,14],[d*38,5],[d*29,26]],dark);poly(c,[[d*24,-14],[d*53,-25],[d*46,4]],main);poly(c,[[d*20,-26],[d*34,-58],[d*6,-40]],dark);}}
+ if(sp===22){roundRect(c,-21,-50,42,98,18,main,dark);roundRect(c,-42,-17,15,38,8,main,dark);roundRect(c,28,-31,15,42,8,main,dark);}
+ if(sp===23){for(const d of [-1,1])poly(c,[[d*21,-27],[d*36,-57],[d*6,-40]],dark);}
+ if(sp===24){for(let k=-3;k<=3;k++){const xx=k*13;ellipse(c,xx,28+Math.abs(k)*1.4,9,19,main);}}
+ if(sp===25){poly(c,[[-11,-40],[0,-82],[12,-40]],'#fff4c2');for(const d of [-1,1])roundRect(c,d*22-8,-65,15,35,7,main,dark);}
+ if(sp===26){for(const d of [-1,1]){ellipse(c,d*29,-5,16,29,'#bdf4ff9e');ellipse(c,d*29,-5,11,20,'#d5fcffb0');}ellipse(c,0,25,19,14,'#f4f99a');}
+ if(sp===27){ellipse(c,0,-17,43,45,'#b6cce4');ellipse(c,0,-17,37,39,'#e9f8fc');}
+ if(sp===28){for(let k=0;k<8;k++){const a=-3.0+k*.85;poly(c,[[Math.cos(a)*28,Math.sin(a)*27-14],[Math.cos(a)*48,Math.sin(a)*52-15],[Math.cos(a+.27)*27,Math.sin(a+.27)*28-14]],dark);}}
+ if(sp===29){ellipse(c,0,-31,36,32,main);for(let k=-3;k<=3;k++)ellipse(c,k*11,16+Math.abs(k)*3,7,20,dark);}
+
+ // Body core
+ if(sp===5){roundRect(c,-34,-34,68,74,17,main,dark);roundRect(c,-30,-43,60,51,14,light,dark);}else if(sp===11){ellipse(c,0,-2,35,45,light);ellipse(c,0,-14,38,33,main);}else if(sp===15){ellipse(c,0,0,35,34,main);}else if(sp===17){roundRect(c,-23,-15,46,62,13,light,dark);}else if(sp===20){ellipse(c,0,-9,36,49,main);}else if(sp===22){roundRect(c,-25,-45,50,90,22,main,dark);}else if(sp===27){roundRect(c,-31,-12,62,53,16,'#b6d8eb','#647a99');ellipse(c,0,-20,36,38,light);}else if(sp===29){ellipse(c,0,-15,38,31,main);}else {ellipse(c,0,6,33,38,main);ellipse(c,0,-22,37,34,main);}
+ if(sp===9){ellipse(c,0,11,29,30,light);poly(c,[[-19,3],[0,-10],[21,3],[22,29],[0,39],[-23,29]],dark);}
+ if(sp===8){ellipse(c,0,9,26,31,'#f8f4df');}
+ if(sp===6){ellipse(c,0,7,20,29,light);}
+ if(sp===7){ellipse(c,0,12,24,28,light);}
+ if(sp===10){ellipse(c,0,17,23,26,light);}
+ if(sp===14){for(let i=0;i<3;i++)roundRect(c,-12,-31+i*16,25,7,3,dark);}
+ if(sp===12){poly(c,[[-32,-14],[-23,-3],[-31,8]],dark);poly(c,[[32,-14],[23,-3],[31,8]],dark);}
+ if(sp===4){ellipse(c,0,-24,22,25,light);}
+ if(sp===0){ellipse(c,0,-11,25,23,light);}
+ if(sp===1){ellipse(c,0,-10,25,23,light);}
+ if(sp===2){ellipse(c,0,-12,24,20,light);}
+ if(sp===3){ellipse(c,0,-13,25,20,light);}
+ if(sp===13){ellipse(c,0,-8,27,19,light);}
+ if(sp===19){for(const d of [-1,1]){ellipse(c,d*15,-25,17,18,dark);ellipse(c,0,13,26,27,light);}}
+ if(sp===23){for(const d of [-1,1]){poly(c,[[d*31,-37],[d*13,-28],[d*27,-13]],dark);poly(c,[[d*28,6],[d*16,12],[d*29,20]],dark);}}
+ if(sp===24){for(const d of [-1,1])ellipse(c,d*18,-6,13,11,light);}
+ if(sp===25){ellipse(c,0,11,26,26,light);}
+ if(sp===26){ellipse(c,0,19,16,12,'#fff69b');}
+ if(sp===27){ellipse(c,0,-24,30,28,'#83b5d4');ellipse(c,0,-25,25,24,'#c9f0ff');}
+ if(sp===28){ellipse(c,0,-6,27,21,light);}
+ if(sp===29){ellipse(c,0,-21,27,22,light);}
+ // Feet and hands
+ for(const sign of [-1,1]){ellipse(c,sign*19,34,13,9,dark);if(sp!==11&&sp!==15&&sp!==20&&sp!==24&&sp!==29){ellipse(c,sign*34,13,9,13,main);}}
+ // Face, eyes, personality variations
+ if(sp!==11){for(const sign of [-1,1]){ellipse(c,sign*15,-25,9,11,'#f9fcff');ellipse(c,sign*16+1,-25,4+(pa%2),6,'#1c2a46');ellipse(c,sign*16,-28,2,3,'#ffffff');}}
+ else{for(const sign of [-1,1]){ellipse(c,sign*14,-25,4,5,dark);}}
+ if(sp===4){poly(c,[[-7,-12],[7,-12],[0,-3]],'#efb967');}
+ else if(sp===6){ellipse(c,0,-10,13,8,'#efb65c');}
+ else if(sp===8){poly(c,[[-9,-14],[9,-14],[0,-6]],'#efbc68');}
+ else if(sp===5){roundRect(c,-8,-11,16,9,4,dark);}
+ else if(sp===10){poly(c,[[-4,-12],[10,-12],[1,-4]],'#f2d6a0');}
+ else{ellipse(c,0,-12,5,4,dark);}
+ if(sp!==5&&sp!==8&&sp!==4){c.beginPath();c.arc(0,-6,7,0,Math.PI);c.strokeStyle=dark;c.lineWidth=2.5;c.stroke();}
+ if(sp===21){for(const d of [-1,1]){poly(c,[[d*11,-8],[d*3,-2],[d*12,1]],'#e7f2f7');}}
+ if(sp===18||sp===25){ellipse(c,0,-13,8,5,'#e8a5a6');}
+ if(sp===28){for(const d of [-1,1])ellipse(c,d*22,-7,8,7,'#faacaf');}
+ if(sp===1){for(const sign of [-1,1]){c.strokeStyle=dark;c.lineWidth=1.5;c.beginPath();c.moveTo(sign*8,-10);c.lineTo(sign*27,-9);c.moveTo(sign*8,-5);c.lineTo(sign*25,-2);c.stroke();}}
+ if(sp===13){for(let i=0;i<3;i++)ellipse(c,-19+i*19,-5,2.5,3,dark);}
+ // Deterministic vanity extras make palettes more distinctive.
+ if(pa===2||pa===8){poly(c,[[-25,-45],[0,-60],[25,-45],[0,-39]],'#fef6bf');}
+ if(pa===3||pa===7){ellipse(c,0,-46,9,7,'#ffdc82');ellipse(c,0,-46,4,3,'#fff5c9');}
+ if(pa===5||pa===11){roundRect(c,-21,17,43,7,4,'#ffe399');ellipse(c,0,22,6,7,dark);}
+ if(pa===9){roundRect(c,-23,-53,46,10,4,'#e6f6ff');}
+ if(pa===10){for(const sign of [-1,1])ellipse(c,sign*26,-13,5,5,'#f9e6fd');}
+ if(pa===1){for(const sign of [-1,1])ellipse(c,sign*26,-13,5,5,'#ffadc4');}
+ if(pa===4){ellipse(c,0,-61,6,10,'#ffec8e');}
+ c.restore();}
+function renderEquipped(){const ec=$('equippedCanvas'),c=ec.getContext('2d');c.clearRect(0,0,ec.width,ec.height);drawCreature(c,50,56,78,save.equipped,0,false);}
+function spawnParticles(x,y,color,n){for(let i=0;i<n;i++)state.particles.push({x,y,vx:(Math.random()-.5)*400,vy:(Math.random()-.85)*350,life:.7+Math.random()*.45,max:1,color,size:2+Math.random()*5});}
+const rr=(c,x,y,w,h,r,fill)=>roundRect(c,x,y,w,h,r,fill);
+function modalOpen(id){if(state.status==='playing'&&!state.paused){state.paused=true;state._resumeModal=true;}else state._resumeModal=false;$(id).classList.add('open');if(id==='shopModal')renderShop();if(id==='collectionModal')renderCollection();}
+function closeModals(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));if(state._resumeModal){state.paused=false;state._resumeModal=false;}}
+function renderShop(){ $('shopCoins').textContent=Math.floor(save.coins);$('pullButton').disabled=shopBusy||save.coins<80||save.unlocked.length===TOTAL;const el=$('ballcluster');if(!el.children.length){for(let i=0;i<8;i++){const b=document.createElement('span');b.className='smallball';b.style.left=(17+(i%4)*44)+'px';b.style.top=(39+Math.floor(i/4)*57)+'px';b.style.background=['#ffd66b','#8ef0d3','#ff91b4','#aa9efa'][i%4];el.appendChild(b);}}if(save.unlocked.length===TOTAL)$('pullButton').textContent='Collection Complete!';else $('pullButton').textContent='◉ Hatch a Character!';}
+function pull(){if(shopBusy||save.coins<80||save.unlocked.length>=TOTAL){toast(save.unlocked.length>=TOTAL?'You collected them all!':'Earn more coins by hopping!');return;}unlockAudio();save.coins-=80;let locked=Array.from({length:TOTAL},(_,i)=>i).filter(id=>!save.unlocked.includes(id));let weighted=locked.map(id=>({id,weight:({common:12,rare:5,epic:2,legendary:1})[creature(id).rarity]}));let total=weighted.reduce((s,x)=>s+x.weight,0),r=Math.random()*total,result=weighted[0].id;for(const item of weighted){r-=item.weight;if(r<=0){result=item.id;break;}}
+ shopBusy=true;persist();refresh();renderShop();$('pullButton').textContent='Hatching...';$('pullButton').disabled=true;const machine=$('machine'),cap=$('capsule');machine.classList.add('shaking');cap.classList.remove('animate');void cap.offsetWidth;cap.classList.add('animate');playSfx('pull');
+ setTimeout(()=>{machine.classList.remove('shaking');cap.classList.remove('animate');save.unlocked.push(result);save.unlocked.sort((a,b)=>a-b);persist();shopBusy=false;playCreature(result);const ch=creature(result),el=$('reveal');el.replaceChildren();const cv=document.createElement('canvas');cv.width=100;cv.height=100;drawCreature(cv.getContext('2d'),50,54,83,result,0,false);const d=document.createElement('div');d.innerHTML=`<strong>${escapeHTML(ch.name)}</strong><br><span class="rarity ${ch.rarity}">${ch.rarity} · NEW!</span><br><span class="tiny">Visit Collection to equip your new friend.</span>`;el.append(cv,d);refresh();renderShop();toast(`New character: ${ch.name}!`);spawnParticles(480,260,'#ffe0ad',30);},1320);
+}
+function renderCollection(){const owned=new Set(save.unlocked),filter=$('collectionFilter').value,species=$('speciesFilter').value;let ids=Array.from({length:TOTAL},(_,i)=>i).filter(id=>(filter==='all'||(filter==='owned'?owned.has(id):!owned.has(id)))&&(species==='all'||Math.floor(id/12)===Number(species)));const pages=Math.max(1,Math.ceil(ids.length/24));page=clamp(page,0,pages-1);const wrap=$('collectionGrid');wrap.replaceChildren();for(const id of ids.slice(page*24,(page+1)*24)){const ch=creature(id),unlocked=owned.has(id),btn=document.createElement('button');btn.className='creaturetile'+(unlocked?'':' locked')+(id===save.equipped?' equipped':'');btn.title=unlocked?`Equip ${ch.name}`:`Locked ${ch.name}`;const cv=document.createElement('canvas');cv.width=100;cv.height=100;const c=cv.getContext('2d');if(unlocked){drawCreature(c,50,53,78,id,0,false);}else{drawCreature(c,50,53,78,id,0,false);c.fillStyle='#15223dcc';c.fillRect(0,0,100,100);c.fillStyle='#f1f6ff';c.font='900 31px "Trebuchet MS"';c.textAlign='center';c.fillText('?',50,65);}const sp=document.createElement('span');sp.textContent=unlocked?ch.name:'??? '+names[ch.species];btn.append(cv,sp);if(id===save.equipped){const eq=document.createElement('span');eq.textContent='✓ Equipped';eq.style.color='#c6ff8e';btn.append(eq);}if(unlocked)btn.addEventListener('click',()=>{save.equipped=id;persist();playCreature(id);refresh();renderCollection();toast(`${ch.name} equipped!`);});wrap.appendChild(btn);}
+ $('pageInfo').textContent=`Page ${page+1} of ${pages} · ${ids.length} shown`;$('pagePrev').disabled=page===0;$('pageNext').disabled=page===pages-1;$('collectionStatus').textContent=`${save.unlocked.length} / ${TOTAL} unlocked`;
+}
+function init(){const dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+ $('gradeSelect').value=save.grade;$('modeSelect').value=save.mode;state.grade=save.grade;state.mode=save.mode;
+ $('startButton').addEventListener('click',beginRun);$('retryButton').addEventListener('click',beginRun);$('menuButton').addEventListener('click',()=>{state.status='menu';$('endOverlay').classList.add('hidden');$('startOverlay').classList.remove('hidden');state.question=null;state.row=0;state.stage=0;state.score=0;state.combo=0;state.col=2;state.crash=null;state.floatX=null;state.worldCache=new Map();rows.clear();generatedUpTo=-1;lastTrainRow=-30;ensureRows(12);putPrompt();refresh();});
+ document.querySelectorAll('.choicebtn').forEach(b=>b.addEventListener('click',()=>{if(state.status!=='playing'||state.paused||state.transition>0)return;const r=rows.get(state.row+1);if(!r?.q)return;const possible=XC.map((x,i)=>({i,tile:nearestWord(r,x,state.t+.42)})).filter(v=>v.tile?.opt===Number(b.dataset.lane));if(!possible.length){toast('That word is moving. Wait for a clear tile, then tap again.');return;}possible.sort((a,b)=>Math.abs(a.i-state.col)-Math.abs(b.i-state.col));state.col=possible[0].i;state.lane=state.col;updateChoiceBar();playSfx('slide');}));$('leftButton').addEventListener('click',()=>onMove(-1));$('rightButton').addEventListener('click',()=>onMove(1));$('forwardButton').addEventListener('click',onHop);$('pauseButton').addEventListener('click',pause);
+ document.addEventListener('keydown',e=>{if(document.querySelector('.modal.open')||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();if(['arrowleft','arrowright','arrowup',' ','a','d','w'].includes(k)){e.preventDefault();if(k==='arrowleft'||k==='a')onMove(-1);if(k==='arrowright'||k==='d')onMove(1);if(k==='arrowup'||k==='w'||k===' ')onHop();}if(k==='p'||k==='escape')pause();});
+ $('shopOpen').onclick=()=>modalOpen('shopModal');$('shopSidebar').onclick=()=>modalOpen('shopModal');$('collectionOpen').onclick=()=>modalOpen('collectionModal');$('chooseCharacter').onclick=()=>modalOpen('collectionModal');$('howButton').onclick=()=>modalOpen('helpModal');$('pullButton').onclick=pull;
+ document.querySelectorAll('[data-close]').forEach(el=>el.onclick=()=>closeModals());document.querySelectorAll('.modal').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeModals();}));
+ $('muteButton').onclick=()=>{save.sound=!save.sound;persist();refresh();if(save.sound){unlockAudio();playCreature(save.equipped);}else toast('Sounds muted');};
+ for(const [i,n] of names.entries()){const op=document.createElement('option');op.value=i;op.textContent=n;$('speciesFilter').append(op);}[$('collectionFilter'),$('speciesFilter')].forEach(el=>el.addEventListener('change',()=>{page=0;renderCollection();}));$('pagePrev').onclick=()=>{page--;renderCollection();};$('pageNext').onclick=()=>{page++;renderCollection();};
+ ensureRows(12);refresh();putPrompt();requestAnimationFrame(loop);
+}
+init();
+// Expose a small read-only test interface for classroom deployment checks.
+window.CrossyWordsDiagnostics={getStatus:()=>({status:state.status,crash:state.crash,characterBest:save.characterBests[save.equipped]||0,stage:state.stage,score:state.score,question:state.question&&{correct:state.question.correct,options:[...state.question.options],type:state.question.type},row:state.row,col:state.col,upcoming:rows.get(state.row+1)?.kind,landing:(rows.get(state.row+1)?.q ? nearestWord(rows.get(state.row+1),XC[state.col],state.t+.42)?.word || null : null),lane:state.lane,coins:save.coins,unlocked:save.unlocked.length,grade:state.grade,mode:state.mode}),getQuestionCount:()=>ALLQ.length,getWorld:()=>({name:world().name,style:world().style,night:world().night,worlds:worlds.length,characterCount:TOTAL}),getLanding:()=>landingPreview(rows.get(state.row+1),XC[state.col],state.t),inspectRow:(n)=>{const r=rows.get(n);return r?{id:r.id,kind:r.kind,carCount:r.carCount,train:r.kind==='train'?trainInfo(r,state.t):null}:null},setForTest:(row,col)=>{state.row=row;state.stage=row;state.col=col??2;state.floatX=null;state.transition=0;ensureRows(row+12);putPrompt();refresh();}};
+})();
+</script>
+</body>
+</html>
