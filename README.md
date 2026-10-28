@@ -1,41 +1,66 @@
-# Crossy Words — v2.3: Longer Worlds & New Hoppers
+# Crossy Words — v2.4 Arcade Academy
 
-A no-login, browser-based grammar arcade game for **grades 3–12**. It combines five-column hopping, moving word platforms, traffic, log crossings, occasional trains, a coin economy, and capsule unlocks.
+A browser-based grammar hopping game for grades 3–12. Dodge traffic and trains, time moving word platforms, collect characters, and practice grammar. No AI, sign-in, external APIs, or payments are required.
 
 ## Install on GitHub Pages
 
-1. Create or open your existing `crossy-words` GitHub repository.
-2. Put `index.html` in the **repository root** (replace the old `index.html`).
-3. Optionally upload this `README.md`.
-4. In **Settings → Pages**, deploy from `main` and `/ (root)`.
-5. The site URL remains `https://jkramer-cloud.github.io/crossy-words/` if using that account and repository name. No Learning Hub URL change is needed.
+1. Open your existing `crossy-words` repository.
+2. Replace the old `index.html` with the `index.html` in this ZIP. You can also replace `README.md` and add `CHANGELOG.md`.
+3. Commit to the published branch. GitHub Pages will serve the updated game at the same address: `https://jkramer-cloud.github.io/crossy-words/`.
+4. Students might need to refresh the page after deployment.
 
-## What's new in v2.3
+To play offline, download and open `index.html` in Chrome or Edge. This is one self-contained file.
 
-- **48 rows per environment**, three times v2.2's 16 rows. A progress meter shows how far you have explored before the theme changes.
-- **16 map environments** (up from 12): four new themes are Cloud Kingdom, Coral Reef, Moon Base, and Clockwork Yard. Each environment can appear in daytime or with night effects and glowing props.
-- **576 character variations** across 48 types and 12 color styles. Newly added 18 character types include Mini Giraffe, Lumberjack, Griffin, Wizard, Pirate, Knight, Butterfly, Chef, Explorer, Phoenix, Robot DJ, Fairy, Snow Yeti, Firefighter, Pilot, Forest Sprite, Space Ranger, and Peacock. Wing and tail shapes are drawn into the procedural artwork.
-- **Random equip** selects a different *already unlocked* character without a coin cost. It works from the sidebar and the collection menu; it never grants a locked one.
-- **Five grade bands:** 3–4, 5–6, 7–8, 9–10, 11–12. The game includes 204 carefully written grammar questions and brief explanations. Questions are drawn mainly from the selected grade band, with occasional review of the immediately lower band.
-- **Grade-adjusted arcade timers:** the youngest students have more reading time, and older high-school levels allow time for more sophisticated questions. Practice mode remains untimed.
+## What is new in v2.4
 
-## Core controls
+### Independently adjustable Arcade difficulty
 
-- Left / A: move left
-- Right / D: move right
-- Up / W / Space: hop forward
-- Tap an option to line up with an available moving tile, then time the hop
-- Pause button pauses active gameplay
-- A colored landing ring and Next Hop label help identify the landing surface; they do not reveal the correct answer
+**Grammar grade** determines question content (3–4, 5–6, 7–8, 9–10, or 11–12). It does not determine arcade difficulty.
 
-## Saved progress
+**Explorer**: 32% slower cars, one fewer car per traffic row, slower word tiles, rarer/slower trains, and 35% more time than Standard.
 
-Progress, coins, character unlocks, equipped character, high scores, and preferences use the browser's local storage key `crossy_words_hopper_save_v1`. The updated game intentionally retains that key so existing local saves can carry over, provided students continue using the same browser and origin. Clearing site data, using another device, or private browsing can lose the save. **No student information is sent to a server.**
+**Standard**: the original balanced speeds and timers.
 
-## What the physics checks mean
+**Expert**: 38% faster traffic, an additional car per road, faster word tiles and trains, more trains, and 18% less time.
 
-This is a fast arcade game, not a formal grammar assessment. The built-in questions are authored locally. All roads, moving platforms, logs, and train hazards still use simplified arcade collision and movement rules. The same character collection works across all grade bands; cosmetic rarity doesn't provide an advantage.
+These presets apply to Arcade mode. Practice mode remains untimed and disables fatal traffic hazards so students can focus on grammar.
 
-## Development/testing
+### Challenges and persistent badges
 
-Verified with Chromium automated checks for five grade choices, character counts and random equip, 48-row map boundaries, gallery rendering, basic gameplay initiation, and phone-width layout without horizontal overflow. Browser audio may require an initial click due to autoplay restrictions.
+- **11 general achievements** reward grammar practice, combos, travel, night maps, safe Arcade crossings and collecting characters.
+- **3 challenges per world**: answer 5 grammar questions, survive 6 obstacle rows in Arcade mode, and complete that 48-row region.
+- There are 16 worlds, so 48 world badges are available.
+- Challenge progress within a world is per-run. Awarded badges and their coin rewards persist on that browser. A badge can pay out only once per world.
+- View current challenge progress in the sidebar or open **View all achievements** to browse the full collection.
+
+### Learn from missed grammar answers
+
+- A grammatical mistake or grammar timeout in Arcade mode opens a **Mini Grammar Retry** on the results screen. Choose one of the sentence options, then receive an explanation of the correct answer before restarting.
+- In Practice mode, incorrect choices show a clear correction in the Word Coach panel and let the student try again without ending the run.
+- Vehicle crashes, missed logs, and other timing failures remain separate from grammar mistakes.
+
+### Features retained from v2.3
+
+- 576 collectible character color/creature combinations with synthesized sounds and a no-duplicate capsule shop.
+- Random equip from unlocked characters.
+- 16 map regions, 48 rows per region, with day and night variants.
+- 204 original grammar items across five grade bands.
+- Moving traffic, trains, rivers, word platforms, visual landing guide, and results snapshots.
+
+## Controls
+
+- Left / Right arrow keys, or A / D: move one of five columns.
+- Up arrow, W, or Space: hop forward.
+- P / Escape: pause.
+- On-screen directional buttons also work on touchscreen devices.
+- Tap answer tiles on the option bar to line up under a matching word platform. Wait until the moving word reaches a landing spot, then hop.
+
+## Progress and privacy
+
+Progress is saved in **localStorage** under `crossy_words_hopper_save_v1`. The same storage key is used as previous versions so previously unlocked characters, currencies and records are retained. New badges and difficulty preferences are added without resetting existing records.
+
+Data stays on the user's device/browser. Clearing browser storage or opening the game on another device will not carry over progress. The game uses no accounts, trackers or AI services. The stress of real-time Arcade mode can be reduced using **Explorer** or the untimed **Practice** mode.
+
+## Notes for educators
+
+The questions come from a curated offline bank, so text is not analyzed by an AI. Grammar feedback is tied to the stored explanation for each item. The game is designed as grammar practice, not a comprehensive assessment of all ELA standards.
