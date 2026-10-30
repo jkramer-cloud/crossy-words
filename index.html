@@ -13,7 +13,7 @@
 .landingreadout{background:#1c2d4b;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:9px 12px;border-top:1px solid #385076;color:#e7f8ff;font-weight:900;font-size:13px;min-height:40px}.landingreadout strong{letter-spacing:.02em}.landingdot{background:#74ffdd;border:2px solid #f8ffff99;border-radius:50%;width:13px;height:13px;box-shadow:0 0 13px #74ffdd66}.landinglegend{color:#adc5e4;font-size:10px;font-weight:800;letter-spacing:.04em}@media(max-width:650px){.landingreadout{gap:6px;padding:8px 6px}.landingreadout strong{font-size:12px}.landinglegend{width:100%;text-align:center;font-size:9px}}
 .hopper-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.hopper-actions .btn{flex:1;min-width:100px}.badgerow{align-items:center;flex-wrap:wrap}.world-info{margin-top:5px}
 
-/* Crossy Words v2.4: independently adjustable arcade difficulty and progress badges */
+/* Crossy Words v2.6: Mythic collection, rarity filters, and transparent capsule odds */
 @media(max-width:600px){
  .board-overlay#startOverlay{position:fixed;inset:0;z-index:40;overflow-y:auto;align-items:center;justify-content:center;background:#071429f5;padding:12px}
  .board-overlay#startOverlay .startbox{max-height:92dvh;overflow-y:auto;width:min(100%,460px);max-width:460px}
@@ -48,37 +48,76 @@
 @media(max-width:800px){.achievement-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.startbox .settingrow{gap:5px;margin:6px 0}.startbox .fieldlabel{font-size:9px}.startbox .difficultyNote{font-size:10px;padding:5px;margin:0 0 7px}.startbox .settingrow select{padding:5px;font-size:12px}.badge-modal{max-height:94dvh}}
 </style>
+
+<style>
+/* Rarity Gallery & Mythic Capsule Update */
+/* On small screens the start menu uses z-index:40, so collection/shop modals must be higher. */
+.modal{z-index:75}
+.rarity-label{display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;border:1px solid currentColor;border-radius:100px;font-size:10px;font-weight:900;letter-spacing:.045em;text-transform:uppercase;white-space:nowrap;background:#162741a8;line-height:1.25}
+.rarity-label.common{color:#d4dceb}.rarity-label.rare{color:#76defe}.rarity-label.epic{color:#e2aeff}.rarity-label.legendary{color:#ffe197}
+.rarity-label.mythic{color:#ffe1ff;border-color:#dd9dff;background:linear-gradient(110deg,#7039af,#9c3d9e,#523d91);box-shadow:0 0 14px #df74ff66}
+.creaturetile{position:relative;min-height:144px;justify-content:flex-start;transition:transform .15s,border-color .15s,box-shadow .15s}
+.creaturetile:hover{transform:translateY(-2px);border-color:#a5ddff}
+.creaturetile.locked,.creaturetile.locked:disabled{opacity:.78;filter:none;background:#202f48;cursor:default}
+.creaturetile.locked canvas{filter:grayscale(1)}
+.creaturetile.locked>span.creature-name{color:#aab8d4}
+.creaturetile .rarity-label{font-size:9px;padding:3px 5px;max-width:100%}
+.creaturetile.mythic{border-color:#c48eff;background:linear-gradient(150deg,#473866,#302858 52%,#25375b);box-shadow:0 0 17px #d38bff30}
+.creaturetile.mythic.equipped{border-color:#b8ffb7;box-shadow:0 0 0 2px #aaf8ac80,0 0 20px #dd7cfa65}
+.creaturetile.mythic:not(.locked):before{content:'✧';position:absolute;right:6px;top:2px;color:#ffe9ff;font-size:16px;animation:mythicPulse 2.4s ease-in-out infinite}
+.creaturetile .creature-name{display:block;min-height:20px;max-width:100%;font-size:11px}
+.collectiongrid{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.rarity-summary{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 15px}
+.rarity-counter{border:1px solid #4e6382;border-radius:12px;padding:8px 10px;background:#253852;color:#f0f5ff;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;cursor:pointer}
+.rarity-counter.active{outline:2px solid #d6f4fe;outline-offset:1px}
+.rarity-counter .rarity-label{font-size:9px}
+.filterrow{margin:10px 0}
+.filterrow input{background:#263c5d;color:#fff;border:1px solid #6180a3;border-radius:10px;padding:9px 10px;min-width:130px;max-width:210px;flex:1}
+.filterrow input:focus-visible{outline:3px solid #acf0fc;outline-offset:2px}
+.odds-panel{margin:13px 0 2px;padding:11px;background:#152743;border:1px solid #4c6288;border-radius:13px}
+.odds-panel>strong{font-size:13px;color:#ebf1ff}
+.odds-chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+.odds-chips .rarity-label{padding:6px 8px}
+.pity-track{height:8px;background:#324160;border-radius:100px;margin-top:11px;overflow:hidden}
+.pity-track>div{height:100%;width:0;background:linear-gradient(90deg,#73d3f7,#bc77ee,#ffbae8);border-radius:100px;transition:width .25s}
+.mythic-reveal{background:radial-gradient(circle at 20% 25%,#c75bff55,transparent 60%),#40345f;border:1px solid #db9aff;border-radius:14px;padding:9px;box-shadow:0 0 28px #ba6bff88}
+@keyframes mythicPulse{50%{opacity:.4;transform:scale(.8)}0%,100%{opacity:1;transform:scale(1.1)}}
+@media(max-width:700px){.collectiongrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.creaturetile{min-height:128px;padding:6px 3px}.creaturetile .rarity-label{font-size:8px}.filterrow input{width:100%;max-width:none;flex-basis:100%}}
+@media(max-width:390px){.collectiongrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.creaturetile.mythic:not(.locked):before{animation:none}.creaturetile{transition:none}}
+</style>
 </head>
 <body>
 <header>
-  <div class="brand"><div class="brandmark" aria-hidden="true">W</div><div><div class="brandname">Crossy Words</div><div class="subhead">Grammar Hop Adventure · v2.4</div></div></div>
+  <div class="brand"><div class="brandmark" aria-hidden="true">W</div><div><div class="brandname">Crossy Words</div><div class="subhead">Grammar Hop Adventure · v2.6</div></div></div>
   <div class="headerbuttons"><div class="coins" title="Your earned coins"><span class="coinicon">★</span><span id="coinTop">150</span></div><button class="btn small" id="shopOpen">◉ Capsule Shop</button><button class="btn small flat" id="collectionOpen">▦ Collection</button><button class="btn small flat" id="muteButton" aria-pressed="false" aria-label="Toggle sound">♪ Sound On</button></div>
 </header>
 <main class="app">
-<div class="hero"><div><h1>Hop smart. <span>Go far.</span></h1><p>Choose your grammar grade and arcade difficulty separately, earn world badges, and learn from your missed words.</p></div><span class="pill">Grades 3–12 · 576 characters</span></div>
+<div class="hero"><div><h1>Hop smart. <span>Go far.</span></h1><p>Choose your grammar grade and arcade difficulty, earn world badges, and discover rare companions—including new Mythic hoppers.</p></div><span class="pill">Grades 3–12 · 648 characters</span></div>
 <div class="grid">
   <section class="gamepanel" aria-label="Crossy Words game">
     <div class="statusbar"><div class="status-left"><span class="counter">STEPS <b id="stepsUI">0</b></span><span class="line"></span><span class="counter">SCORE <b id="scoreUI">0</b></span><span class="line"></span><span class="counter">COMBO <b class="gold" id="comboUI">×0</b></span></div><div class="status-right"><span class="counter" id="worldLabel">☀️ Sunny Meadow</span><span class="line"></span><div id="timerbar" class="timer" aria-label="Time remaining"><div id="timerfill"></div></div><span id="timeUI" class="counter">—</span></div></div>
     <div class="prompt"><div class="prompttop"><span id="topicUI" class="prompttag">WELCOME, WORD HOPPER</span><span id="levelUI" class="leveltag">GRADE 5–6 · ARCADE</span></div><div class="question" id="questionUI" aria-live="polite">Ready to cross the grammar universe?</div><div class="promptnote" id="promptNote">Move sideways through five columns. Follow the landing ring and time each moving word crossing to complete the sentence.</div></div>
     <div class="boardwrap" id="boardwrap"><canvas id="gameCanvas" width="960" height="540" aria-label="Perspective-scrolling grammar crossings with five hopping columns. Move using the arrows or buttons." role="img"></canvas>
-      <div class="board-overlay" id="startOverlay"><div class="startbox"><div class="starticon" aria-hidden="true">🐸 ✨ 📚</div><h2>Choose your adventure!</h2><p>Explore 16 longer voxel worlds with glowing night variants. Hop through grammar challenges, dodge traffic, and collect new characters!</p><div class="settingrow"><label><span class="fieldlabel">Your grade level</span><select id="gradeSelect"><option value="34">Grades 3–4</option><option value="56">Grades 5–6</option><option value="78">Grades 7–8</option><option value="910">Grades 9–10</option><option value="1112">Grades 11–12</option></select></label><label><span class="fieldlabel">Game mode</span><select id="modeSelect"><option value="arcade">Arcade · timed</option><option value="practice">Practice · no timer</option></select></label><label class="diff-label"><span class="fieldlabel">Arcade difficulty</span><select id="difficultySelect"><option value="easy">Explorer · slower, more time</option><option value="normal">Standard · balanced</option><option value="hard">Expert · fast hazards</option></select></label></div><div class="difficultyNote" id="difficultyNote" aria-live="polite">Balanced traffic, word movement, and timers. The grade level chooses the grammar, not the traffic speed.</div><button id="startButton" class="btn primary" style="width:100%;padding:13px">▶ Start Hopping!</button><div class="menunote">Arrow keys / WASD / on-screen controls. Five grade bands (3–12). Difficulty changes hazards and timing, never the grammar curriculum. No account or internet required.</div></div></div>
+      <div class="board-overlay" id="startOverlay"><div class="startbox"><div class="starticon" aria-hidden="true">🐸 ✨ 📚</div><h2>Choose your adventure!</h2><p>Explore 16 longer voxel worlds with glowing night variants. Hop through grammar challenges, dodge traffic, and collect new characters!</p><div class="settingrow"><label><span class="fieldlabel">Your grade level</span><select id="gradeSelect"><option value="34">Grades 3–4</option><option value="56">Grades 5–6</option><option value="78">Grades 7–8</option><option value="910">Grades 9–10</option><option value="1112">Grades 11–12</option></select></label><label><span class="fieldlabel">Game mode</span><select id="modeSelect"><option value="arcade">Arcade · timed</option><option value="practice">Practice · no timer</option></select></label><label class="diff-label"><span class="fieldlabel">Arcade difficulty</span><select id="difficultySelect"><option value="easy">Explorer · slower, more time</option><option value="normal">Standard · balanced</option><option value="hard">Expert · fast hazards</option></select></label></div><div class="difficultyNote" id="difficultyNote" aria-live="polite">Balanced traffic, word movement, and timers. The grade level chooses the grammar, not the traffic speed.</div><button id="startButton" class="btn primary" style="width:100%;padding:13px">▶ Start Hopping!</button><div style="display:flex;gap:8px;justify-content:center;margin-top:9px"><button type="button" class="btn small" id="startCollection">▦ View Collection</button><button type="button" class="btn small" id="startShop">◉ Capsule Shop</button></div><div class="menunote">Arrow keys / WASD / on-screen controls. Five grade bands (3–12). Difficulty changes hazards and timing, never the grammar curriculum. No account or internet required.</div></div></div>
       <div class="board-overlay hidden" id="endOverlay"><div class="startbox resultsbox"><div class="result-head"><div class="starticon" id="endIcon">💫</div><div><h2 class="end-title" id="endTitle">Run Over!</h2><p id="endMessage">Nice try!</p></div></div><img id="crashSnapshot" class="crash-snapshot" alt="Picture of the game world at the moment your character was hit or fell"/><div class="results-stats"><div><strong id="endDistance">0</strong><span>ROWS TRAVELED</span></div><div><strong id="endBest">0</strong><span>YOUR BEST</span></div><div><strong id="endCharacterBest">0</strong><span>THIS CHARACTER</span></div></div><div id="endNewBest" class="new-record" hidden>★ NEW DISTANCE RECORD!</div><div id="endScore" class="result-score">0 points</div><div id="endAnswer" class="answerbox reviewbox" style="display:none"></div><div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap"><button class="btn primary" id="retryButton">↻ Hop Again</button><button class="btn" id="menuButton">Change Mode</button></div></div></div>
     </div>
     <div class="choicebar" id="choicebar" aria-label="Words to watch for on moving platforms"><button class="choicebtn" data-lane="0"><span>OPTION 1</span><b id="choice0">—</b></button><button class="choicebtn chosen" data-lane="1"><span>OPTION 2</span><b id="choice1">—</b></button><button class="choicebtn" data-lane="2"><span>OPTION 3</span><b id="choice2">—</b></button></div>
     <div class="landingreadout" id="landingReadout" role="status" aria-live="off"><span class="landingdot" id="landingDot"></span><strong id="landingStatus">NEXT HOP: SAFE TERRAIN</strong><span class="landinglegend">CYAN PLATFORM · RED GAP · GOLD TIMING · GREEN GROUND</span></div><div class="controlrow"><span class="hint" id="controlHint">← → move across five columns · ↑ / W / Space hop forward · Watch the moving tiles!</span><div class="keys"><button class="key" id="leftButton" aria-label="Move left">←</button><button class="key forward" id="forwardButton" aria-label="Hop forward">↑ HOP</button><button class="key" id="rightButton" aria-label="Move right">→</button></div><button class="btn small flat" id="pauseButton">Ⅱ Pause</button></div>
   </section>
   <aside class="sidebar">
-    <section class="card"><h3>🏆 Your Adventure</h3><div class="statgrid"><div class="stat"><strong id="highScoreUI">0</strong><span>BEST SCORE</span></div><div class="stat"><strong id="bestStepsUI">0</strong><span>BEST ROW</span></div><div class="stat"><strong id="totalCorrectUI">0</strong><span>CORRECT HOPS</span></div><div class="stat"><strong id="collectionCountUI">3/576</strong><span>CHARACTERS</span></div></div><div class="tiny">Grammar crossings earn coins. Safe rows and traffic make every run feel like a real arcade crossing.</div><button class="btn rose" id="shopSidebar" style="width:100%;margin-top:12px">◉ Visit the Capsule Shop</button></section>
+    <section class="card"><h3>🏆 Your Adventure</h3><div class="statgrid"><div class="stat"><strong id="highScoreUI">0</strong><span>BEST SCORE</span></div><div class="stat"><strong id="bestStepsUI">0</strong><span>BEST ROW</span></div><div class="stat"><strong id="totalCorrectUI">0</strong><span>CORRECT HOPS</span></div><div class="stat"><strong id="collectionCountUI">3/648</strong><span>CHARACTERS</span></div></div><div class="tiny">Grammar crossings earn coins. Safe rows and traffic make every run feel like a real arcade crossing.</div><button class="btn rose" id="shopSidebar" style="width:100%;margin-top:12px">◉ Visit the Capsule Shop</button></section>
     <section class="card"><h3>🦊 Your Hopper</h3><div class="spritecard"><canvas width="100" height="100" id="equippedCanvas"></canvas><div><b id="equippedName">Ember Frog</b><p id="equippedRarity">Common · ready to hop</p><div class="hopper-actions"><button class="btn small flat" id="chooseCharacter">Collection</button><button class="btn small primary" id="randomHopper">🎲 Random</button></div></div></div><div class="tiny">Next environment begins at row <b id="nextWorldUI">48</b>.</div><div class="progressbar"><div id="worldProgress"></div></div><div class="tiny world-info" id="worldProgressText">0 of 48 rows in this world</div></section>
     <section class="card challenge-card"><h3>🏅 World Challenges</h3><div class="tiny"><b id="challengeWorldName">Current world</b> · <span id="challengeEarned">0</span> badges collected</div><div id="worldChallenges" class="challenge-list" aria-live="polite"></div><button class="btn small flat" id="badgesOpen" style="width:100%;margin-top:9px">View all achievements</button><div class="tiny" style="margin-top:8px">Badges reward coins once. Traffic challenges require Arcade; grammar challenges work in both modes.</div></section>
-    <section class="card"><h3>🎓 Word Coach</h3><div class="tiny" id="coachText">Look for the correct word on the circulating tiles, then hop when it is under your landing marker.</div><div class="tip" id="topicTip">Focus on the sentence's meaning and grammar clues before hopping.</div><div id="practiceReview" class="practice-review" hidden></div><div class="tiny">★ +12 coins per correct grammar answer (streak bonuses)<br>★ 80 coins per capsule · all 576 are earnable</div><button class="btn small flat" id="howButton" style="margin-top:10px">How to Play</button></section>
+    <section class="card"><h3>🎓 Word Coach</h3><div class="tiny" id="coachText">Look for the correct word on the circulating tiles, then hop when it is under your landing marker.</div><div class="tip" id="topicTip">Focus on the sentence's meaning and grammar clues before hopping.</div><div id="practiceReview" class="practice-review" hidden></div><div class="tiny">★ +12 coins per correct grammar answer (streak bonuses)<br>★ 80 coins per capsule · all 648 are earnable</div><button class="btn small flat" id="howButton" style="margin-top:10px">How to Play</button></section>
   </aside>
 </div>
 <div class="footer">Crossy Words · Original classroom grammar game · Progress saved on this device only · No logins, trackers, or AI services</div>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<div class="modal" id="shopModal" role="dialog" aria-modal="true" aria-labelledby="shopTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="shopTitle">The Capsule Arcade</h2><p>Spend coins. Hatch a random new companion. Collect every color and creature!</p></div><button class="closer" data-close="shopModal" aria-label="Close shop">×</button></div><div class="shoprow"><div class="machine" id="machine"><div class="machine-top"><div class="ballcluster" id="ballcluster"></div></div><div class="machine-body"><div class="machine-window">★</div><div class="machine-knob"></div></div><div class="machine-foot"></div><div class="capsule" id="capsule"></div></div><div class="shopdetails"><h3>One mystery capsule</h3><p>Each capsule awards a <b>new</b> character you don't own yet. Rarity changes how often characters appear, not how well they play.</p><div class="shopprice">★ 80 COINS · Balance: <span id="shopCoins">150</span></div><br><button class="btn rose" id="pullButton" style="width:100%;padding:13px">◉ Hatch a Character!</button><div id="reveal" class="reveal"><span style="font-size:35px">🎁</span><div><strong>Mystery awaits!</strong><div class="tiny">Your first capsule is almost ready.</div></div></div><div class="tiny">No real-money purchases. No duplicates. All coins are earned in-game.</div></div></div></div></div>
-<div class="modal" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="collectionTitle">Hopper Collection</h2><p>576 original character variations, including creatures and people, each with a unique sound signature.</p></div><button class="closer" data-close="collectionModal" aria-label="Close collection">×</button></div><div class="badgerow"><span class="pill" id="collectionStatus">3 / 576 unlocked</span><span class="pill">Tap an unlocked character to equip and hear its sound</span><button class="btn small" id="randomCollection" type="button">🎲 Equip Random Unlocked</button></div><div class="filterrow"><label class="tiny" for="collectionFilter">Show:</label><select id="collectionFilter" style="max-width:190px"><option value="all">All characters</option><option value="owned">Unlocked only</option><option value="locked">Locked only</option></select><label class="tiny" for="speciesFilter">Character:</label><select id="speciesFilter" style="max-width:190px"><option value="all">All character types</option></select></div><div id="collectionGrid" class="collectiongrid"></div><div class="pagecontrols"><button class="btn small flat" id="pagePrev">← Previous</button><span id="pageInfo" class="tiny">Page 1</span><button class="btn small flat" id="pageNext">Next →</button></div></div></div>
+<div class="modal" id="shopModal" role="dialog" aria-modal="true" aria-labelledby="shopTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="shopTitle">The Capsule Arcade</h2><p>Spend coins. Hatch a random new companion. Collect every color and creature, including Mythic characters!</p></div><button class="closer" data-close="shopModal" aria-label="Close shop">×</button></div><div class="shoprow"><div class="machine" id="machine"><div class="machine-top"><div class="ballcluster" id="ballcluster"></div></div><div class="machine-body"><div class="machine-window">★</div><div class="machine-knob"></div></div><div class="machine-foot"></div><div class="capsule" id="capsule"></div></div><div class="shopdetails"><h3>One mystery capsule</h3><p>Each capsule awards a <b>new</b> character you don't own yet. Rarity changes how often characters appear, not their gameplay abilities.</p><div class="shopprice">★ 80 COINS · Balance: <span id="shopCoins">150</span></div>
+<div class="odds-panel"><strong>Capsule rarity chances</strong><div class="odds-chips" id="capsuleOdds"></div><div class="tiny">Base chances while every tier has locked characters. Empty tiers are excluded; odds then change. No duplicate characters.</div><div class="pity-track"><div id="mythicPityBar"></div></div><div class="tiny" id="mythicPityText">Mythic guarantee in 25 pulls</div></div><br><button class="btn rose" id="pullButton" style="width:100%;padding:13px">◉ Hatch a Character!</button><div id="reveal" class="reveal"><span style="font-size:35px">🎁</span><div><strong>Mystery awaits!</strong><div class="tiny">Your first capsule is almost ready.</div></div></div><div class="tiny">No real-money purchases. No duplicates. All coins are earned in-game.</div></div></div></div></div>
+<div class="modal" id="collectionModal" role="dialog" aria-modal="true" aria-labelledby="collectionTitle"><div class="modalbox"><div class="modalhead"><div><h2 id="collectionTitle">Hopper Collection</h2><p>648 original character variations, including creatures and people, each with a unique sound signature.</p></div><button class="closer" data-close="collectionModal" aria-label="Close collection">×</button></div><div class="badgerow"><span class="pill" id="collectionStatus">3 / 648 unlocked</span><span class="pill">Tap an unlocked character to equip and hear its sound</span><button class="btn small" id="randomCollection" type="button">🎲 Equip Random Unlocked</button></div><div class="rarity-summary" id="raritySummary" aria-label="Characters unlocked by rarity"></div><div class="filterrow"><label class="tiny" for="collectionFilter">Show:</label><select id="collectionFilter" style="max-width:190px"><option value="all">All characters</option><option value="owned">Unlocked only</option><option value="locked">Locked only</option></select><label class="tiny" for="speciesFilter">Character:</label><select id="speciesFilter" style="max-width:190px"><option value="all">All character types</option></select><label class="tiny" for="rarityFilter">Rarity:</label><select id="rarityFilter" style="max-width:170px"><option value="all">All rarities</option><option value="common">Common</option><option value="rare">Rare</option><option value="epic">Epic</option><option value="legendary">Legendary</option><option value="mythic">✦ Mythic</option></select><label class="tiny" for="collectionSort">Sort:</label><select id="collectionSort" style="max-width:190px"><option value="species">By character</option><option value="rarity">Highest rarity first</option><option value="recent">Recently unlocked</option></select><label class="tiny" for="collectionSearch">Search:</label><input type="search" id="collectionSearch" placeholder="Fox, giraffe, knight..." autocomplete="off" aria-label="Search character types" /></div><div id="collectionGrid" class="collectiongrid"></div><div class="pagecontrols"><button class="btn small flat" id="pagePrev">← Previous</button><span id="pageInfo" class="tiny">Page 1</span><button class="btn small flat" id="pageNext">Next →</button></div></div></div>
 <div class="modal" id="badgesModal" role="dialog" aria-modal="true" aria-labelledby="badgesTitle"><div class="modalbox badge-modal"><div class="modalhead"><div><h2 id="badgesTitle">Achievement Gallery</h2><p>Earn persistent badges by practicing grammar, making long crossings, and mastering each world.</p></div><button class="closer" aria-label="Close achievements" data-close="badgesModal">×</button></div><div class="badge-summary" id="badgeSummary">Your achievements</div><h3>Grammar &amp; Adventure</h3><div id="achievementGrid" class="achievement-grid"></div><h3>World Challenge Badges</h3><p class="tiny">Three challenges per environment. Unlock each reward once across all runs.</p><div id="worldBadgeGrid" class="achievement-grid"></div></div></div>
 <div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="modalbox" style="max-width:560px"><div class="modalhead"><div><h2 id="helpTitle">How to Play</h2><p>Learn first. Hop second. Collect everything.</p></div><button class="closer" data-close="helpModal" aria-label="Close instructions">×</button></div><ol class="minilist" style="font-size:15px"><li><b>Read</b> the upcoming incomplete sentence at the top.</li><li><b>Move left and right</b> across five columns, then <b>hop forward</b> one row at a time.</li><li><b>Safe rows</b> give you room to travel and prepare.</li><li><b>Grammar crossings</b> have moving word tiles and gaps. Time your hop to land on the correct word. The ground ring and Next Hop readout help you judge where you will land. Cyan marks a word platform, red an empty gap, gold a timing hazard, and green safe ground.</li><li><b>Roads and rivers</b> have moving vehicles and logs. Hop across safely.</li><li><b>Punctuation crossings</b> sometimes use floating word logs.</li><li><b>Arcade difficulty</b> controls vehicle speeds, train frequency, word movement, and timing. Grade selection controls only grammar content.</li><li><b>World badges</b> reward grammar answers, obstacle crossings, and completing a whole region.</li><li><b>Review mistakes</b> after grammar misses or timeouts. Try the mini retry before restarting.</li><li><b>Earn coins</b> for correct hops and combo streaks.</li><li><b>Visit the Capsule Shop</b> to unlock random characters.</li></ol><div class="notice"><b>Arcade:</b> Incorrect answers, obstacles, or running out of time end the run.<br><b>Practice:</b> No timer; grammar mistakes give coaching and let you try again. Practice mode disables fatal traffic hazards.</div><button data-close="helpModal" class="btn primary" style="width:100%;margin-top:15px">Got It</button></div></div>
 <script>
@@ -86,14 +125,22 @@
 (()=>{
 const $=(id)=>document.getElementById(id);
 const W=960,H=540,canvas=$('gameCanvas'),ctx=canvas.getContext('2d');
-const names=['Fox','Cat','Frog','Bunny','Owl','Robot','Duck','Bear','Penguin','Turtle','Dragon','Ghost','Raccoon','Axolotl','Bee','Crab','Koala','Mushroom','Deer','Panda','Slime','Bat','Cactus','Tiger','Octopus','Unicorn','Firefly','Astronaut','Hedgehog','Jellyfish','Mini Giraffe','Lumberjack','Griffin','Wizard','Pirate','Knight','Butterfly','Chef','Explorer','Phoenix','Robot DJ','Fairy','Snow Yeti','Firefighter','Pilot','Forest Sprite','Space Ranger','Peacock'];
+const names=['Fox','Cat','Frog','Bunny','Owl','Robot','Duck','Bear','Penguin','Turtle','Dragon','Ghost','Raccoon','Axolotl','Bee','Crab','Koala','Mushroom','Deer','Panda','Slime','Bat','Cactus','Tiger','Octopus','Unicorn','Firefly','Astronaut','Hedgehog','Jellyfish','Mini Giraffe','Lumberjack','Griffin','Wizard','Pirate','Knight','Butterfly','Chef','Explorer','Phoenix','Robot DJ','Fairy','Snow Yeti','Firefighter','Pilot','Forest Sprite','Space Ranger','Peacock','Celestial Dragon','Star Knight','Moon Kirin','Clockwork Titan','Nebula Phoenix','Galaxy Leviathan'];
 const palettes=[['Ember','#ff995a','#ffe9ad','#d55f54'],['Mint','#65ddab','#d4fff0','#38a4a2'],['Sky','#83b8fa','#e7eeff','#5476cb'],['Berry','#e494dd','#ffdcf7','#ac67b2'],['Honey','#ffd26c','#fff7cd','#d18c4d'],['Coral','#ff9d99','#ffe5d0','#e8778a'],['Lilac','#af97f5','#efdeff','#7963c4'],['Moss','#95bf77','#f0ffd5','#648859'],['Frost','#a6e8e9','#f4feff','#69a8bf'],['Peach','#ffb99b','#fff0d8','#df8586'],['Midnight','#7a8bbf','#dae3fa','#49568a'],['Nova','#e9adff','#ffe69e','#aa59dd']];
 const rarityList=['common','common','common','common','common','common','rare','rare','epic','rare','epic','legendary'];
+// Append-only IDs: existing species 0–47 and their saved unlocks never change.
+// New showcase species offer several rarities, including two Mythic variants per species.
+const mythicRarityList=['common','rare','rare','epic','epic','epic','legendary','legendary','legendary','legendary','mythic','mythic'];
+const rarityOrder=['common','rare','epic','legendary','mythic'];
+const rarityLabels={common:'Common',rare:'Rare',epic:'Epic',legendary:'Legendary',mythic:'Mythic'};
+const capsuleOdds={common:56,rare:25,epic:12,legendary:5,mythic:2};
+const MYTHIC_PITY=25;
 const TOTAL=names.length*palettes.length,store='crossy_words_hopper_save_v1';
-function creature(id){const species=Math.floor(id/12),shade=id%12;return {id,species,shade,name:`${palettes[shade][0]} ${names[species]}`,rarity:rarityList[shade],colors:palettes[shade]};}
-const defaultSave={coins:150,unlocked:[0,12,24],equipped:24,highScore:0,bestSteps:0,totalCorrect:0,characterBests:{},sound:true,grade:'56',mode:'arcade',difficulty:'normal',bestCombo:0,safeCrossings:0,worldsVisited:[],nightWorlds:[],achievements:{},worldBadges:{}};
+function creature(id){const species=Math.floor(id/12),shade=id%12;return {id,species,shade,name:`${palettes[shade][0]} ${names[species]}`,rarity:(species>=48?mythicRarityList[shade]:rarityList[shade]),colors:palettes[shade]};}
+const defaultSave={coins:150,unlocked:[0,12,24],equipped:24,highScore:0,bestSteps:0,totalCorrect:0,characterBests:{},sound:true,grade:'56',mode:'arcade',difficulty:'normal',bestCombo:0,safeCrossings:0,worldsVisited:[],nightWorlds:[],achievements:{},worldBadges:{},mythicPity:0,unlockHistory:[]};
 let save;
-try{const old=JSON.parse(localStorage.getItem(store)||'null')||{};save={...defaultSave,...old};save.unlocked=[...new Set((Array.isArray(save.unlocked)?save.unlocked:defaultSave.unlocked).filter(n=>Number.isInteger(n)&&n>=0&&n<TOTAL).concat(defaultSave.unlocked))];if(!save.unlocked.includes(save.equipped))save.equipped=24;if(!['34','56','78','910','1112'].includes(save.grade))save.grade='56';save.coins=Math.max(0,Number(save.coins)||0);if(!save.characterBests || typeof save.characterBests!=='object' || Array.isArray(save.characterBests))save.characterBests={};if(!['easy','normal','hard'].includes(save.difficulty))save.difficulty='normal';for(const key of ['achievements','worldBadges'])if(!save[key]||typeof save[key]!=='object'||Array.isArray(save[key]))save[key]={};for(const key of ['worldsVisited','nightWorlds'])if(!Array.isArray(save[key]))save[key]=[];save.bestCombo=Math.max(0,Number(save.bestCombo)||0);save.safeCrossings=Math.max(0,Number(save.safeCrossings)||0);}catch(e){save={...defaultSave};}
+try{const old=JSON.parse(localStorage.getItem(store)||'null')||{};save={...defaultSave,...old};save.unlocked=[...new Set((Array.isArray(save.unlocked)?save.unlocked:defaultSave.unlocked).filter(n=>Number.isInteger(n)&&n>=0&&n<TOTAL).concat(defaultSave.unlocked))];if(!save.unlocked.includes(save.equipped))save.equipped=24;if(!['34','56','78','910','1112'].includes(save.grade))save.grade='56';save.coins=Math.max(0,Number(save.coins)||0);if(!save.characterBests || typeof save.characterBests!=='object' || Array.isArray(save.characterBests))save.characterBests={};if(!['easy','normal','hard'].includes(save.difficulty))save.difficulty='normal';for(const key of ['achievements','worldBadges'])if(!save[key]||typeof save[key]!=='object'||Array.isArray(save[key]))save[key]={};for(const key of ['worldsVisited','nightWorlds'])if(!Array.isArray(save[key]))save[key]=[];save.bestCombo=Math.max(0,Number(save.bestCombo)||0);save.safeCrossings=Math.max(0,Number(save.safeCrossings)||0);save.mythicPity=clampPity(save.mythicPity);if(!Array.isArray(save.unlockHistory))save.unlockHistory=[];save.unlockHistory=[...new Set(save.unlockHistory.filter(id=>Number.isInteger(id)&&save.unlocked.includes(id)))];for(const id of save.unlocked)if(!save.unlockHistory.includes(id))save.unlockHistory.push(id);}catch(e){save={...defaultSave};}
+function clampPity(v){return Math.max(0,Math.min(MYTHIC_PITY-1,Math.floor(Number(v)||0)));}
 function persist(){try{localStorage.setItem(store,JSON.stringify(save));}catch(e){}}
 function rand(n){return Math.floor(Math.random()*n);}const pick=a=>a[rand(a.length)];const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const ALLQ=[];const add=(type,grade,prompt,correct,wrong1,wrong2,why)=>ALLQ.push({type,grade,prompt,correct,options:[correct,wrong1,wrong2],why});
@@ -307,6 +354,163 @@ add("Rhetoric","1112","Deliberately omitting conjunctions from a series is ___."
 add("Rhetoric","1112","Deliberately repeating conjunctions in a series is ___.","polysyndeton","asyndeton","ellipsis","Polysyndeton uses multiple conjunctions for emphasis.");
 add("Rhetoric","1112","Replacing a whole with a related part, such as “all hands,” is ___.","synecdoche","simile","onomatopoeia","Synecdoche uses a part to represent a whole or the reverse.");
 
+// Crossy Words v2.6: additional teacher-facing curriculum items, each with one unambiguous answer.
+add("Punctuation","34","Please close the door___",".","?",",","A polite command normally ends with a period.");
+add("Punctuation","34","What time is lunch___","?","!",".","A direct question ends with a question mark.");
+add("Punctuation","34","Wow___ That is a huge pumpkin!","!",",","?","An exclamation mark expresses strong feeling.");
+add("Punctuation","34","We packed socks___ shirts, and hats.",",",".","?","A comma separates items in a list.");
+add("Punctuation","34","After school___ we rode our bikes.",",",";","?","A comma separates this opening phrase from the main clause.");
+add("Word Choice","34","The baby ducks followed their ___.","mother","mothers'","mothers","Mother is singular when referring to their one parent.");
+add("Word Choice","34","One tooth, two ___.","teeth","tooths","toothes","Teeth is the irregular plural form of tooth.");
+add("Word Choice","34","Choose the opposite of noisy.","quiet","loud","booming","Quiet means making little or no noise.");
+add("Word Choice","34","The rabbit has two long ___.","ears","eares","ear's","The plural of ear is ears, without an apostrophe.");
+add("Word Choice","34","The ___ brightens the sky each morning.","sun","son","some","Sun names the star that lights Earth.");
+add("Agreement","34","My brother ___ soccer after school.","plays","play","playing","The singular subject brother takes plays.");
+add("Agreement","34","These flowers ___ in spring.","bloom","blooms","blooming","Flowers is plural, so use bloom.");
+add("Agreement","34","I ___ excited for the field trip.","am","is","are","The subject I pairs with am.");
+add("Agreement","34","The two cats ___ sleeping.","are","is","am","The plural subject cats pairs with are.");
+add("Agreement","34","Each pencil ___ a sharp point.","has","have","having","Each refers to one pencil, so has is correct.");
+add("Parts of Speech","34","Choose the adjective: The ___ coat kept me warm.","thick","thickly","thicken","Thick describes the coat.");
+add("Parts of Speech","34","Choose the verb: The horse ___ over the fence.","jumped","brown","quickly","Jumped tells what the horse did.");
+add("Parts of Speech","34","Choose the noun: A ___ landed nearby.","butterfly","fluttered","gracefully","Butterfly names an animal.");
+add("Parts of Speech","34","Choose the adverb: The singer spoke ___.","softly","soft","softness","Softly tells how the singer spoke.");
+add("Verb Tenses","34","Last summer, we ___ at the lake.","swam","swim","swimming","Swam is the past tense of swim.");
+add("Homophones","56","Please ___ your name at the bottom.","write","right","rite","Write means to form words with letters.");
+add("Homophones","56","Turn ___ at the next corner.","right","write","rite","Right describes this direction.");
+add("Homophones","56","Our class took a short ___ after lunch.","break","brake","brick","A break is a rest or pause.");
+add("Homophones","56","Press the ___ before the bike rolls downhill.","brake","break","brick","A brake slows or stops motion.");
+add("Homophones","56","The campers saw a ___ near the creek.","deer","dear","dare","Deer names the animal.");
+add("Homophones","56","Thank you, ___ friend, for your help.","dear","deer","dare","Dear is an affectionate way to address someone.");
+add("Homophones","56","The ___ carried apples to the market.","seller","cellar","sailor","A seller is a person who sells items.");
+add("Homophones","56","The potatoes were stored in the ___.","cellar","seller","sailor","A cellar is a room beneath a building.");
+add("Homophones","56","We watched the boat ___ across the lake.","sail","sale","seal","Sail means to travel by boat.");
+add("Homophones","56","The shop announced a big ___ on shoes.","sale","sail","seal","A sale offers items for purchase, often at reduced prices.");
+add("Verb Tenses","56","By noon yesterday, the team had ___ its work.","finished","finish","finishing","Had finished is the past perfect form.");
+add("Verb Tenses","56","The children ___ their lunches every Friday.","pack","packs","packing","The plural subject children takes pack.");
+add("Verb Tenses","56","At this moment, Eli is ___ a model airplane.","building","built","build","Is building describes an action happening now.");
+add("Verb Tenses","56","Last Tuesday, we ___ a poem aloud.","recited","recite","reciting","Last Tuesday calls for the past tense recited.");
+add("Verb Tenses","56","Next week, the library will ___ new books.","receive","received","receives","The base verb follows will.");
+add("Verb Tenses","56","The leaves ___ from the trees last fall.","fell","fall","fallen","Fell is the simple past form of fall.");
+add("Verb Tenses","56","Every winter, the river ___ along the bank.","freezes","freeze","freezing","The singular river takes freezes.");
+add("Verb Tenses","56","The students have ___ the instructions.","read","reads","reading","Have read uses the past participle read.");
+add("Agreement","56","A basket of peaches ___ on the table.","sits","sit","sitting","The singular subject basket takes sits.");
+add("Agreement","56","Neither of the girls ___ absent today.","is","are","be","Neither is singular in this construction.");
+add("Agreement","56","Several bright stars ___ above us.","shine","shines","shining","The plural subject stars takes shine.");
+add("Agreement","56","The box of markers ___ under my desk.","belongs","belong","belonging","Box is the singular subject.");
+add("Agreement","56","Everyone in the classroom ___ a turn.","gets","get","getting","Everyone is singular and takes gets.");
+add("Agreement","56","Those two bicycles ___ new tires.","need","needs","needing","The subject bicycles is plural.");
+add("Agreement","56","The teacher and the coach ___ early.","arrive","arrives","arriving","Two subjects joined by and take a plural verb.");
+add("Agreement","56","One of the windows ___ cracked.","is","are","be","The subject one is singular.");
+add("Punctuation","56","Choose the sentence with the correct apostrophe.","The girl's book is on the desk.","The girls book is on the desk.","The girl,s book is on the desk.","An apostrophe before s shows ownership by one girl.");
+add("Punctuation","56","Which sentence uses a contraction correctly?","We don't have enough time.","We dont have enough time.","We do'nt have enough time.","Don't needs an apostrophe between n and t.");
+add("Punctuation","56","Choose the correctly punctuated greeting.","Hello, Marcus!","Hello Marcus!","Hello; Marcus!","Use a comma when directly addressing Marcus.");
+add("Punctuation","56","Which sentence has the right list punctuation?","We need pencils, glue, and tape.","We need pencils glue, and tape.","We need pencils; glue and tape.","Commas separate items in a simple list.");
+add("Punctuation","56","Choose the correct end mark for a command: Stop___","!","?",",","An urgent command can end with an exclamation point.");
+add("Punctuation","56","Which sentence correctly introduces a quotation?","Jade said, \"I agree.\"","Jade said \"I agree.\"","Jade said; \"I agree.\"","A comma separates the speech tag from the quoted words.");
+add("Punctuation","56","Which sentence starts with the correctly capitalized title?","We read The Secret Garden.","We read the secret garden.","We read The secret garden.","The important words in a book title are capitalized.");
+add("Punctuation","56","Choose the correct possessive phrase.","the dog's collar","the dogs collar","the dogs' collar of one dog","A single dog owns the collar, so use dog's.");
+add("Sentence Structure","56","Choose the complete sentence about thunder.","The thunder rolled across the valley.","When the thunder rolled.","Rolling across the valley.","A complete sentence expresses a full thought with a subject and verb.");
+add("Sentence Structure","56","Choose the complete sentence about practice.","We practiced until the bell rang.","Because the bell rang.","Practicing until the bell.","An independent clause makes the first option complete.");
+add("Sentence Structure","56","Choose a sentence that combines two ideas correctly.","The rain stopped, and we went outside.","The rain stopped, we went outside.","The rain stopped and, we went outside.","Use a comma and conjunction to connect two independent clauses.");
+add("Sentence Structure","56","Which sentence avoids a run-on?","I found my coat. Then I went outside.","I found my coat then I went outside without punctuation.","I found my coat I went outside.","Separate complete ideas with proper punctuation.");
+add("Sentence Structure","56","Choose the most specific sentence.","The puppy chased a red ball across the yard.","The thing chased something.","It did stuff outside.","Specific nouns and details make writing clearer.");
+add("Sentence Structure","56","Which transition shows a reason?","We stayed inside because the storm was strong.","We stayed inside although the storm was strong.","We stayed inside before the storm was strong.","Because tells why the students stayed inside.");
+add("Sentence Structure","56","Choose the clearest revision.","Mina carried the heavy box to the classroom.","The box carried Mina to the classroom.","Heavy carried the Mina box.","The first sentence has a clear subject, verb, and object.");
+add("Sentence Structure","56","Choose the correctly joined sentence.","The sun set, but the sky stayed bright.","The sun set, the sky stayed bright.","The sun set but, the sky stayed bright.","A comma before but joins independent clauses.");
+add("Parts of Speech","56","Which word is an adverb in this sentence: The turtle moved slowly.","slowly","turtle","moved","Slowly tells how the turtle moved.");
+add("Parts of Speech","56","Choose the preposition: The keys are ___ the table.","under","quickly","bright","Under shows the location of the keys.");
+add("Parts of Speech","56","Choose the conjunction: Maya sang ___ Theo played guitar.","while","yellow","safely","While connects two actions.");
+add("Parts of Speech","56","Choose the pronoun: ___ invited us to the picnic.","They","Quickly","Bright","They replaces the name of a group of people.");
+add("Parts of Speech","56","Choose the adjective: The ___ trail led uphill.","steep","steeply","steepen","Steep describes the trail.");
+add("Parts of Speech","56","Choose the adverb: The team responded ___.","promptly","prompt","promptness","Promptly describes how the team responded.");
+add("Word Choice","56","Which word best replaces very big?","enormous","tiny","distant","Enormous means very large.");
+add("Word Choice","56","Which word best describes a person who keeps trying?","persistent","careless","hesitant","Persistent means continuing despite difficulty.");
+add("Word Choice","56","Which word most clearly means to examine closely?","inspect","ignore","misplace","Inspect means to look at carefully.");
+add("Word Choice","56","Which word best means a short summary?","overview","novel","dialogue","An overview gives the main points briefly.");
+add("Word Choice","56","Which transition adds information?","Also,","However,","Instead,","Also introduces additional information.");
+add("Word Choice","56","Which transition signals an opposite idea?","However,","Similarly,","For example,","However introduces contrast.");
+add("Word Choice","78","The sculpture was made from coarse ___ .","material","materiel","materially","Material is the substance an object is made from.");
+add("Word Choice","78","The army transported medical ___ to the base.","materiel","material","materially","Materiel refers to military supplies or equipment.");
+add("Word Choice","78","An editor who checks every detail is ___ .","conscientious","conscious","consensus","Conscientious means careful and responsible.");
+add("Word Choice","78","After the fall, the climber remained ___ .","conscious","conscientious","consensus","Conscious means awake and aware.");
+add("Homophones","78","The hikers climbed to the mountain's ___ .","peak","peek","pique","Peak means the highest point.");
+add("Homophones","78","Do not ___ at your teammate's answer.","peek","peak","pique","Peek means to look quickly or secretly.");
+add("Homophones","78","The mystery began to ___ her curiosity.","pique","peak","peek","Pique means to stimulate interest or curiosity.");
+add("Word Choice","78","The loudspeaker announcement was barely ___ .","audible","edible","available","Audible means able to be heard.");
+add("Word Choice","78","The berries were confirmed to be ___ .","edible","audible","editable","Edible means safe or suitable to eat.");
+add("Verb Tenses","78","If the team had practiced, they ___ better prepared.","would have been","will be","are","A past unreal condition uses would have plus a past participle.");
+add("Verb Tenses","78","By next Friday, we will have ___ the novel.","finished","finish","finishing","Future perfect uses will have plus a past participle.");
+add("Verb Tenses","78","She has ___ the same route many times.","chosen","chose","choose","Has requires the past participle chosen.");
+add("Verb Tenses","78","Before the bell rang, everyone had ___ their materials.","gathered","gather","gathering","Had gathered describes an earlier past action.");
+add("Verb Tenses","78","If I ___ enough time, I would revise my draft.","had","have","having","Hypothetical conditional sentences typically use had.");
+add("Verb Tenses","78","When the play began, the lights had already ___ .","dimmed","dim","dimming","Past perfect uses had plus the past participle dimmed.");
+add("Agreement","78","A series of experiments ___ planned for Monday.","is","are","be","The main subject series is singular here.");
+add("Agreement","78","Several members of the orchestra ___ early.","arrived","arrives","arriving","The plural subject several members pairs with arrived in this past context.");
+add("Agreement","78","The results of the investigation ___ surprising.","were","was","be","Results is plural, so use were.");
+add("Agreement","78","Each of the devices ___ a serial number.","has","have","having","Each is singular and takes has.");
+add("Agreement","78","Neither the author nor the editors ___ satisfied.","were","was","is","The verb agrees with the nearer plural subject editors.");
+add("Agreement","78","The audience ___ quietly as the speaker began.","listened","listen","listening","The past tense listened fits the completed event.");
+add("Parallel Structure","78","The team focused on planning, drafting, and ___.","revising","to revise","revision","Match the -ing form throughout the list.");
+add("Parallel Structure","78","The study was careful, detailed, and ___.","accurate","accuracy","accurately","All three words describe the study using adjectives.");
+add("Parallel Structure","78","She hopes to travel, to learn, and to ___.","explore","exploring","exploration","A series of infinitives uses base verbs after to.");
+add("Parallel Structure","78","The coach asked us to warm up, practice, and ___.","stretch","stretching","stretches","The verbs follow matching base forms.");
+add("Parallel Structure","78","The plan requires both careful research and ___.","accurate reporting","report accurately","to report","Both sides of and are matching noun phrases.");
+add("Parallel Structure","78","The museum offers maps, guides, and ___.","brochures","to explore","explaining","The list should contain parallel nouns.");
+add("Punctuation","78","Choose the correctly punctuated dialogue.","\"Let's go,\" Ava said.","\"Let's go\" Ava said.","\"Let's go.\" Ava said.","A comma replaces the final period before a dialogue tag.");
+add("Punctuation","78","Choose the correct use of a colon.","Bring these supplies: paper, pencils, and tape.","Bring: these supplies paper, pencils, and tape.","Bring these: supplies paper, pencils, and tape.","A colon can introduce a list after a complete independent clause.");
+add("Punctuation","78","Which choice joins two complete clauses with a semicolon?","The class ended; the hallway filled.","The class ended, the hallway filled.","The class ended; because the hallway filled.","A semicolon can connect two independent clauses.");
+add("Punctuation","78","Select the sentence with correct possession.","The players' uniforms were clean.","The players uniforms were clean.","The player's uniforms were clean for all players.","A plural noun ending in s takes an apostrophe after s.");
+add("Punctuation","78","Select the correct punctuation for a nonessential phrase.","My aunt, who lives in Yakima, is visiting.","My aunt who lives in Yakima, is visiting.","My aunt, who lives in Yakima is visiting.","The nonessential description is enclosed by commas.");
+add("Punctuation","78","Choose the correct sentence.","After the final whistle, the team celebrated.","After, the final whistle the team celebrated.","After the final whistle the, team celebrated.","A comma follows an introductory phrase.");
+add("Sentence Structure","78","Choose the sentence that avoids a fragment.","Although it was cold, the hikers continued.","Although it was cold.","Even though the hikers.","A dependent clause must attach to an independent clause.");
+add("Sentence Structure","78","Which sentence fixes the comma splice?","The experiment failed; we tested again.","The experiment failed, we tested again.","The experiment failed, testing again we.","A semicolon correctly separates independent clauses.");
+add("Sentence Structure","78","Choose the clearest modifier.","Carrying a heavy backpack, Jonah climbed the stairs.","Carrying a heavy backpack, the stairs rose ahead.","The stairs carrying a backpack were climbed.","The introductory phrase must describe Jonah.");
+add("Sentence Structure","78","Which transition shows contrast?","The route was shorter; however, it was steeper.","The route was shorter; therefore, it was steeper.","The route was shorter; for example, it was steeper.","However contrasts two observations.");
+add("Sentence Structure","78","Choose the strongest claim.","The data suggest that practice improved accuracy.","Practice is always amazing for everyone.","The experiment was really cool.","A strong claim is specific and supported by evidence.");
+add("Sentence Structure","78","Choose the sentence with the clearest pronoun reference.","Nora told Mia, \"I finished my poster.\"","Nora told Mia she finished her poster.","She told her that her poster was finished.","Quotations clarify who is speaking about their poster.");
+add("Sentence Structure","78","Choose the best active-voice revision.","The students assembled the robot.","The robot was assembled by the students.","An assembling of the robot was done.","Active voice identifies the actor directly.");
+add("Sentence Structure","78","Which sentence is correctly joined?","It started raining, so the game moved inside.","It started raining, the game moved inside.","It started raining so, the game moved inside.","A comma plus coordinating conjunction joins two independent clauses.");
+add("Word Choice","78","Which word means to make a problem less severe?","mitigate","intensify","ignore","Mitigate means to reduce the severity of something.");
+add("Word Choice","78","Which word most precisely means to prove something wrong?","refute","repeat","restate","Refute means to disprove a claim using evidence.");
+add("Word Choice","78","Which word describes an unfair preference?","bias","accuracy","balance","Bias is a tendency that can distort fairness or judgment.");
+add("Word Choice","78","Which word best replaces very careful?","meticulous","reckless","vague","Meticulous means showing great attention to detail.");
+add("Word Choice","78","A claim based on observations is best described as ___.","evidence-based","imaginary","unrelated","Evidence-based claims rely on supporting observations.");
+add("Word Choice","78","Which transition introduces a consequence?","Consequently,","Meanwhile,","Conversely,","Consequently signals a result.");
+add("Literary Analysis","78","When an author hints at later events, the technique is ___.","foreshadowing","personification","alliteration","Foreshadowing plants clues about what may happen.");
+add("Literary Analysis","78","The struggle between a character and a storm is ___.","external conflict","internal conflict only","dialogue","A storm is an outside force, making this external conflict.");
+add("Literary Analysis","78","An object representing an abstract idea is a ___.","symbol","setting","subplot","A symbol stands for a larger idea.");
+add("Literary Analysis","78","The feeling created for readers by a scene is its ___.","mood","plot","point of view","Mood is the atmosphere readers experience.");
+add("Literary Analysis","78","A comparison using like or as is a ___.","simile","metaphor","hyperbole","A simile compares using like or as.");
+add("Literary Analysis","78","Giving a nonhuman object human qualities is ___.","personification","allusion","onomatopoeia","Personification attributes human traits to nonhuman things.");
+add("Concision","78","Choose the more concise sentence.","The committee postponed the vote.","The committee made the decision to postpone the vote.","There was a postponement of the vote by the committee.","The shortest option communicates the action directly.");
+add("Concision","78","Which revision removes unnecessary repetition?","We returned home.","We returned back home again.","We once again returned back home.","Returned already conveys going back.");
+add("Concision","78","Choose the clearest sentence.","The results support the hypothesis.","The results are in support of the hypothesis.","The results have a supportive nature regarding the hypothesis.","A direct verb improves clarity.");
+add("Concision","78","Choose the most concise transition.","Because","Due to the fact that","On account of the fact that","Because gives the reason in fewer words.");
+add("Reasoning","78","Which conclusion is supported by a limited survey?","Among the 30 students surveyed, most preferred reading.","All students everywhere prefer reading.","No student could prefer math.","Limit conclusions to the actual sample.");
+add("Reasoning","78","Which source is most reliable for school bus departure times?","The school district's current schedule","A five-year-old anonymous post","A classmate's guess","Use the current official schedule for school bus times.");
+add("Reasoning","78","Which detail would best support a claim about rainfall?","Daily rain-gauge measurements","A drawing of clouds","A guess about next year's weather","Measurements directly support a claim about rainfall.");
+add("Reasoning","78","Which statement distinguishes observation from opinion?","The thermometer read 12 degrees Celsius.","The day felt perfectly beautiful.","This is the best weather ever.","A thermometer reading is a measurable observation.");
+add("Sentence Structure","910","Choose the best revision of a dangling modifier.","While analyzing the data, the researcher spotted an error.","While analyzing the data, an error appeared to the researcher.","Analyzing the data, an error was spotted.","The person analyzing the data must be the grammatical subject.");
+add("Sentence Structure","910","Choose a correct semicolon connection.","The policy changed; the results improved.","The policy changed, the results improved.","The policy changed; because results improved.","Semicolons join independent clauses.");
+add("Transitions","910","Which transition signals an exception?","Nevertheless,","Furthermore,","Consequently,","Nevertheless introduces an unexpected contrast.");
+add("Transitions","910","Which transition introduces an illustration?","For example,","Therefore,","Otherwise,","For example introduces a specific case.");
+add("Literary Analysis","910","The contrast between what is said and what is meant is ___.","verbal irony","foreshadowing","alliteration","Verbal irony involves a gap between literal words and intended meaning.");
+add("Literary Analysis","910","An author's attitude toward a subject is called ___.","tone","setting","plot","Tone describes the writer's attitude.");
+add("Word Choice","910","Which word means reasonable based on evidence?","plausible","impossible","unrelated","Plausible means believable or reasonable.");
+add("Word Choice","910","Which word describes a claim that can be tested?","falsifiable","decorative","ambiguous","A falsifiable claim can be shown false through evidence.");
+add("Agreement","910","Neither the scientists nor the assistant ___ available.","was","were","are","The singular nearest subject assistant takes was.");
+add("Punctuation","910","Choose the correctly punctuated parenthetical.","The study, however, has limitations.","The study however, has limitations.","The study, however has limitations.","However as an interrupter is enclosed by commas.");
+add("Rhetoric","1112","Which device repeats words at the ends of consecutive clauses?","epistrophe","anaphora","asyndeton","Epistrophe repeats wording at clause endings.");
+add("Rhetoric","1112","A question asked for effect rather than an answer is a ___.","rhetorical question","direct citation","literal command","Rhetorical questions are asked to make a point.");
+add("Reasoning","1112","Which claim makes an appropriate inference?","The sample suggests a possible trend.","The sample proves the rule universally.","No other explanation is possible.","Tentative language fits limited evidence.");
+add("Reasoning","1112","Which error assumes that sequence proves causation?","post hoc fallacy","valid deduction","counterargument","Post hoc reasoning mistakes temporal order for causation.");
+add("Syntax","1112","Choose the correct conditional inversion.","Had I known, I would have prepared.","Had I knew, I would prepare.","I had knowing, I would prepare.","Had I known is an inverted past unreal conditional.");
+add("Syntax","1112","Which sentence uses a restrictive that-clause properly?","The study that was published Friday is cited.","The study, that was published Friday, is cited.","The study that, was published Friday is cited.","Restrictive that-clauses are not surrounded by commas.");
+add("Concision","1112","Choose the stronger revision.","The team investigated the discrepancy.","The team conducted an investigation into the discrepancy.","An investigation of a discrepancy was conducted by the team.","A direct verb makes the sentence more concise.");
+add("Concision","1112","Choose the strongest thesis.","The imagery links the landscape to the narrator's isolation.","The text has some interesting images.","I liked the writer's choices a lot.","A thesis should be specific and arguable.");
+add("Mood","1112","The manager required that he ___ present.","be","is","being","The mandative subjunctive uses the base verb be.");
+add("Literary Analysis","1112","A reference to a well-known work or event is an ___.","allusion","apostrophe","onomatopoeia","An allusion briefly refers to something outside the text.");
+
 // Configuration, saved stats and scene state.
 // Twelve original map types; every map can also appear in a glowing night variant.
 const worlds=[
@@ -343,7 +547,7 @@ function refresh(){
  $('stepsUI').textContent=state.stage;$('scoreUI').textContent=state.score;$('comboUI').textContent='×'+state.combo;
  $('highScoreUI').textContent=save.highScore;$('bestStepsUI').textContent=save.bestSteps;$('totalCorrectUI').textContent=save.totalCorrect;
  $('collectionCountUI').textContent=`${save.unlocked.length}/${TOTAL}`;$('collectionStatus').textContent=`${save.unlocked.length}/${TOTAL} unlocked`;
- $('equippedName').textContent=creature(save.equipped).name;$('equippedRarity').textContent=creature(save.equipped).rarity+' · equipped';
+ $('equippedName').textContent=creature(save.equipped).name;$('equippedRarity').textContent=rarityLabels[creature(save.equipped).rarity]+' · equipped';$('equippedRarity').className='rarity '+creature(save.equipped).rarity;
  $('nextWorldUI').textContent=(Math.floor(state.row/WORLD_LENGTH)+1)*WORLD_LENGTH;
  $('worldProgress').style.width=`${Math.floor(state.row%WORLD_LENGTH/WORLD_LENGTH*100)}%`;
  $('worldProgressText').textContent=`${state.row%WORLD_LENGTH} of ${WORLD_LENGTH} rows in this world`;
@@ -372,16 +576,24 @@ function worldAt(step){
  cache.set(chapter,w);return w;
 }
 function world(){return worldAt(state.row || 0)}
+function shuffleIds(ids){for(let i=ids.length-1;i>0;i--){const j=rand(i+1);[ids[i],ids[j]]=[ids[j],ids[i]];}return ids;}
 function makeQuestion(){
- // Focus mostly on the selected band, with occasional review from the band just below it.
+ // Each selected grade has its own exhaustible shuffle deck; every question appears
+ // before that band recycles. Maintain separate decks for prerequisite review.
  const prev={'34':null,'56':'34','78':'56','910':'78','1112':'910'}[state.grade];
- const band=(prev && Math.random()<.22)?prev:state.grade;
- let opts=ALLQ.filter(q=>q.grade===band);
- if(!opts.length)opts=ALLQ.filter(q=>q.grade===state.grade);
- let pool=opts.filter(q=>!state.questionHistory.includes(ALLQ.indexOf(q)));
- if(!pool.length){state.questionHistory=state.questionHistory.slice(-9);pool=opts.filter(q=>!state.questionHistory.includes(ALLQ.indexOf(q)));}
- const q=pick(pool);const options=[...q.options];for(let i=options.length-1;i>0;i--){const j=rand(i+1);[options[i],options[j]]=[options[j],options[i]];}
- state.questionHistory.push(ALLQ.indexOf(q));if(state.questionHistory.length>20)state.questionHistory.shift();
+ let band=(prev && Math.random()<.22)?prev:state.grade;
+ let ids=ALLQ.map((q,i)=>q.grade===band?i:-1).filter(i=>i>=0);
+ if(!ids.length){band=state.grade;ids=ALLQ.map((q,i)=>q.grade===band?i:-1).filter(i=>i>=0);}
+ if(!state.questionDecks)state.questionDecks={};
+ let deck=state.questionDecks[band];
+ if(!deck?.length){deck=shuffleIds(ids);state.questionDecks[band]=deck;}
+ // On a fresh cycle, prefer questions that haven't appeared recently.
+ const recent=new Set(state.questionHistory);
+ const safe=deck.findIndex(id=>!recent.has(id));
+ const id=deck.splice(safe<0?0:safe,1)[0];
+ const q=ALLQ[id];const options=[...q.options];
+ for(let i=options.length-1;i>0;i--){const j=rand(i+1);[options[i],options[j]]=[options[j],options[i]];}
+ state.questionHistory.push(id);if(state.questionHistory.length>20)state.questionHistory.shift();
  return {...q,options,correctIndex:options.indexOf(q.correct)};
 }
 let lastTrainRow=-30;
@@ -464,7 +676,13 @@ function collision(row,x,t){
  return null;
 }
 
-function logPositions(row,t){return [0,1,2,3,4].map(i=>{const x=((row.dir*(t*.49)+row.offset+i*2.6+66)%13)-6.5;return x}).filter(x=>Math.abs(x)<4.3)}
+function positiveMod(value,period){return ((value%period)+period)%period;}
+function logPositions(row,t){
+ // Always wrap to [0,13), including left-moving rivers after several minutes.
+ // Without positive modulo, every log eventually disappears on negative-direction rivers.
+ const phase=positiveMod(row.dir*(t*.49)+row.offset+66,13);
+ return [0,1,2,3,4].map(i=>positiveMod(phase+i*2.6,13)-6.5).filter(x=>Math.abs(x)<4.3);
+}
 const ACHIEVEMENTS=[
  {id:'first',icon:'📖',title:'First Word',description:'Answer 1 grammar question',stat:'totalCorrect',target:1,reward:20},
  {id:'ten',icon:'✏️',title:'Word Apprentice',description:'Answer 10 grammar questions',stat:'totalCorrect',target:10,reward:30},
@@ -529,7 +747,7 @@ function showEndReview(q,chosen){
 }
 function beginRun(){
  unlockAudio();closeModals();rows.clear();generatedUpTo=-1;lastTrainRow=-30;
- state.difficulty=$('difficultySelect').value;state={...state,status:'playing',worldOrder:worldOrder(),worldSeed:Math.random()*50000,worldCache:new Map(),row:0,col:2,lane:1,stage:0,score:0,combo:0,answered:0,time:gradeTime($('gradeSelect').value),limit:gradeTime($('gradeSelect').value),mode:$('modeSelect').value,grade:$('gradeSelect').value,difficulty:$('difficultySelect').value,worldStats:{},transition:0,badFlash:0,paused:false,particles:[],t:0,shake:0,questionHistory:[],question:null,crash:null,floatX:null,trainWarnAt:-1};
+ state.difficulty=$('difficultySelect').value;state={...state,status:'playing',worldOrder:worldOrder(),worldSeed:Math.random()*50000,worldCache:new Map(),row:0,col:2,lane:1,stage:0,score:0,combo:0,answered:0,time:gradeTime($('gradeSelect').value),limit:gradeTime($('gradeSelect').value),mode:$('modeSelect').value,grade:$('gradeSelect').value,difficulty:$('difficultySelect').value,worldStats:{},transition:0,badFlash:0,paused:false,particles:[],t:0,shake:0,questionHistory:[],questionDecks:{},question:null,crash:null,floatX:null,trainWarnAt:-1};
  save.mode=state.mode;save.grade=state.grade;save.difficulty=state.difficulty;persist();
  $('practiceReview').hidden=true;$('practiceReview').replaceChildren();$('startOverlay').classList.add('hidden');$('endOverlay').classList.add('hidden');visitWorld(world());progressWorld();$('pauseButton').textContent='Ⅱ Pause';
  ensureRows(13);putPrompt();refresh();updateLandingReadout();toast('Cross safe rows, time your word tiles, and avoid traffic!');
@@ -1136,7 +1354,70 @@ function drawSpecialHopper(c,sp,pa,main,light,dark){
  if([31,34,35,37,38,43,44].includes(sp))rr(-20,14,40,5,2,dark);
 }
 
+
+// Six unique Mythic-family silhouettes. These characters are hand-drawn in canvas
+// with deterministic color accents, so the game stays fast on school Chromebooks.
+function drawMythicHopper(c,sp,pa,main,light,dark,rarity){
+ const E=(x,y,rx,ry,fill)=>ellipse(c,x,y,rx,ry,fill);
+ const P=(points,fill)=>poly(c,points,fill);
+ const R=(x,y,w,h,r,fill,stroke)=>roundRect(c,x,y,w,h,r,fill,stroke);
+ const star=(x,y,r,color)=>{const a=[];for(let j=0;j<10;j++){const t=j*Math.PI/5-Math.PI/2,rr=j%2?r*.42:r;a.push([x+Math.cos(t)*rr,y+Math.sin(t)*rr]);}P(a,color);};
+ const ink='#1c2749',gold='#fff1a8',glow=rarity==='mythic'?'#f5b2ff':light;
+ if(rarity==='mythic'){
+  c.save();c.globalAlpha=.20;c.shadowColor='#e792ff';c.shadowBlur=16;E(0,-7,48,51,'#c78cfc');c.restore();
+  for(const [xx,yy,rr] of [[-46,-45,5],[49,-32,4],[-42,23,3],[41,31,5]])star(xx,yy,rr,gold);
+ }
+ if(sp===48){ // Celestial Dragon: swept wings, spiked tail and curved horns
+  P([[17,15],[50,-4],[56,-20],[49,18],[25,38]],dark);
+  for(const d of [-1,1]){P([[d*13,-20],[d*42,-65],[d*36,-28],[d*61,-43],[d*46,15],[d*25,11]],main);P([[d*21,-17],[d*37,-45],[d*29,-12]],light);P([[d*14,-44],[d*19,-83],[d*29,-50]],gold);}
+  E(0,8,31,35,dark);E(0,-24,34,32,main);E(0,15,22,25,light);
+  for(const d of [-1,1]){E(d*14,-28,9,11,'#fff');E(d*15,-28,4,5,ink);E(d*21,32,12,8,dark);}
+  E(0,-13,6,5,dark);star(0,7,9,gold);
+ }else if(sp===49){ // Star Knight: armored suit, feathered cape, halo and shield
+  for(const d of [-1,1])P([[d*15,-31],[d*43,-6],[d*39,37],[d*20,41]],dark);
+  R(-27,-32,54,73,14,main,dark);R(-24,-56,48,40,13,light,dark);R(-28,-48,56,14,5,ink);
+  for(const d of [-1,1]){R(d*26-9,-12,17,43,7,main,dark);R(d*16-9,29,18,13,5,dark);}
+  R(-4,-77,8,26,3,gold);star(0,-77,11,gold);
+  P([[23,-5],[43,-7],[48,16],[34,36],[21,15]],gold);star(34,11,9,main);star(0,8,10,gold);
+ }else if(sp===50){ // Moon Kirin: a miniature mystical deer with antlers and a star tail
+  P([[24,14],[50,-11],[46,15],[30,29]],dark);
+  for(const d of [-1,1]){P([[d*13,-33],[d*28,-77],[d*24,-40]],gold);P([[d*19,-52],[d*39,-63],[d*21,-42]],gold);P([[d*16,-35],[d*36,-49],[d*27,-20]],dark);}
+  E(0,5,31,38,main);E(0,-27,30,29,light);
+  for(const d of [-1,1]){R(d*19-8,26,16,19,6,dark);E(d*12,-30,7,10,'#fff');E(d*13,-30,3,5,ink);}
+  E(0,-12,7,6,dark);star(0,8,10,gold);star(48,-9,7,glow);
+ }else if(sp===51){ // Clockwork Titan: bronze gear shoulders, gears and cog halo
+  for(const d of [-1,1]){E(d*30,-3,18,24,dark);for(let i=0;i<6;i++){let a=i*Math.PI/3;R(d*30+Math.cos(a)*18-4,-3+Math.sin(a)*18-4,8,8,1,gold);}}
+  R(-34,-34,68,76,12,dark,main);R(-29,-30,58,66,9,main,gold);R(-26,-56,52,36,11,light,ink);
+  R(-22,-43,44,17,6,ink);for(const d of [-1,1])E(d*12,-35,6,7,glow);
+  E(0,4,17,18,gold);E(0,4,12,13,dark);star(0,4,10,main);
+  for(const d of [-1,1])R(d*18-10,28,20,19,5,dark);
+  P([[-30,-57],[-20,-82],[-8,-57],[0,-71],[8,-57],[20,-82],[30,-57]],gold);
+ }else if(sp===52){ // Nebula Phoenix: giant rainbow-tipped feathers
+  for(const d of [-1,1]){
+   P([[d*6,-14],[d*21,-42],[d*37,-70],[d*34,-37],[d*63,-68],[d*52,-20],[d*61,7],[d*22,25]],dark);
+   P([[d*9,-8],[d*32,-48],[d*26,-12],[d*50,-32],[d*40,9],[d*20,20]],main);
+   P([[d*14,1],[d*29,-25],[d*24,17]],gold);
+  }
+  for(const d of [-1,1])P([[d*11,15],[d*21,48],[d*5,39],[0,48]],dark);
+  E(0,-14,25,33,main);E(0,12,20,23,light);
+  for(const d of [-1,1]){E(d*12,-22,6,10,'#fff');E(d*13,-22,3,5,ink);E(d*14,32,9,8,dark);}
+  P([[-6,-8],[9,-8],[1,3]],gold);P([[-7,-43],[0,-71],[7,-43]],gold);star(0,15,7,glow);
+ }else{ // Galaxy Leviathan: elegant cosmic serpent with fins and orbital rings
+  E(19,16,28,24,dark);E(28,19,16,18,main);
+  P([[20,23],[47,33],[50,43],[35,39]],main);
+  for(const d of [-1,1])P([[d*21,-17],[d*40,-54],[d*31,-15],[d*46,3],[d*20,4]],dark);
+  E(0,-9,30,43,main);E(0,-27,30,27,light);
+  for(const d of [-1,1]){E(d*13,-29,7,9,'#fff');E(d*14,-29,3,5,ink);E(d*15,31,12,7,dark);}
+  E(0,-13,5,4,dark);star(0,9,12,gold);
+  c.save();c.strokeStyle=glow;c.globalAlpha=.6;c.lineWidth=4;c.beginPath();c.ellipse(0,0,49,16,-.3,0,Math.PI*2);c.stroke();c.restore();
+ }
+ // Distinct high-tier aura details without giving competitive advantages.
+ if(rarity==='legendary'||rarity==='mythic'){
+  star(-36,5,4,gold);star(37,-28,4,glow);
+ }
+}
 function drawCreature(c,x,y,size,id,hop=0,shadow=true){const ch=creature(id),sp=ch.species,pa=ch.shade,[prefix,main,light,dark]=ch.colors;const sc=size/100;c.save();c.translate(x,y-hop);c.scale(sc,sc);if(shadow){c.save();c.globalAlpha=.23;ellipse(c,0,43+hop/sc*.3,31,8,'#09182a');c.restore();}
+ if(sp>=48){c.translate(0,8);c.scale(.76,.76);drawMythicHopper(c,sp,pa,main,light,dark,ch.rarity);c.restore();return;}
  if(sp>=30){c.translate(0,7);c.scale(.82,.82);drawSpecialHopper(c,sp,pa,main,light,dark);c.restore();return;}
  // Species silhouettes: tails, wings, horns and ears, each with a characteristic profile.
  if([0,3,6,9,10,12,13].includes(sp)){ellipse(c,26,19,17,11,dark);if(sp===0)poly(c,[[23,6],[49,-5],[45,29]],main);if(sp===9)ellipse(c,0,15,40,32,dark);}
@@ -1220,10 +1501,51 @@ function spawnParticles(x,y,color,n){for(let i=0;i<n;i++)state.particles.push({x
 const rr=(c,x,y,w,h,r,fill)=>roundRect(c,x,y,w,h,r,fill);
 function modalOpen(id){if(state.status==='playing'&&!state.paused){state.paused=true;state._resumeModal=true;}else state._resumeModal=false;$(id).classList.add('open');if(id==='shopModal')renderShop();if(id==='collectionModal')renderCollection();}
 function closeModals(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('open'));if(state._resumeModal){state.paused=false;state._resumeModal=false;}}
-function renderShop(){ $('shopCoins').textContent=Math.floor(save.coins);$('pullButton').disabled=shopBusy||save.coins<80||save.unlocked.length===TOTAL;const el=$('ballcluster');if(!el.children.length){for(let i=0;i<8;i++){const b=document.createElement('span');b.className='smallball';b.style.left=(17+(i%4)*44)+'px';b.style.top=(39+Math.floor(i/4)*57)+'px';b.style.background=['#ffd66b','#8ef0d3','#ff91b4','#aa9efa'][i%4];el.appendChild(b);}}if(save.unlocked.length===TOTAL)$('pullButton').textContent='Collection Complete!';else $('pullButton').textContent='◉ Hatch a Character!';}
-function pull(){if(shopBusy||save.coins<80||save.unlocked.length>=TOTAL){toast(save.unlocked.length>=TOTAL?'You collected them all!':'Earn more coins by hopping!');return;}unlockAudio();save.coins-=80;let locked=Array.from({length:TOTAL},(_,i)=>i).filter(id=>!save.unlocked.includes(id));let weighted=locked.map(id=>({id,weight:({common:12,rare:5,epic:2,legendary:1})[creature(id).rarity]}));let total=weighted.reduce((s,x)=>s+x.weight,0),r=Math.random()*total,result=weighted[0].id;for(const item of weighted){r-=item.weight;if(r<=0){result=item.id;break;}}
- shopBusy=true;persist();refresh();renderShop();$('pullButton').textContent='Hatching...';$('pullButton').disabled=true;const machine=$('machine'),cap=$('capsule');machine.classList.add('shaking');cap.classList.remove('animate');void cap.offsetWidth;cap.classList.add('animate');playSfx('pull');
- setTimeout(()=>{machine.classList.remove('shaking');cap.classList.remove('animate');save.unlocked.push(result);save.unlocked.sort((a,b)=>a-b);checkAchievements();persist();shopBusy=false;playCreature(result);const ch=creature(result),el=$('reveal');el.replaceChildren();const cv=document.createElement('canvas');cv.width=100;cv.height=100;drawCreature(cv.getContext('2d'),50,54,83,result,0,false);const d=document.createElement('div');d.innerHTML=`<strong>${escapeHTML(ch.name)}</strong><br><span class="rarity ${ch.rarity}">${ch.rarity} · NEW!</span><br><span class="tiny">Visit Collection to equip your new friend.</span>`;el.append(cv,d);refresh();renderShop();toast(`New character: ${ch.name}!`);spawnParticles(480,260,'#ffe0ad',30);},1320);
+function rarityBadge(rarity){const el=document.createElement('span');el.className='rarity-label '+rarity;el.textContent=(rarity==='mythic'?'✦ ':'')+rarityLabels[rarity];return el;}
+function renderShop(){
+ $('shopCoins').textContent=Math.floor(save.coins);
+ $('pullButton').disabled=shopBusy||save.coins<80||save.unlocked.length===TOTAL;
+ const el=$('ballcluster');if(!el.children.length){for(let i=0;i<8;i++){const b=document.createElement('span');b.className='smallball';b.style.left=(17+(i%4)*44)+'px';b.style.top=(39+Math.floor(i/4)*57)+'px';b.style.background=['#ffd66b','#8ef0d3','#ff91b4','#aa9efa'][i%4];el.appendChild(b);}}
+ const odds=$('capsuleOdds');odds.replaceChildren();
+ for(const rarity of rarityOrder){const chip=rarityBadge(rarity);chip.textContent+=` ${capsuleOdds[rarity]}%`;odds.appendChild(chip);}
+ const hasMythic=Array.from({length:TOTAL},(_,i)=>i).some(id=>creature(id).rarity==='mythic'&&!save.unlocked.includes(id));
+ const left=MYTHIC_PITY-save.mythicPity;
+ $('mythicPityText').textContent=hasMythic?`Mythic guarantee: within ${left} more capsule${left===1?'':'s'} (if still locked)`:'All Mythics collected!';
+ $('mythicPityBar').style.width=(hasMythic?save.mythicPity/MYTHIC_PITY*100:100)+'%';
+ $('pullButton').textContent=save.unlocked.length===TOTAL?'Collection Complete!':'◉ Hatch a Character!';
+}
+function chooseCapsule(locked){
+ const tiers=Object.fromEntries(rarityOrder.map(r=>[r,locked.filter(id=>creature(id).rarity===r)]));
+ if(tiers.mythic.length&&save.mythicPity>=MYTHIC_PITY-1)return {id:pick(tiers.mythic),forced:true};
+ const available=rarityOrder.filter(r=>tiers[r].length);
+ const total=available.reduce((sum,r)=>sum+capsuleOdds[r],0);
+ let roll=Math.random()*total,rarity=available[0];
+ for(const tier of available){roll-=capsuleOdds[tier];if(roll<0){rarity=tier;break;}}
+ return {id:pick(tiers[rarity]),forced:false};
+}
+function pull(){
+ if(shopBusy||save.coins<80||save.unlocked.length>=TOTAL){toast(save.unlocked.length>=TOTAL?'You collected them all!':'Earn more coins by hopping!');return;}
+ unlockAudio();
+ const locked=Array.from({length:TOTAL},(_,i)=>i).filter(id=>!save.unlocked.includes(id));
+ const {id:result,forced}=chooseCapsule(locked),ch=creature(result);
+ save.coins-=80;
+ shopBusy=true;persist();refresh();renderShop();$('pullButton').textContent='Hatching...';$('pullButton').disabled=true;
+ const machine=$('machine'),cap=$('capsule');machine.classList.add('shaking');cap.classList.remove('animate');void cap.offsetWidth;cap.classList.add('animate');playSfx('pull');
+ setTimeout(()=>{
+  machine.classList.remove('shaking');cap.classList.remove('animate');
+  save.unlocked.push(result);save.unlocked.sort((a,b)=>a-b);
+  save.unlockHistory=save.unlockHistory.filter(id=>id!==result).concat(result);
+  save.mythicPity=ch.rarity==='mythic'?0:Math.min(MYTHIC_PITY-1,save.mythicPity+1);
+  checkAchievements();persist();shopBusy=false;playCreature(result);
+  const el=$('reveal');el.replaceChildren();el.classList.toggle('mythic-reveal',ch.rarity==='mythic');
+  const cv=document.createElement('canvas');cv.width=100;cv.height=100;drawCreature(cv.getContext('2d'),50,54,83,result,0,false);
+  const d=document.createElement('div'),title=document.createElement('strong');title.textContent=ch.name;
+  d.append(title,document.createElement('br'),rarityBadge(ch.rarity),document.createElement('br'));
+  const note=document.createElement('span');note.className='tiny';note.textContent=ch.rarity==='mythic'?(forced?'✦ Mythic guarantee unlocked!':'✦ Incredible! You found a Mythic!'):'Visit Collection to equip your new friend.';
+  d.append(note);el.append(cv,d);
+  refresh();renderShop();toast(ch.rarity==='mythic'?`✦ MYTHIC unlocked: ${ch.name}!`:`New character: ${ch.name}!`);
+  spawnParticles(480,260,ch.rarity==='mythic'?'#e9a5ff':'#ffe0ad',ch.rarity==='mythic'?55:30);
+ },1320);
 }
 function equipRandom(){
  const options=save.unlocked.filter(id=>id!==save.equipped);
@@ -1232,18 +1554,59 @@ function equipRandom(){
  if($('collectionModal').classList.contains('open'))renderCollection();
  toast(`Random hopper: ${creature(next).name}!`);
 }
-function renderCollection(){const owned=new Set(save.unlocked),filter=$('collectionFilter').value,species=$('speciesFilter').value;let ids=Array.from({length:TOTAL},(_,i)=>i).filter(id=>(filter==='all'||(filter==='owned'?owned.has(id):!owned.has(id)))&&(species==='all'||Math.floor(id/12)===Number(species)));const pages=Math.max(1,Math.ceil(ids.length/24));page=clamp(page,0,pages-1);const wrap=$('collectionGrid');wrap.replaceChildren();for(const id of ids.slice(page*24,(page+1)*24)){const ch=creature(id),unlocked=owned.has(id),btn=document.createElement('button');btn.className='creaturetile'+(unlocked?'':' locked')+(id===save.equipped?' equipped':'');btn.title=unlocked?`Equip ${ch.name}`:`Locked ${ch.name}`;const cv=document.createElement('canvas');cv.width=100;cv.height=100;const c=cv.getContext('2d');if(unlocked){drawCreature(c,50,53,78,id,0,false);}else{drawCreature(c,50,53,78,id,0,false);c.fillStyle='#15223dcc';c.fillRect(0,0,100,100);c.fillStyle='#f1f6ff';c.font='900 31px "Trebuchet MS"';c.textAlign='center';c.fillText('?',50,65);}const sp=document.createElement('span');sp.textContent=unlocked?ch.name:'??? '+names[ch.species];btn.append(cv,sp);if(id===save.equipped){const eq=document.createElement('span');eq.textContent='✓ Equipped';eq.style.color='#c6ff8e';btn.append(eq);}if(unlocked)btn.addEventListener('click',()=>{save.equipped=id;persist();playCreature(id);refresh();renderCollection();toast(`${ch.name} equipped!`);});wrap.appendChild(btn);}
- $('pageInfo').textContent=`Page ${page+1} of ${pages} · ${ids.length} shown`;$('pagePrev').disabled=page===0;$('pageNext').disabled=page===pages-1;$('collectionStatus').textContent=`${save.unlocked.length} / ${TOTAL} unlocked`;
+function renderCollection(){
+ const owned=new Set(save.unlocked),filter=$('collectionFilter').value,species=$('speciesFilter').value,
+ rarity=$('rarityFilter').value,sort=$('collectionSort').value,search=$('collectionSearch').value.trim().toLowerCase();
+ let ids=Array.from({length:TOTAL},(_,i)=>i).filter(id=>{
+  const ch=creature(id);
+  return (filter==='all'||(filter==='owned'?owned.has(id):!owned.has(id))) &&
+   (species==='all'||ch.species===Number(species)) &&
+   (rarity==='all'||ch.rarity===rarity) &&
+   (!search||ch.name.toLowerCase().includes(search)||names[ch.species].toLowerCase().includes(search)||rarityLabels[ch.rarity].toLowerCase().includes(search));
+ });
+ const recentPos=new Map(save.unlockHistory.map((id,i)=>[id,i]));
+ if(sort==='rarity')ids.sort((a,b)=>rarityOrder.indexOf(creature(b).rarity)-rarityOrder.indexOf(creature(a).rarity)||a-b);
+ if(sort==='recent')ids.sort((a,b)=>(recentPos.get(b)??-1)-(recentPos.get(a)??-1)||a-b);
+ const pages=Math.max(1,Math.ceil(ids.length/24));page=clamp(page,0,pages-1);
+ const wrap=$('collectionGrid');wrap.replaceChildren();
+ if(!ids.length){const empty=document.createElement('p');empty.className='tiny';empty.textContent='No characters match these filters. Try a different rarity or search.';wrap.append(empty);}
+ for(const id of ids.slice(page*24,(page+1)*24)){
+  const ch=creature(id),unlocked=owned.has(id),btn=document.createElement('button');
+  btn.className='creaturetile '+ch.rarity+(unlocked?'':' locked')+(id===save.equipped?' equipped':'');
+  btn.title=unlocked?`Equip ${ch.name} (${rarityLabels[ch.rarity]})`:`Locked ${names[ch.species]} (${rarityLabels[ch.rarity]})`;
+  btn.setAttribute('aria-label',btn.title);
+  const cv=document.createElement('canvas');cv.width=100;cv.height=100;const c=cv.getContext('2d');drawCreature(c,50,53,77,id,0,false);
+  if(!unlocked){c.fillStyle='#15223dbc';c.fillRect(0,0,100,100);c.fillStyle='#f1f6ff';c.font='900 31px "Trebuchet MS"';c.textAlign='center';c.fillText('?',50,65);}
+  const sp=document.createElement('span');sp.className='creature-name';sp.textContent=unlocked?ch.name:'??? '+names[ch.species];
+  btn.append(cv,sp,rarityBadge(ch.rarity));
+  if(id===save.equipped){const eq=document.createElement('span');eq.textContent='✓ Equipped';eq.style.color='#c6ff8e';btn.append(eq);}
+  if(unlocked)btn.addEventListener('click',()=>{save.equipped=id;persist();playCreature(id);refresh();renderCollection();toast(`${ch.name} equipped!`);});
+  else btn.disabled=true;
+  wrap.appendChild(btn);
+ }
+ const summary=$('raritySummary');summary.replaceChildren();
+ for(const r of rarityOrder){
+  const count=Array.from({length:TOTAL},(_,i)=>i).filter(id=>creature(id).rarity===r);
+  const ownedCount=count.filter(id=>owned.has(id)).length;
+  const chip=document.createElement('button');chip.type='button';chip.className='rarity-counter'+(r===rarity?' active':'');
+  chip.append(rarityBadge(r));
+  const amount=document.createElement('span');amount.textContent=`${ownedCount}/${count.length}`;chip.append(amount);
+  chip.title=`Show ${rarityLabels[r]} characters`;
+  chip.onclick=()=>{$('rarityFilter').value=r===rarity?'all':r;page=0;renderCollection();};summary.append(chip);
+ }
+ $('pageInfo').textContent=`Page ${page+1} of ${pages} · ${ids.length} match${ids.length===1?'':'es'}`;
+ $('pagePrev').disabled=page===0;$('pageNext').disabled=page===pages-1;
+ $('collectionStatus').textContent=`${save.unlocked.length} / ${TOTAL} unlocked`;
 }
 function init(){const dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
  $('gradeSelect').value=save.grade;$('modeSelect').value=save.mode;$('difficultySelect').value=save.difficulty;state.grade=save.grade;state.mode=save.mode;state.difficulty=save.difficulty;difficultyNote();
  $('startButton').addEventListener('click',beginRun);$('retryButton').addEventListener('click',beginRun);$('menuButton').addEventListener('click',()=>{state.status='menu';$('endOverlay').classList.add('hidden');$('startOverlay').classList.remove('hidden');state.question=null;state.row=0;state.stage=0;state.score=0;state.combo=0;state.col=2;state.crash=null;state.floatX=null;state.worldCache=new Map();rows.clear();generatedUpTo=-1;lastTrainRow=-30;ensureRows(12);putPrompt();refresh();});
  document.querySelectorAll('.choicebtn').forEach(b=>b.addEventListener('click',()=>{if(state.status!=='playing'||state.paused||state.transition>0)return;const r=rows.get(state.row+1);if(!r?.q)return;const possible=XC.map((x,i)=>({i,tile:nearestWord(r,x,state.t+.42)})).filter(v=>v.tile?.opt===Number(b.dataset.lane));if(!possible.length){toast('That word is moving. Wait for a clear tile, then tap again.');return;}possible.sort((a,b)=>Math.abs(a.i-state.col)-Math.abs(b.i-state.col));state.col=possible[0].i;state.lane=state.col;updateChoiceBar();playSfx('slide');}));$('leftButton').addEventListener('click',()=>onMove(-1));$('rightButton').addEventListener('click',()=>onMove(1));$('forwardButton').addEventListener('click',onHop);$('pauseButton').addEventListener('click',pause);
  document.addEventListener('keydown',e=>{if(document.querySelector('.modal.open')||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;const k=e.key.toLowerCase();if(['arrowleft','arrowright','arrowup',' ','a','d','w'].includes(k)){e.preventDefault();if(k==='arrowleft'||k==='a')onMove(-1);if(k==='arrowright'||k==='d')onMove(1);if(k==='arrowup'||k==='w'||k===' ')onHop();}if(k==='p'||k==='escape')pause();});
- $('difficultySelect').addEventListener('change',difficultyNote);$('badgesOpen').onclick=()=>{showAchievementGallery();modalOpen('badgesModal');};$('shopOpen').onclick=()=>modalOpen('shopModal');$('shopSidebar').onclick=()=>modalOpen('shopModal');$('collectionOpen').onclick=()=>modalOpen('collectionModal');$('chooseCharacter').onclick=()=>modalOpen('collectionModal');$('randomHopper').onclick=equipRandom;$('randomCollection').onclick=equipRandom;$('howButton').onclick=()=>modalOpen('helpModal');$('pullButton').onclick=pull;
+ $('difficultySelect').addEventListener('change',difficultyNote);$('badgesOpen').onclick=()=>{showAchievementGallery();modalOpen('badgesModal');};$('shopOpen').onclick=()=>modalOpen('shopModal');$('startShop').onclick=()=>modalOpen('shopModal');$('startCollection').onclick=()=>modalOpen('collectionModal');$('shopSidebar').onclick=()=>modalOpen('shopModal');$('collectionOpen').onclick=()=>modalOpen('collectionModal');$('chooseCharacter').onclick=()=>modalOpen('collectionModal');$('randomHopper').onclick=equipRandom;$('randomCollection').onclick=equipRandom;$('howButton').onclick=()=>modalOpen('helpModal');$('pullButton').onclick=pull;
  document.querySelectorAll('[data-close]').forEach(el=>el.onclick=()=>closeModals());document.querySelectorAll('.modal').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeModals();}));
  $('muteButton').onclick=()=>{save.sound=!save.sound;persist();refresh();if(save.sound){unlockAudio();playCreature(save.equipped);}else toast('Sounds muted');};
- for(const [i,n] of names.entries()){const op=document.createElement('option');op.value=i;op.textContent=n;$('speciesFilter').append(op);}[$('collectionFilter'),$('speciesFilter')].forEach(el=>el.addEventListener('change',()=>{page=0;renderCollection();}));$('pagePrev').onclick=()=>{page--;renderCollection();};$('pageNext').onclick=()=>{page++;renderCollection();};
+ for(const [i,n] of names.entries()){const op=document.createElement('option');op.value=i;op.textContent=n;$('speciesFilter').append(op);}[$('collectionFilter'),$('speciesFilter'),$('rarityFilter'),$('collectionSort')].forEach(el=>el.addEventListener('change',()=>{page=0;renderCollection();}));$('collectionSearch').addEventListener('input',()=>{page=0;renderCollection();});$('pagePrev').onclick=()=>{page--;renderCollection();};$('pageNext').onclick=()=>{page++;renderCollection();};
  ensureRows(12);checkAchievements();refresh();putPrompt();progressWorld();requestAnimationFrame(loop);
 }
 init();
@@ -1253,9 +1616,13 @@ window.CrossyWordsDiagnostics={
  getQuestionCountsByGrade:()=>Object.fromEntries(['34','56','78','910','1112'].map(g=>[g,ALLQ.filter(q=>q.grade===g).length])),
  getWorld:()=>({name:world().name,style:world().style,night:world().night,worlds:worlds.length,rowsPerWorld:WORLD_LENGTH,characterCount:TOTAL}),
  getOwnedCount:()=>save.unlocked.length,
+ getCollection:()=>({total:TOTAL,rarities:Object.fromEntries(rarityOrder.map(r=>[r,{total:Array.from({length:TOTAL},(_,i)=>i).filter(id=>creature(id).rarity===r).length,owned:save.unlocked.filter(id=>creature(id).rarity===r).length}])),mythicPity:save.mythicPity,equipped:save.equipped}),
+ getCapsuleOdds:()=>({...capsuleOdds,pityAt:MYTHIC_PITY}),
  getDifficulty:()=>({selected:state.difficulty,settings:difficulty()}),
  getAchievements:()=>({earned:Object.keys(save.achievements).filter(k=>save.achievements[k]),worldBadges:Object.keys(save.worldBadges).filter(k=>save.worldBadges[k]),worldStats:state.worldStats,coins:save.coins}),
- getNextRow:()=>{const r=rows.get(state.row+1);return r&&{id:r.id,kind:r.kind,carCount:r.carCount,carSpeed:r.carSpeed,trainSpeed:r.trainSpeed,wordSpeed:r.speed,question:r.q&&{prompt:r.q.prompt,correct:r.q.correct,options:r.q.options}};}
+ getNextRow:()=>{const r=rows.get(state.row+1);return r&&{id:r.id,kind:r.kind,carCount:r.carCount,carSpeed:r.carSpeed,trainSpeed:r.trainSpeed,wordSpeed:r.speed,question:r.q&&{prompt:r.q.prompt,correct:r.q.correct,options:r.q.options}};},
+ getRiverTest:(id,timeSeconds)=>{const row=createRow(id);return {row:id,kind:row.kind,direction:row.dir,logs:row.kind==='river'?logPositions(row,Math.max(0,Number(timeSeconds)||0)):[]}},
+ getQuestionDeckRemaining:()=>Object.fromEntries(Object.entries(state.questionDecks||{}).map(([k,v])=>[k,v.length]))
 };
 })();
 </script>
